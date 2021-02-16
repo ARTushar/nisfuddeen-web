@@ -1,15 +1,15 @@
-import User from '../../../lib/models/User';
 import nc from 'next-connect';
 import common from '../../../lib/middlewares/common';
-import { onNoMatch } from '../../../lib/utils/errorHandler';
 import passport from 'passport';
 import { createNewUser } from '../../../lib/utils/authHelpers';
+import next from 'next';
+import { createError, onError, onNoMatch } from '../../../lib/utils/ncHandlers';
 
-const handler = nc(onNoMatch);
+const handler = nc({onNoMatch, onError});
 handler.use(common);
 
 handler
-  .post(async (req, res) => {
+  .post(async (req, res, next) => {
     try {
       await createNewUser(req.body.name, req.body.email, req.body.password);
       // const { user } = await User.authenticate()(req.body.email, req.body.password)
@@ -18,7 +18,8 @@ handler
         res.status(200).json({ success: true });
       })
     } catch (err) {
-      res.status(500).json({ err: err, errMess: err.message });
+      // res.status(500).json({ err: err, errMess: err.message });
+      next(createError(500, err.message));
     }
   });
 
