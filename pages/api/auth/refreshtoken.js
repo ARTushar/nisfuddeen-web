@@ -10,8 +10,8 @@ const handler = nc({ onNoMatch: onNoMatch, onError: onError });
 handler.use(common)
 
 handler
-  .post((req, res) => {
-    passport.authenticate('local')(req, res, () => {
+  .get((req, res) => {
+    passport.authenticate('jwt')(req, res, () => {
       const token = getToken(req.user);
       const refreshToken = getToken(req.user, 'refresh');
       res.status(200).json({
