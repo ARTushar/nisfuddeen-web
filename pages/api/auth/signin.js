@@ -1,13 +1,8 @@
-import nc from 'next-connect';
 import passport from 'passport';
-import common from '../../../lib/middlewares/common';
 import { getToken } from '../../../lib/utils/authHelpers';
-import { onError, onNoMatch } from '../../../lib/utils/ncHandlers';
+import { createNC } from '../../../lib/utils/ncHandlers';
 
-
-const handler = nc({ onNoMatch: onNoMatch, onError: onError });
-
-handler.use(common)
+const handler = createNC();
 
 handler
   .post((req, res) => {
