@@ -7,7 +7,7 @@ const handler = createNC();
 handler
   .post(async (req, res, next) => {
     try {
-      await createNewUser(req.body.name, req.body.email, req.body.password);
+      await createNewUser(req.body.name, req.body.email, req.body.password, req.body.accountType);
       // const { user } = await User.authenticate()(req.body.email, req.body.password)
       passport.authenticate('local')(req, res, () => {
         console.log(req.user);
