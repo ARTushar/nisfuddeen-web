@@ -1,7 +1,8 @@
 import verifyUser from "../../../lib/middlewares/verifyUser";
 import User from "../../../lib/models/User";
-import { fetchUserInformation, filterSensitiveUserFields, restrictedUserFields, saveUserFields } from "../../../lib/utils/helpers";
-import { createError, createNC } from "../../../lib/utils/ncHandlers";
+import { findUser } from "../../../lib/utils/databaseInterection";
+import { fetchUserInformation, filterSensitiveUserFields, saveUserFields } from "../../../lib/utils/databaseInterection";
+import { createNC } from "../../../lib/utils/ncHandlers";
 
 const handler = createNC();
 
@@ -16,14 +17,14 @@ handler
   })
   .put(verifyUser, async (req, res, next) => {
     try {
-      const user = await User.findById(req.user._id);
+      const user = await findUser(req.user._id);
       let updatedUser = await saveUserFields(user, req.body);
       // TO DO: try without fetching userinfo again
       // Done
       updatedUser = filterSensitiveUserFields(updatedUser);
       res.status(200).json(updatedUser);
     } catch (error) {
-      next(createError(500, error.message));
+      next(error);
     }
   })
 
