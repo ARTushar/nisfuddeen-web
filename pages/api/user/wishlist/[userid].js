@@ -17,7 +17,7 @@ handler
   .delete(verifyUser, verifyPremiumUser, (req, res, next) => {
     try {
       const removed = await deleteUserFromWishlist(req.user._id, req.query.userid);
-      res.status(200).json({ success: added })
+      res.status(200).json({ success: removed })
     } catch (err) {
       next(err);
     }
