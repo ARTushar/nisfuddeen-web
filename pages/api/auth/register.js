@@ -15,7 +15,7 @@ handler
       })
     } catch (err) {
       // res.status(500).json({ err: err, errMess: err.message });
-      next(createError(500, err.message));
+      next(err);
     }
   });
 

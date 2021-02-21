@@ -11,7 +11,7 @@ handler
       const user = await fetchUserInformation(req.user._id);
       res.status(200).json(user);
     } catch (error) {
-      next(createError(500, error.message))
+      next(error);
     }
   })
   .put(verifyUser, async (req, res, next) => {
