@@ -1,6 +1,6 @@
 import verifyPremiumUser from "../../../../lib/middlewares/verifyPremiumUser";
 import verifyUser from "../../../../lib/middlewares/verifyUser";
-import { appendUserInWishlist, deleteUserFromWishlist, fetchUserWishlist } from "../../../../lib/utils/databaseInterection";
+import { appendUserInWishlist, deleteUserFromWishlist } from "../../../../lib/utils/databaseInterection";
 import { createNC } from "../../../../lib/utils/ncHandlers";
 
 const handler = createNC();
@@ -21,4 +21,6 @@ handler
     } catch (err) {
       next(err);
     }
-  })
+  });
+
+export default handler;
