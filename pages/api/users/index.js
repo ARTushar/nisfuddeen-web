@@ -8,7 +8,7 @@ const handler = createNC();
 handler
   .get(verifyUser, verifyModeratorOrAdmin, (req, res, next) => {
     try {
-      const users = fetchUsers();
+      const users = await fetchUsers();
       res.status(200).json(users);
     } catch (error) {
       next(error);
