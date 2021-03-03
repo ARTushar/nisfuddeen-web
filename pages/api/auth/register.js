@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { createNewUser } from '../../../lib/utils/authHelpers';
-import { createError, createNC } from '../../../lib/utils/ncHandlers';
+import { createNC } from '../../../lib/utils/ncHandlers';
 
 const handler = createNC();
 
