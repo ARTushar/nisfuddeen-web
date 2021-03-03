@@ -6,7 +6,7 @@ import { createNC } from "../../../../lib/utils/ncHandlers";
 const handler = createNC();
 
 handler
-  .delete(verifyUser, verifyPremiumUser, (req, res, next) => {
+  .delete(verifyUser, verifyPremiumUser, async (req, res, next) => {
     try {
       const removed = await unlinkUser(req.user._id, req.query.linkid);
       res.status(200).json({removed: removed});

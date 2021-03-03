@@ -5,7 +5,7 @@ import { createNC } from "../../../../lib/utils/ncHandlers";
 const handler = createNC();
 
 handler
-  .get(verifyUser, (req, res, next) => {
+  .get(verifyUser, async (req, res, next) => {
     try {
       const requests = await fetchReceivedRequests(req.user._id);
       res.status(200).json(requests);

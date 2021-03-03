@@ -5,7 +5,7 @@ import { createNC } from "../../../../lib/utils/ncHandlers";
 const handler = createNC();
 
 handler
-  .get(verifyUser, (req, res, next) => {
+  .get(verifyUser, async (req, res, next) => {
     try {
       const answers = fetchAnswers(req.user._id);
       res.status(200).json(answers);
@@ -13,7 +13,7 @@ handler
       next(error);
     }
   })
-  .post(verifyUser, (req, res, next) => {
+  .post(verifyUser, async (req, res, next) => {
     try {
       const biodata = await submitBiodata(req.user._id, req.body) 
       res.status(200).json(biodata);
@@ -21,7 +21,7 @@ handler
       next(error)
     }
   })
-  .put(verifyUser, (req, res, next) => {
+  .put(verifyUser, async (req, res, next) => {
     try {
       const updatedBiodata = await updateBiodata(req.user._id, req.body);
       res.status(200).json(updatedBiodata);
@@ -29,7 +29,7 @@ handler
       next(error);
     }
   })
-  .delete(verifyUser, (req, res, next) => {
+  .delete(verifyUser, async (req, res, next) => {
     try {
       const removed = await invisibleBiodata(req.user._id);
       res.status(200).json({ removed: removed });

@@ -6,7 +6,7 @@ import { createNC } from "../../../../lib/utils/ncHandlers";
 const handler = createNC();
 
 handler
-  .get((req, res, next) => {
+  .get(async (req, res, next) => {
     try {
       const topic = await fetchTopicDetails(req.query.topicid);
       res.status(200).json(topic);
@@ -14,7 +14,7 @@ handler
       next(error);
     }
   })
-  .put(verifyUser, verifyAdmin, (req, res, next) => {
+  .put(verifyUser, verifyAdmin, async (req, res, next) => {
     try {
       const topic = await updateTopic(req.query.topicid, req.body);
       res.status(200).json(topic);
@@ -22,7 +22,7 @@ handler
       next(error);
     }
   })
-  .delete(verifyUser, verifyAdmin, (req, res, next) => {
+  .delete(verifyUser, verifyAdmin, async (req, res, next) => {
     try {
       const resp = await removeTopic(req.query.topicid);
       res.status(200).json(resp);

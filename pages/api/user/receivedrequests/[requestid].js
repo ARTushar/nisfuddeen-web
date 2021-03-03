@@ -5,7 +5,7 @@ import { createNC } from "../../../../lib/utils/ncHandlers";
 const handler = createNC();
 
 handler
-  .put(verifyUser, (req, res, next) => {
+  .put(verifyUser, async (req, res, next) => {
     try {
       const changed = await changeRequestStatus(req.query.requestId, req.body);
       res.status(200).json({ changed: changed });

@@ -6,7 +6,7 @@ import { createNC } from "../../../../lib/utils/ncHandlers";
 const handler = createNC();
 
 handler
-  .post(verifyUser, verifyModeratorOrAdmin, (req, res, next) => {
+  .post(verifyUser, verifyModeratorOrAdmin, async (req, res, next) => {
     try {
       const user = await verifyBiodata(req.query.userid);
       res.status(200).json(user);

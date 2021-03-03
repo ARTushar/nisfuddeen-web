@@ -6,7 +6,7 @@ import { createNC } from "../../../../lib/utils/ncHandlers";
 const handler = createNC();
 
 handler
-  .post(verifyUser, verifyPremiumUser, (req, res, next) => {
+  .post(verifyUser, verifyPremiumUser, async (req, res, next) => {
     try {
       const added = await appendUserInWishlist(req.user._id, req.query.userid);
       res.status(200).json({ success: added })
@@ -14,7 +14,7 @@ handler
       next(err);
     }
   })
-  .delete(verifyUser, verifyPremiumUser, (req, res, next) => {
+  .delete(verifyUser, verifyPremiumUser, async (req, res, next) => {
     try {
       const removed = await deleteUserFromWishlist(req.user._id, req.query.userid);
       res.status(200).json({ success: removed })
