@@ -1,12 +1,18 @@
-import Link from "next/link";
+import Link from 'next/link';
+import Layout from '../components/Layout';
+
 const Home: React.FC = () => {
   return (
-    <div className="m-8">
-      hello world
-      <Link href="/langtest">
-        <a className="underline text-blue-600"> test lang</a>
-      </Link>
-    </div>
+    <>
+      <Layout>
+        <div className="m-8">
+          hello world
+          <Link href="/langtest">
+            <a className="underline text-blue-600"> test lang</a>
+          </Link>
+        </div>
+      </Layout>
+    </>
   );
 };
 

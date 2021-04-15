@@ -1,3 +1,65 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@font-face {
+  font-family: 'Cereal';
+  src: url(/fonts/Airbnb_Cereal-Book.woff2) format('woff2');
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+}
+
+/* arabic */
+
+@font-face {
+  font-family: 'Cereal-Arabic';
+  src: url(/fonts/Airbnb_Cereal-Arabic-Book.woff2) format('woff2');
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  unicode-range: U+600 –6FF;
+}
+
+/* banla */
+
+@font-face {
+  font-family: 'ban';
+  src: url(/fonts/AponaLohit.woff2) format('woff2');
+  font-display: swap;
+  unicode-range: U+980 –9FF;
+}
+
+@font-face {
+  font-family: 'Cereal';
+  src: url(/fonts/Airbnb_Cereal-Bold.woff2) format('woff2');
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cereal-Arabic';
+  src: url(/fonts/Airbnb_Cereal-Arabic-Bold.woff2) format('woff2');
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  unicode-range: U+600 –6FF;
+}
+
+@font-face {
+  font-family: 'Cereal';
+  src: url(/fonts/Airbnb_Cereal-Medium.woff2) format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cereal-Arabic';
+  src: url(/fonts/Airbnb_Cereal-Arabic-Medium.woff2) format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  unicode-range: U+600 –6FF;
+}
