@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 const Home: React.FC = () => {
   const router = useRouter();
-  const counter = useSelector((state) => state);
+  const counter = useSelector((state: { num: number }) => state);
 
   return (
     <Layout>
