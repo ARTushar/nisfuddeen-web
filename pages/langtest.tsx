@@ -1,8 +1,11 @@
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
+import { useSelector } from 'react-redux';
 
 const Home: React.FC = () => {
   const router = useRouter();
+  const counter = useSelector((state) => state);
+
   return (
     <Layout>
       <div className="m-8">
@@ -15,6 +18,7 @@ const Home: React.FC = () => {
         <h1 className="text-xl">আসুন ইংরেজি বর্জন করি</h1>
         <h1 className="text-xl font-extrabold">আমরা তোমাদের ভুলবো না</h1>
         <h1 className="text-xl font-extrabold">مَا شَاءَ ٱللّٰهْ‎</h1>
+        <h1>{counter.num}</h1>
       </div>
     </Layout>
   );

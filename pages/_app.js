@@ -1,7 +1,16 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from '../Store';
+
+const store = createStore(reducer);
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
 }
 
-export default MyApp
+export default MyApp;
