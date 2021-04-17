@@ -7,12 +7,17 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Cereal', 'Cereal-Arabic', 'ban', ...fontFamily.sans]
-      }
+        sans: ['Cereal', 'Cereal-Arabic', 'ban', ...fontFamily.sans],
+      },
+      boxShadow: {
+        my: '0px 3px 12px rgb(0 0 0 / 20%)',
+        my1: '0 0 0 1px rgb(221,221,221)',
+        my2: '0 0 0 2px #333',
+      },
     },
   },
   variants: {
     extend: {},
   },
   plugins: [],
-}
+};

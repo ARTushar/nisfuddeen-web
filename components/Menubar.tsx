@@ -34,8 +34,8 @@ const items = [
 
 export default function Example() {
   return (
-    <div className="sm:hidden">
-      <Menu as="div" className="relative inline-block text-left">
+    <div className="md:hidden">
+      <Menu as="div" className="relative inline-block text-left z-40">
         {({ open }) => (
           <>
             <div>
@@ -58,7 +58,7 @@ export default function Example() {
             >
               <Menu.Items
                 static
-                className="absolute left z-20  -0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                className="absolute left -0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 <div className="px-1 py-1 ">
                   {items.map((e) => (
