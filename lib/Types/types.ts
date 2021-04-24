@@ -11,11 +11,12 @@ export enum MaritalStatus {
 }
 
 export enum FacialColor {
-    ExtremelyFair,
-    Fair,
-    Medium,
-    Olive,
-    Brown,
+    PinkishWhite,
+    PaleWhite,
+    FairWhite,
+    MediumFair,
+    LightBrown,
+    ModerateBrown,
     Black
 }
 
@@ -48,21 +49,28 @@ export enum BoyOutfit {
     Panjabi,
     Pant,
     Shirt,
+    AboveKnee
 }
 
 export enum GirlOutfit {
-    SelwarKamij,
+    Abaya,
     Hijab,
     WesternDress,
     Scarf,
-    Pant,
+    Zilbab,
+    Khimar,
+    SalwarKamiz,
+    ShortBurqa,
+    Tops,
+    Leggings,
+    Dupatta,
     Shirt,
     Shari,
-    Burqa,
     Niqab,
     HandSocks,
     FeetSocks,
 }
+
 
 export enum MixAnswer {
     Yes,
