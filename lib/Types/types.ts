@@ -108,7 +108,7 @@ export enum Majhab {
     Maleki,
     Hamboli,
     Salafi,
-    Other
+    None
 }
 
 export enum AddressType {
@@ -128,6 +128,28 @@ export enum AccountType {
 export enum SubscriptionType {
     Free,
     Premium
+}
+
+export enum Relation {
+    Son,
+    Daughter,
+    Nephew,
+    Niece,
+    GrandSon,
+    GrandDaughter,
+    Other
+}
+
+export enum RequestBiodataType {
+    Sent,
+    Received
+}
+
+export enum RequestBiodataStatus {
+    Sent,
+    Seen,
+    Cancelled,
+    Accepted
 }
 
 export class BirthDay {
