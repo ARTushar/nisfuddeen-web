@@ -1,46 +1,85 @@
-enum BoyOutfit {
-    PanjabiPajama,
-    PanjabiPant,
-    ShirtPant,
+export enum BoyOutfit {
+    Panjabi,
+    Pant,
+    Shirt,
 }
 
-enum GirlOutfit {
-    SelwarKamijVeil,
-    SelwarKamijNoVeil,
-    SelwarKamijHijab,
-    WesternDressHijab,
-    WesternDressNoVeil,
+export enum GirlOutfit {
+    SelwarKamij,
+    Hijab,
+    WesternDress,
+    Scarf,
+    Pant,
+    Shirt,
     Shari,
-    BurqaHijab,
-    BurqaNiqab,
-    BurqaNiqabHandSocks,
-    BurqaNiqabHandFeetSocks,
-    BurqaNiqabFeetSocks,
+    Burqa,
+    Niqab,
+    HandSocks,
+    FeetSocks,
 }
 
-enum Answer {
+export enum MixAnswer {
     Yes,
-    YesButTryNotTo,
     No,
     NoButTryTo,
     Almost,
     Somewhat
 }
 
-export class PersonalInformation {
-    outfit: string;
+export enum PositiveAnswer {
+    Yes,
+    NoButTryTo,
+    No
+}
+
+export enum NegativeAnswer {
+    No,
+    YesButTryNotTo,
+    Yes
+}
+
+export enum Guardian {
+    Father,
+    Mother,
+    Uncle,
+    Aunt,
+    GrandFather,
+    GrandMother,
+    Other
+}
+
+export enum Majhab {
+    Hanafi, 
+    Shafi,
+    Maleki,
+    Hamboli,
+    Salafi,
+    Other
+}
+
+
+export default class PersonalInformation {
+    outfit: BoyOutfit[] | GirlOutfit[];
     prayerTimes: number;
-    durationOfRegularPrayer: number;
-    mahramMaintan: Answer;
-    majhab: string;
-    politicalPhylisophy: string;
-    watchDramaMovie: Answer;
-    readSahihQuran: Answer;
-    listenSong: Answer;
+    durationOfRegularPrayer: number | null;
+    mahramMaintan: MixAnswer;
+    majhab: Majhab;
+    politicalPhylosophy: string;
+    watchDramaMovie: NegativeAnswer;
+    readSahihQuran: PositiveAnswer;
+    listenSong: NegativeAnswer;
     anyDisease: string;
     deenMehnat: string;
-    pirFollower: Answer;
-    majharBelief: string;
+    pirFollower: string;
+    mazarBelief: string;
     favoriteIslmicBooks: string;
-    favoriteScholrs: string;
+    favoriteScholars: string;
+    specialQualities: string;
+    guardian: Guardian
+
+    constructor(outfit, prayerTimes, durationOfRegularPrayer = null, mahramMaintain, majhab,
+        politicalPhylosophy, watchDramaMovie, readSahihQuran, listenSong, anyDis
+        ) {
+        
+    }
 }
