@@ -5,8 +5,10 @@ export enum Gender {
 
 export enum MaritalStatus {
     Unmarried,
-    Married,
-    Divorced,
+    MarriedWithChildren,
+    MarriedWithoutChildren,
+    DivorcedWithChildren,
+    DivorcedWithoutChildren,
     Widow
 }
 
@@ -18,6 +20,15 @@ export enum FacialColor {
     LightBrown,
     ModerateBrown,
     Black
+}
+
+export enum EducationDegree {
+    Secondary,
+    HigherSecondary,
+    Undergraduate,
+    Postgraduate,
+    Doctorate,
+    PostDoctorate
 }
 
 export enum BloodGroup {
@@ -70,17 +81,22 @@ export enum AfterMarriageStudyReply {
     YesIfOnlineOrHome
 }
 
+export enum MohoranaTimeReply {
+    PartiallyDayOfMarriage,
+    FullyDayOfMarriage,
+    FullyLater,
+}
+
 export enum BoyOutfit {
     Panjabi,
+    Pajama,
     Pant,
     Shirt,
-    AboveKnee
 }
 
 export enum GirlOutfit {
     Abaya,
     Hijab,
-    WesternDress,
     Scarf,
     Zilbab,
     Khimar,
@@ -113,7 +129,7 @@ export enum PositiveAnswer {
 
 export enum NegativeAnswer {
     No,
-    YesButTryNotTo,
+    TryToAvoid,
     Yes
 }
 
@@ -133,7 +149,6 @@ export enum Majhab {
     Maleki,
     Hamboli,
     Salafi,
-    None
 }
 
 export enum AddressType {
