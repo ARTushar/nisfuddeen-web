@@ -1,42 +1,18 @@
-enum Gender {
-    Male,
-    Female
+import { BirthDay, BloodGroup, FacialColor, Gender, MaritalStatus } from '../../Types/types';
+
+
+interface BIConstructorParams {
+    gender: Gender;
+    maritalStatus: MaritalStatus;
+    birthDay: BirthDay;
+    facialColor: FacialColor;
+    height: number;
+    weight: number;
+    bloodGroup: BloodGroup;
+    occupation: string;
 }
 
-enum MaritalStatus {
-    Unmarried,
-    Married,
-    Divorced,
-    Widow
-}
-
-enum FacialColor {
-    ExtremelyFair,
-    Fair,
-    Medium,
-    Olive,
-    Brown,
-    Black
-}
-
-enum BloodGroup {
-    ABPos,
-    ABNeg,
-    APos,
-    ANeg,
-    BPos,
-    BNeg,
-    OPos,
-    ONeg,
-}
-
-class BirthDay {
-    year: number;
-    month: number;
-    day: number;
-}
-
-export class BasiclInformation {
+export default class BasicInformation {
     gender: Gender;
     maritalStatus: MaritalStatus;
     birthDay: BirthDay;
@@ -46,7 +22,7 @@ export class BasiclInformation {
     bloodGroup: BloodGroup;
     occupation: string;
 
-    constructor(gender: Gender, maritalStatus: MaritalStatus, birthDay: BirthDay, facialColor: FacialColor, height: number, weight: number, bloodGroup: BloodGroup, occupation: string) {
+    constructor({gender, maritalStatus, birthDay, facialColor, height, weight, bloodGroup, occupation}: BIConstructorParams) {
         this.gender = gender;
         this.maritalStatus = maritalStatus;
         this.birthDay = birthDay;

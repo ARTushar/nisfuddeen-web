@@ -1,4 +1,6 @@
-export class FamilyInformation {
+import { FinancialStatus } from '../../Types/types';
+
+interface FIConstructorParams {
     fatherAlive: boolean;
     fatherOccupation: string;
     motherAlive: boolean;
@@ -7,11 +9,25 @@ export class FamilyInformation {
     totalBrothers: number;
     brothersStatus: string | null;
     sistersStatus: string | null;
-    financialStatus: string;
+    financialStatus: FinancialStatus;
     socialStatus: string;
-    unclesSTatus: string | null
+    unclesStatus: string | null;
+}
 
-    constructor(fatherAlive, fatherOccupation, motherAlive, motherOccupation, totalSisters, totalBrothers, brothersStatus = null, sistersStatus = null, financialStatus, socialStatus, unclesStatus = null) {
+export default class FamilyInformation {
+    fatherAlive: boolean;
+    fatherOccupation: string;
+    motherAlive: boolean;
+    motherOccupation: string;
+    totalSisters: number;
+    totalBrothers: number;
+    brothersStatus: string | null;
+    sistersStatus: string | null;
+    financialStatus: FinancialStatus;
+    socialStatus: string;
+    unclesStatus: string | null
+
+    constructor({fatherAlive, fatherOccupation, motherAlive, motherOccupation, totalSisters, totalBrothers, brothersStatus=null, sistersStatus=null, financialStatus, socialStatus, unclesStatus=null}: FIConstructorParams) {
         this.fatherAlive = fatherAlive;
         this.fatherOccupation = fatherOccupation;
         this.motherAlive = motherAlive;
@@ -22,7 +38,7 @@ export class FamilyInformation {
         this.sistersStatus = sistersStatus;
         this.financialStatus = financialStatus;
         this.socialStatus = socialStatus;
-        this.unclesSTatus = unclesStatus;
+        this.unclesStatus = unclesStatus;
         
     }
 }
