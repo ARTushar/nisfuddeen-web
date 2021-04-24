@@ -13,6 +13,7 @@ import {
 interface PIConstructorParams {
     outfit: BoyOutfit[] | GirlOutfit[];
     beardStyle?: BeardStyle | null;
+    pantPajamaAboveKnee?: boolean | null;
     prayerTimes: number;
     durationOfRegularPrayer?: number | null;
     mahramMaintain: MixAnswer;
@@ -34,6 +35,7 @@ interface PIConstructorParams {
 export default class PersonalInformation {
     outfit: BoyOutfit[] | GirlOutfit[];
     beardStyle: BeardStyle | null
+    pantPajamaAboveKnee: boolean | null;
     prayerTimes: number;
     durationOfRegularPrayer: number | null;
     mahramMaintain: MixAnswer;
@@ -52,9 +54,10 @@ export default class PersonalInformation {
     guardian: Guardian;
 
 
-    constructor({outfit, beardStyle=null, prayerTimes, durationOfRegularPrayer=null, mahramMaintain, majhab, politicalPhylosophy, watchDramaMovie, readSahihQuran, listenSong, anyDisease, deenMehnat, pirFollower, mazarBelief, favoriteIslamicBooks, favoriteScholars, specialQualities, guardian}: PIConstructorParams) {
+    constructor({outfit, beardStyle=null, pantPajamaAboveKnee=null, prayerTimes, durationOfRegularPrayer=null, mahramMaintain, majhab, politicalPhylosophy, watchDramaMovie, readSahihQuran, listenSong, anyDisease, deenMehnat, pirFollower, mazarBelief, favoriteIslamicBooks, favoriteScholars, specialQualities, guardian}: PIConstructorParams) {
         this.outfit = outfit;
         this.beardStyle = beardStyle;
+        this.pantPajamaAboveKnee = pantPajamaAboveKnee;
         this.prayerTimes = prayerTimes;
         this.durationOfRegularPrayer = durationOfRegularPrayer;
         this.mahramMaintain = mahramMaintain;
