@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import Layout from '../components/Layout';
 import { useForm, Controller } from 'react-hook-form';
-import Select from 'react-select';
 import { XSingleButton, XSingleInput, XSingleSelect } from '../components/XInputFields';
 
 const options = [
