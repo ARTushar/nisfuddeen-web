@@ -1,8 +1,39 @@
-import { BoyOutfit, GirlOutfit, Guardian, Majhab, MixAnswer, NegativeAnswer, PositiveAnswer } from '../../Types/types';
+import {
+    BeardStyle,
+    BoyOutfit,
+    GirlOutfit,
+    Guardian,
+    Majhab,
+    MixAnswer,
+    NegativeAnswer,
+    PositiveAnswer
+} from '../../Types/types';
 
+
+interface PIConstructorParams {
+    outfit: BoyOutfit[] | GirlOutfit[];
+    beardStyle?: BeardStyle | null;
+    prayerTimes: number;
+    durationOfRegularPrayer?: number | null;
+    mahramMaintain: MixAnswer;
+    majhab: Majhab;
+    politicalPhylosophy: string;
+    watchDramaMovie: NegativeAnswer;
+    readSahihQuran: PositiveAnswer;
+    listenSong: NegativeAnswer;
+    anyDisease: string;
+    deenMehnat: string;
+    pirFollower: string;
+    mazarBelief: string;
+    favoriteIslamicBooks: string;
+    favoriteScholars: string;
+    specialQualities: string;
+    guardian: Guardian;
+}
 
 export default class PersonalInformation {
     outfit: BoyOutfit[] | GirlOutfit[];
+    beardStyle: BeardStyle | null
     prayerTimes: number;
     durationOfRegularPrayer: number | null;
     mahramMaintain: MixAnswer;
@@ -21,8 +52,9 @@ export default class PersonalInformation {
     guardian: Guardian;
 
 
-    constructor(outfit: BoyOutfit[] | GirlOutfit[], prayerTimes: number, durationOfRegularPrayer: number | null, mahramMaintain: MixAnswer, majhab: Majhab, politicalPhylosophy: string, watchDramaMovie: NegativeAnswer, readSahihQuran: PositiveAnswer, listenSong: NegativeAnswer, anyDisease: string, deenMehnat: string, pirFollower: string, mazarBelief: string, favoriteIslamicBooks: string, favoriteScholars: string, specialQualities: string, guardian: Guardian) {
+    constructor({outfit, beardStyle=null, prayerTimes, durationOfRegularPrayer=null, mahramMaintain, majhab, politicalPhylosophy, watchDramaMovie, readSahihQuran, listenSong, anyDisease, deenMehnat, pirFollower, mazarBelief, favoriteIslamicBooks, favoriteScholars, specialQualities, guardian}: PIConstructorParams) {
         this.outfit = outfit;
+        this.beardStyle = beardStyle;
         this.prayerTimes = prayerTimes;
         this.durationOfRegularPrayer = durationOfRegularPrayer;
         this.mahramMaintain = mahramMaintain;

@@ -31,6 +31,23 @@ export enum BloodGroup {
     ONeg,
 }
 
+export enum BeardStyle {
+    CircleBeard,
+    RoyaleBeard,
+    GoateeBeard,
+    PetiteBeard,
+    VanDykeBeard,
+    ShortBoxedBeard,
+    BalboBeard,
+    AnchorBeard,
+    Chevron,
+    HorseShoeMustache,
+    OriginalStache,
+    ChinStrip,
+    ChinStrap,
+    SunnatiBeard
+}
+
 export enum FinancialStatus {
     UpperClass,
     UpperMiddleClass,
@@ -43,6 +60,14 @@ export enum MarriageReply {
     Yes,
     No,
     YesIfSpouseAgrees
+}
+
+export enum AfterMarriageStudyReply {
+    Yes,
+    No,
+    YesIfOnline,
+    YesIfHome,
+    YesIfOnlineOrHome
 }
 
 export enum BoyOutfit {
