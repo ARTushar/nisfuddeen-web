@@ -63,3 +63,8 @@
   font-display: swap;
   unicode-range: U+600 –6FF;
 }
+
+input,
+select {
+  -webkit-appearance: none;
+}
