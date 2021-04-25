@@ -1,16 +1,21 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Layout from '../components/Layout';
-import { useForm, Controller } from 'react-hook-form';
-import { XSingleButton, XSingleInput, XSingleSelect } from '../components/XInputFields';
+import { useForm } from 'react-hook-form';
+import { XDoubleInput, XSingleButton, XSingleInput, XSingleSelect } from '../components/XInputFields';
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
+const genderOptions = [
+  { value: 'male', label: 'male' },
+  { value: 'female', label: 'female' },
+];
+const accountTypeOptions = [
+  { value: 'candidate', label: 'candidate' },
+  { value: 'guardian', label: 'guardian' },
 ];
 
-const SignUpPage = () => {
-  const { register, handleSubmit, control } = useForm();
+const LoginPage = () => {
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -19,16 +24,50 @@ const SignUpPage = () => {
   return (
     <div>
       <Layout>
-        <div className="flex flex-col justify-center h-full top-0 w-full md:w-[420px] mb-8 md:mb-0">
-          <div className="md:p-8 bg-white  rounded-xl md:shadow-my">
-            <div className="font-extrabold text-3xl antialiased mb-1.5">SignUp</div>
-            <div className=" text-[#717171] mb-1.5">Find you partner now</div>
-            <div className="mb-4">data</div>
+        <div className="flex mx-auto mt-8 md:mt-20 flex-col justify-center md:w-[480px] mb-8 md:mb-0">
+          <div className="md:p-8 rounded-lg">
+            <div className="font-extrabold text-2xl antialiased mb-8 ">SignUp</div>
+            <XSingleInput label="FULL NAME" register={register} name="name" placeholder="Enter your full name" />
+            <XDoubleInput>
+              <XSingleSelect label="GENDER" options={genderOptions} name="gender" register={register} double={true} />
+              <XSingleSelect
+                label="ACCOUNT TYPE"
+                options={accountTypeOptions}
+                name="type"
+                register={register}
+                double={true}
+              />
+            </XDoubleInput>
 
-            <XSingleInput label="DISTRICT" register={register} name="data1" placeholder="Dhaka" />
-            <XSingleInput label="test" register={register} name="data2" placeholder="My test" />
-            <XSingleSelect label="GENDER" register={register} name="gender" options={options} />
-            <XSingleButton label="Signup" onClick={handleSubmit(onSubmit)} />
+            <XSingleInput
+              label="PHONE NUMBER"
+              register={register}
+              name="phone"
+              placeholder="Enter your phone number"
+              type="tel"
+            />
+            <XSingleInput label="EMAIL" register={register} name="email" placeholder="Enter your email" type="email" />
+            <XSingleInput
+              label="PASSWORD"
+              register={register}
+              name="password"
+              placeholder="Enter your password"
+              type="password"
+            />
+            <XSingleInput
+              label="PASSWORD AGAIN"
+              register={register}
+              name="rePassword"
+              placeholder="Enter your password again"
+              type="password"
+            />
+            <XSingleButton label="SignUp" onClick={handleSubmit(onSubmit)} />
+            <div className="mt-4 text-gray-600">
+              Already have an account?{' '}
+              <Link href="/login">
+                <a className="text-indigo-800 underline">Login</a>
+              </Link>
+            </div>
           </div>
         </div>
       </Layout>
@@ -36,4 +75,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default LoginPage;
