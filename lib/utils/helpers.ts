@@ -1,3 +1,4 @@
+import KSUID from 'ksuid';
 
 export const titleCase = (name) =>
   name
@@ -22,4 +23,9 @@ export const addCountryCode = (num) => {
 
 export function errorFactory(error, errorCreator) {
   return error.status ? error: errorCreator(error.message);
+}
+
+export async function generateID(): Promise<string> {
+  const resp = await KSUID.random();
+  return resp.string;
 }

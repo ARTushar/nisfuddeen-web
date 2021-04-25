@@ -1,0 +1,1 @@
+export const checkUniquePK: string = 'attribute_not_exists(PK)';

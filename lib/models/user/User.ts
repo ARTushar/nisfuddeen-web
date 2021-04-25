@@ -1,12 +1,15 @@
 import { AccountType, SubscriptionType } from '../../Types/types';
 
 interface UserConstructorParams {
-    userId: string;
+    userId?: string;
     fullName: string;
     mobileNumber: string;
     email: string;
+    password?: string;
     accountType: AccountType;
     subscriptionType: SubscriptionType;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export class User {
@@ -14,14 +17,18 @@ export class User {
     fullName: string;
     mobileNumber: string;
     email: string;
+    password: string
     accountType: AccountType;
     subscriptionType: SubscriptionType;
+    createdAt: string;
+    updatedAt: string;
 
-    constructor({userId, fullName, mobileNumber, email, accountType, subscriptionType}: UserConstructorParams) {
+    constructor({userId=null, fullName, mobileNumber, email, password=null, accountType, subscriptionType=SubscriptionType.Free}: UserConstructorParams) {
         this.userId = userId;
         this.fullName = fullName;
         this.mobileNumber = mobileNumber;
         this.email = email;
+        this.password = password
         this.accountType = accountType;
         this.subscriptionType = subscriptionType;
     }
