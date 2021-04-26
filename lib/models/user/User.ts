@@ -7,9 +7,9 @@ interface UserConstructorParams {
     email: string;
     password?: string;
     accountType: AccountType;
-    subscriptionType: SubscriptionType;
-    createdAt: string;
-    updatedAt: string;
+    subscriptionType?: SubscriptionType;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export class User {
