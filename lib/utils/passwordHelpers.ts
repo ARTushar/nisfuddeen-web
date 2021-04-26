@@ -13,7 +13,7 @@ import bcrypt from 'bcrypt';
 // export const isValidPasswordCrypto = (password, salt, hash) => {
 //   return hash === crypto.pbkdf1Sync(password, salt, 10000, 64, 'sha512').toString('hex');
 // }
-const saltRounds = 10
+const saltRounds = 8
 
 export const hashPassword = async (password: string) => {
   return await bcrypt.hash(password, saltRounds);

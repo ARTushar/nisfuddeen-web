@@ -1,4 +1,5 @@
-import KSUID from 'ksuid';
+import KSUID from "ksuid";
+import { v4 as uuidv4 } from 'uuid';
 
 export const titleCase = (name) =>
   name
@@ -28,4 +29,12 @@ export function errorFactory(error, errorCreator) {
 export async function generateID(): Promise<string> {
   const resp = await KSUID.random();
   return resp.string;
+}
+
+export function generateSessionToken(): string {
+  return uuidv4();
+}
+
+export function addDays(date: Date, day: number): Date {
+  return new Date(date.getTime() + day * 24 * 60 * 60 * 1000);
 }

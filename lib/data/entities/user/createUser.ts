@@ -1,10 +1,9 @@
 import { User } from '../../../models/user/User';
 import dynamoDBClient from '../../core/getDynamoDBClient';
 import {
-    TransactGetItemsCommandOutput,
     TransactWriteItem,
     TransactWriteItemsCommand,
-    TransactWriteItemsCommandInput
+    TransactWriteItemsCommandInput, TransactWriteItemsCommandOutput
 } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
 import DynamodbConfig from '../../dynamodbConfig';
@@ -13,9 +12,13 @@ import { hashPassword } from '../../../utils/passwordHelpers';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 
 
-const createUser = async (user: User): Promise<TransactGetItemsCommandOutput> => {
-    const userId = generateID();
-    const passwordHash = hashPassword(user.password);
+export default async function (user: User): Promise<User> {
+    const userId = await generateID();
+    const passwordHash = await hashPassword(user.password);
+    user.userId = userId;
+    user.password = passwordHash;
+    user.createdAt = new Date().toISOString();
+    user.updatedAt = user.createdAt;
     const items: TransactWriteItem[] = [
         {
             Put: {
@@ -23,6 +26,11 @@ const createUser = async (user: User): Promise<TransactGetItemsCommandOutput> =>
                 Item: marshall({
                     PK: "USER" + "#" + userId,
                     SK: "USER" + "#" + userId,
+                    GS1PK: "USER" + "#" + user.email,
+                    GS1SK: "USER" + "#" + user.email,
+                    GS2PK: "USER" + "#" + user.mobileNumber,
+                    GS2SK: "USER" + "#" + user.mobileNumber,
+                    id: userId,
                     fn: user.fullName,
                     em: user.email,
                     mb: user.mobileNumber,
@@ -65,5 +73,12 @@ const createUser = async (user: User): Promise<TransactGetItemsCommandOutput> =>
     }
     const command: TransactWriteItemsCommand = new TransactWriteItemsCommand(params);
 
-    return await dynamoDBClient.send(command)
+    try {
+        const response:TransactWriteItemsCommandOutput = await dynamoDBClient.send(command)
+        console.log(response);
+        return user;
+    } catch (e) {
+        console.log(e)
+        return null;
+    }
 }

@@ -11,10 +11,11 @@ export class Session {
     createdAt: string;
     expiredAt: string;
 
+
     constructor({userId, sessionId, createdAt, expiredAt}: SessionConstructorParams) {
         this.userId = userId;
         this.sessionId = sessionId;
         this.createdAt = createdAt;
-        this.expiredAt = expiredAt
+        this.expiredAt = expiredAt;
     }
 }
