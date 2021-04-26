@@ -23,6 +23,8 @@ export default async function createSession (userId: string): Promise<Session> {
             SK: "SESSIONTOKEN" + "#" + sessionToken,
             GSI1PK: "SESSIONUSER" + "#" + userId,
             GSI1SK: "SESSIONTOKEN" + "#" + sessionToken,
+            sid: sessionToken,
+            uid: userId,
             ca: createdAt.toISOString(),
             ea: expiresAt.toISOString(),
             ttl: ttl,
@@ -39,7 +41,7 @@ export default async function createSession (userId: string): Promise<Session> {
             userId: userId,
             sessionId: sessionToken,
             createdAt: createdAt.toISOString(),
-            expiredAt: expiresAt.toISOString()
+            expiresAt: expiresAt.toISOString()
         });
     } catch (e) {
         console.log(e);

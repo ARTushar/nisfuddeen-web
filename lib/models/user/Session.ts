@@ -2,20 +2,20 @@ interface SessionConstructorParams {
     userId: string;
     sessionId: string;
     createdAt: string;
-    expiredAt: string;
+    expiresAt: string;
 }
 
 export class Session {
     userId: string;
     sessionId: string;
     createdAt: string;
-    expiredAt: string;
+    expiresAt: string;
 
 
-    constructor({userId, sessionId, createdAt, expiredAt}: SessionConstructorParams) {
+    constructor({userId, sessionId, createdAt, expiresAt}: SessionConstructorParams) {
         this.userId = userId;
         this.sessionId = sessionId;
         this.createdAt = createdAt;
-        this.expiredAt = expiredAt;
+        this.expiresAt = expiresAt;
     }
 }
