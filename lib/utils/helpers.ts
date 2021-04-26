@@ -1,5 +1,7 @@
 import KSUID from "ksuid";
 import { v4 as uuidv4 } from 'uuid';
+import validator from 'validator';
+
 
 export const titleCase = (name) =>
   name
@@ -37,4 +39,18 @@ export function generateSessionToken(): string {
 
 export function addDays(date: Date, day: number): Date {
   return new Date(date.getTime() + day * 24 * 60 * 60 * 1000);
+}
+
+export function checkValidMobileNumber(value, helpers) {
+    if(!validator.isMobilePhone(value, 'any', {strictMode: true})){
+      return helpers.error("invalid mobile phone");
+    }
+    return value;
+}
+
+export function checkValidEmail(value, helpers) {
+  if(!validator.isEmail(value, )){
+    return helpers.error("invalid mobile phone");
+  }
+  return value;
 }

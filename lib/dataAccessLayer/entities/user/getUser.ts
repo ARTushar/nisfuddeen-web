@@ -23,8 +23,11 @@ export async function  getUserById(userId: string): Promise<User> {
 
     try {
         const response: GetItemCommandOutput = await dynamoDBClient.send(command)
-        const user = marshall(response.Item);
-        return userFactory(user);
+        if(response.Item){
+            const user = marshall(response.Item);
+            return userFactory(user);
+        }
+        return null;
     } catch (e) {
         console.log(e);
         return null;
@@ -41,8 +44,8 @@ export async function getUserByEmail(email: string): Promise<User> {
             "#gsi1sk": "GSI1SK"
         },
         ExpressionAttributeValues: marshall({
-           ":gsi1pk": "USER#" + email,
-           ":gsi1sk": "USER#" + email,
+            ":gsi1pk": "USER#" + email,
+            ":gsi1sk": "USER#" + email,
         }),
         Limit: 1,
         ProjectionExpression: '', // TO DO: add required attributes

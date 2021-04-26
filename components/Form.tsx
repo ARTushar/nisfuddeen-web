@@ -43,9 +43,9 @@
 //         throw new Error(`${res.status}`);
 //       }
 
-//       const { data } = await res.json();
+//       const { dataAccessLayer } = await res.json();
 
-//       mutate(`/api/pets/${id}`, data, false); // Update the local data without a revalidation
+//       mutate(`/api/pets/${id}`, dataAccessLayer, false); // Update the local dataAccessLayer without a revalidation
 //       router.push('/');
 //     } catch (error) {
 //       setMessage('Failed to update pet');

@@ -10,7 +10,7 @@ import { Session } from '../../../models/user/Session';
 export async function getSessionByToken(sessionToken: string): Promise<Session> {
     const currentEpoch = Math.floor(Date.now() / 1000);
 
-    const params: QueryCommandInput= {
+    const params: QueryCommandInput = {
         TableName: DynamodbConfig.tableName,
         KeyConditionExpression: '#PK = :pk AND #SK = :sk',
         FilterExpression: '#ttl <= :epoch',
