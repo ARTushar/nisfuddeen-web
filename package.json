@@ -42,6 +42,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/morgan": "1.9.2",
     "@types/react": "^17.0.3",
     "@types/react-redux": "^7.1.16",
     "@types/validator": "13.1.3",

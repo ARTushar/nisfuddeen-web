@@ -1,16 +1,16 @@
-import { fetchBiodatas } from "../../../lib/utils/databaseInterection";
+// import { fetchBiodatas } from "../../../lib/utils/databaseInterection";
 import { createNC } from "../../../lib/utils/ncHandlers";
 
 const handler = createNC();
 
-handler
-  .get(async (req, res, next) => {
-    try {
-      const biodatas = await fetchBiodatas(req.query);
-      res.status(200).json(biodatas);
-    } catch (error) {
-      next(error) ;
-    }
-  });
+// handler
+//   .get(async (req, res, next) => {
+//     try {
+//       const biodatas = await fetchBiodatas(req.query);
+//       res.status(200).json(biodatas);
+//     } catch (error) {
+//       next(error) ;
+//     }
+//   });
 
 export default handler;

@@ -34,7 +34,7 @@ import Session from '../models/user/Session';
     // }
 
     try {
-        const user = await Session.getSession('a5e85b04-348b-444f-b39b-b3841e251645');
+        const user = await Session.updateSession('a5e85b04-348b-444f-b39b-b3841e251645', '1rjyVBKEGeYavwQe1ufGSqxSG7m');
         console.log(JSON.stringify(user, null, 2))
     } catch (e) {
         console.log(e.message, e.status)

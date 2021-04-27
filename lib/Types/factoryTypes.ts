@@ -1,10 +1,18 @@
-import { AccountType, EducationDegree, FacialColor, Gender, MaritalStatus } from './types';
+import { AccountType, EducationDegree, FacialColor, Gender, MaritalStatus, SubscriptionType } from './types';
 
 export function accountTypeFactory(type: string): AccountType {
     if(type === 'normal') return AccountType.Bridegroom;
     if(type === 'guardian') return AccountType.Guardian;
     if(type === 'moderator') return AccountType.Moderator;
     if(type === 'admin') return AccountType.Admin;
+    return null;
+}
+
+export function inverseAccountTypeFactory(type: AccountType): string {
+    if(type === AccountType.Admin) return "admin";
+    if(type === AccountType.Guardian) return "guardian";
+    if(type === AccountType.Moderator) return "moderator";
+    if(type === AccountType.Bridegroom) return "normal";
     return null;
 }
 
@@ -42,5 +50,17 @@ export function educationDegreeFactory(type: string): EducationDegree {
     if(type === 'PostGraduate') return EducationDegree.Postgraduate;
     if(type === 'Doctorate') return EducationDegree.Doctorate;
     if(type === 'PostDoctorate') return EducationDegree.PostDoctorate;
+    return null;
+}
+
+export function subscriptionTypeFactory(type: string): SubscriptionType {
+    if(type === 'free') return SubscriptionType.Free;
+    if(type === 'premium') return SubscriptionType.Premium;
+    return null
+}
+
+export function inverseSubscriptionFactory(type: SubscriptionType): string {
+    if(type === SubscriptionType.Free) return 'free';
+    if(type === SubscriptionType.Premium) return 'premium';
     return null;
 }

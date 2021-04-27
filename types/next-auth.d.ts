@@ -7,7 +7,24 @@ declare module "next-auth" {
     interface Session {
         userid: string,
         createdAt: string,
-        expiredAt: string,
+        expiresAt: string,
         sessionToken: string
+    }
+
+    interface User {
+        userId: string,
+        fullName: string,
+        email: string,
+        mobileNumber: string,
+        accountType: string,
+        subscriptionType: string
+    }
+
+    interface Profile {
+        fullName: string,
+        email: string,
+        mobileNumber: string,
+        accountType: string,
+        password: string
     }
 }

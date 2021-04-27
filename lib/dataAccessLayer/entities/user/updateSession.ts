@@ -36,7 +36,7 @@ export default async function updateSession (sessionToken: string, userId: strin
         return new Session({
             userId: userId,
             sessionId: sessionToken,
-            createdAt: createdAt.toISOString(),
+            createdAt: createdAt.toISOString(), // TO DO: not the valid createdAt
             expiresAt: expiresAt.toISOString()
         });
     } catch (e) {
