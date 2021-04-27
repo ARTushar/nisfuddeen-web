@@ -4,7 +4,7 @@ import User from '../models/user/User';
 import Session from '../models/user/Session';
 import { inverseAccountTypeFactory, inverseSubscriptionFactory } from '../Types/factoryTypes';
 
-export default function Adapter (config, options = {}): Adapter {
+export default function DynoAdapter (config, options = {}): Adapter {
     async function getAdapter (appOptions) {
         // Display debug output if debug option enabled
         function _debug (...args) {
