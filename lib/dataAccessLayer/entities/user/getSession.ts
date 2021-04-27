@@ -5,7 +5,7 @@ import {
 import { marshall } from '@aws-sdk/util-dynamodb';
 import DynamodbConfig from '../../dynamodbConfig';
 import dynamoDBClient from '../../core/getDynamoDBClient';
-import { Session } from '../../../models/user/Session';
+import Session from '../../../models/user/Session';
 
 export async function getSessionByToken(sessionToken: string): Promise<Session> {
     const currentEpoch = Math.floor(Date.now() / 1000);

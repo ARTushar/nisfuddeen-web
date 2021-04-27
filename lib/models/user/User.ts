@@ -39,7 +39,6 @@ export default class User {
         this.subscriptionType = subscriptionType;
     }
 
-
     static async createAccount(fullName: string, email: string, mobile: string, accountType: string, password: string): Promise<User> {
         const ac = accountTypeFactory(accountType);
 

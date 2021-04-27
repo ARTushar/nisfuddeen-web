@@ -5,7 +5,7 @@ import {
     QueryCommand,
     QueryCommandInput, QueryCommandOutput
 } from '@aws-sdk/client-dynamodb';
-import { User } from '../../../models/user/User';
+import User from '../../../models/user/User';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import DynamodbConfig from '../../dynamodbConfig';
 import dynamoDBClient from '../../core/getDynamoDBClient';
