@@ -24,7 +24,7 @@ export async function  getUserById(userId: string): Promise<User> {
     try {
         const response: GetItemCommandOutput = await dynamoDBClient.send(command)
         if(response.Item){
-            const user = marshall(response.Item);
+            const user = unmarshall(response.Item);
             return userFactory(user);
         }
         return null;
@@ -36,7 +36,6 @@ export async function  getUserById(userId: string): Promise<User> {
 
 export async function getUserByEmail(email: string): Promise<User> {
     const params: QueryCommandInput = {
-        ExclusiveStartKey: {},
         IndexName: 'GSI1',
         KeyConditionExpression: '#gsi1pk = :gsi1pk AND #gsi1sk = :gsi1sk',
         ExpressionAttributeNames: {
@@ -47,16 +46,19 @@ export async function getUserByEmail(email: string): Promise<User> {
             ":gsi1pk": "USER#" + email,
             ":gsi1sk": "USER#" + email,
         }),
-        Limit: 1,
-        ProjectionExpression: '', // TO DO: add required attributes
+        // ProjectionExpression: '', // TO DO: add required attributes
         TableName: DynamodbConfig.tableName
     }
 
     const command = new QueryCommand(params);
     try {
         const response: QueryCommandOutput = await dynamoDBClient.send(command)
-        const user = marshall(response.Items[0]);
-        return userFactory(user);
+        console.log(response)
+        if(response.Items.length == 1){
+            const user = unmarshall(response.Items[0]);
+            return userFactory(user);
+        }
+        return null;
     } catch (e) {
         console.log(e);
         return null;
@@ -65,7 +67,6 @@ export async function getUserByEmail(email: string): Promise<User> {
 
 export async function getUserByMobile(mobile: string): Promise<User> {
     const params: QueryCommandInput = {
-        ExclusiveStartKey: {},
         IndexName: 'GSI2',
         KeyConditionExpression: '#gsi2pk = :gsi2pk AND #gsi2sk = :gsi2sk',
         ExpressionAttributeNames: {
@@ -76,15 +77,17 @@ export async function getUserByMobile(mobile: string): Promise<User> {
             ":gsi2pk": "USER#" + mobile,
             ":gsi2sk": "USER#" + mobile,
         }),
-        Limit: 1,
-        ProjectionExpression: '', // TO DO: add required attributes
+        // ProjectionExpression: '', // TO DO: add required attributes
         TableName: DynamodbConfig.tableName
     }
     const command = new QueryCommand(params);
     try {
         const response: QueryCommandOutput = await dynamoDBClient.send(command)
-        const user = marshall(response.Items[0]);
-        return userFactory(user);
+        if(response.Items.length == 1){
+            const user = unmarshall(response.Items[0]);
+            return userFactory(user);
+        }
+        return null;
     } catch (e) {
         console.log(e);
         return null;
@@ -97,7 +100,7 @@ function userFactory(user): User {
         createdAt: user._ca,
         email: user.em,
         fullName: user.fn,
-        mobileNumber: user.em,
+        mobileNumber: user.mb,
         subscriptionType: user.st,
         updatedAt: user._ua,
         userId: user.id,

@@ -5,10 +5,10 @@ interface CreateGlobalSecondaryIndex {
     indexName: string;
     primaryKey: string;
     sortKey: any;
-    attributes: string[];
+    attributes?: string[];
 }
 
-const createGlobalSecondaryIndex = ({indexName, primaryKey, sortKey, attributes}: CreateGlobalSecondaryIndex): GlobalSecondaryIndex => {
+export default function createGlobalSecondaryIndex({indexName, primaryKey, sortKey, attributes}: CreateGlobalSecondaryIndex): GlobalSecondaryIndex {
     return {
         IndexName: indexName,
         KeySchema: [
@@ -16,10 +16,8 @@ const createGlobalSecondaryIndex = ({indexName, primaryKey, sortKey, attributes}
             {AttributeName: sortKey, KeyType: 'RANGE'}
         ],
         Projection: {
-            ProjectionType: 'INCLUDE',
-            NonKeyAttributes: attributes
+            ProjectionType: 'ALL', // To DO: Need to change
+            // NonKeyAttributes: attributes
         },
     }
 }
-
-export default createGlobalSecondaryIndex;
