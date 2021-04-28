@@ -109,15 +109,7 @@ export default function DynamoDBAdapter(config) {
             debug("deleteUser", userId)
 
             try {
-                const deleted = await DynamoClient.delete({
-                    TableName,
-                    Key: {
-                        pk: `USER#${userId}`,
-                        sk: `USER#${userId}`,
-                    },
-                }).promise()
-
-                return deleted
+                return await User.deleteUserById(userId)
             } catch (error) {
                 logger.error("DELETE_USER_ERROR", error)
                 throw new DeleteUserError(error)

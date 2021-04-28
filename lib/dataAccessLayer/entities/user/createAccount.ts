@@ -12,8 +12,8 @@ export default async function createAccount (account: Account): Promise<Account>
     const params: PutItemCommandInput = {
         ConditionExpression: checkUniquePK,
         Item: marshall({
-            PK: "ACCOUNT#PID" + account.providerId + "#AID#" + account.accountId,
-            SK: "ACCOUNT#PID" + account.providerId + "#AID#" + account.accountId,
+            PK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.accountId,
+            SK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.accountId,
             GSI1PK: "USER#ID#" + account.userId,
             GSI1SK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.accountId,
             pid: account.providerId,

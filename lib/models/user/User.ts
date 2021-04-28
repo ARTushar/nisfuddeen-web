@@ -3,6 +3,7 @@ import { accountTypeFactory, subscriptionTypeFactory } from '../../Types/factory
 import createUser from '../../dataAccessLayer/entities/user/createUser';
 import { getUserByEmail, getUserById, getUserByMobile } from '../../dataAccessLayer/entities/user/getUser';
 import { updateUser } from '../../dataAccessLayer/entities/user/updateUser';
+import { deleteUserById } from '../../dataAccessLayer/entities/user/deleteUser';
 
 interface UserConstructorParams {
     userId?: string;
@@ -105,6 +106,14 @@ export default class User {
                 subscriptionType: st
             }))
         } catch (e) {
+            throw e;
+        }
+    }
+
+    static async deleteUserById(userId: string) {
+        try {
+            return await deleteUserById(userId);
+        } catch(e) {
             throw e;
         }
     }
