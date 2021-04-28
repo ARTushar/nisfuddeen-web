@@ -41,6 +41,6 @@ export default async function updateSession (session: Session, sessionExpiration
         });
     } catch (e) {
         console.log(e);
-        return null;
+        throw e;
     }
 }

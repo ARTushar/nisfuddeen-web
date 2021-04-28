@@ -38,6 +38,6 @@ export async function getSessionByToken(sessionToken: string): Promise<Session> 
         return null;
     } catch (e) {
         console.log(e);
-        return null;
+        throw e;
     }
 }

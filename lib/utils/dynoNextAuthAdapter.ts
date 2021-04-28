@@ -215,37 +215,14 @@ export default function DynamoDBAdapter(config) {
             }
         }
 
+        /**
+         * Dynamodb TTL automatically deletes the session
+         */
         async function deleteSession(sessionToken) {
             debug("deleteSession", sessionToken)
 
             try {
-                const data = await DynamoClient.query({
-                    TableName,
-                    IndexName: "GSI1",
-                    KeyConditionExpression: "#gsi1pk = :gsi1pk AND #gsi1sk = :gsi1sk",
-                    ExpressionAttributeNames: {
-                        "#gsi1pk": "GSI1PK",
-                        "#gsi1sk": "GSI1SK",
-                    },
-                    ExpressionAttributeValues: {
-                        ":gsi1pk": `SESSION#${sessionToken}`,
-                        ":gsi1sk": `SESSION#${sessionToken}`,
-                    },
-                }).promise()
-
-                if (data?.Items?.length <= 0) return null
-
-                const infoToDelete = data.Items[0]
-
-                const deleted = await DynamoClient.delete({
-                    TableName,
-                    Key: {
-                        pk: infoToDelete.pk,
-                        sk: infoToDelete.sk,
-                    },
-                }).promise()
-
-                return deleted
+                return await Session.deleteSession(sessionToken);
             } catch (error) {
                 logger.error("DELETE_SESSION_ERROR", error)
                 throw new DeleteSessionError(error)

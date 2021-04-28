@@ -1,6 +1,7 @@
 import createSession from '../../dataAccessLayer/entities/user/createSession';
 import { getSessionByToken } from '../../dataAccessLayer/entities/user/getSession';
 import updateSession from '../../dataAccessLayer/entities/user/updateSession';
+import { deleteSessionByToken } from '../../dataAccessLayer/entities/user/deleteSession';
 
 interface SessionConstructorParams {
     userId: string;
@@ -18,7 +19,6 @@ export default class Session {
     createdAt: string;
     updatedAt: string;
     expiresAt: string;
-    static sessionExpiration: number = 30 * 24 * 60 * 60 * 1000;
 
     constructor({userId, sessionId, accessToken, createdAt, updatedAt, expiresAt}: SessionConstructorParams) {
         this.userId = userId;
@@ -48,6 +48,14 @@ export default class Session {
     static async updateSession(session: Session, sessionExpiration): Promise<Session> {
         try {
             return await updateSession(session, sessionExpiration);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    static async deleteSession(sessionToken: string): Promise<boolean> {
+        try {
+            return await deleteSessionByToken(sessionToken);
         } catch (e) {
             throw e;
         }
