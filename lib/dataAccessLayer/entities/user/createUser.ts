@@ -14,9 +14,7 @@ import { checkUniquePK } from '../../../utils/dynoUtils';
 
 export default async function (user: User): Promise<User> {
     const userId = await generateID();
-    const passwordHash = await hashPassword(user.password);
     user.userId = userId;
-    user.password = passwordHash;
     user.createdAt = new Date().toISOString();
     user.updatedAt = user.createdAt;
     const items: TransactWriteItem[] = [
@@ -24,22 +22,24 @@ export default async function (user: User): Promise<User> {
             Put: {
                 TableName: DynamodbConfig.tableName,
                 Item: marshall({
-                    PK: "USER" + "#" + userId,
-                    SK: "USER" + "#" + userId,
-                    GSI1PK: "USER" + "#" + user.email,
-                    GSI1SK: "USER" + "#" + user.email,
-                    GSI2PK: "USER" + "#" + user.mobileNumber,
-                    GSI2SK: "USER" + "#" + user.mobileNumber,
+                    PK: "USER#ID#" + userId,
+                    SK: "USER#ID#" + userId,
+                    GSI1PK: "USER#EMAIL#" + user.email,
+                    GSI1SK: "USER#EMAIL#" + user.email,
+                    GSI2PK: "USER#MOBILE#" + user.mobileNumber,
+                    GSI2SK: "USER#MOBILE#" + user.mobileNumber,
                     id: userId,
                     fn: user.fullName,
                     em: user.email,
                     mb: user.mobileNumber,
                     ac: user.accountType,
                     st: user.subscriptionType,
-                    ha: passwordHash,
+                    emv: user.emailVerified,
                     _ca: user.createdAt,
                     _ua: user.updatedAt,
                     _tp: "User"
+                }, {
+                    removeUndefinedValues: true,
                 }),
                 ConditionExpression: checkUniquePK
             }
@@ -48,8 +48,8 @@ export default async function (user: User): Promise<User> {
             Put: {
                 TableName: DynamodbConfig.tableName,
                 Item: marshall({
-                    PK: "USER" + "#" + user.mobileNumber,
-                    SK: "USER" + "#" + user.mobileNumber,
+                    PK: "USER#MOBILE#" + user.mobileNumber,
+                    SK: "USER#MOBILE#" + user.mobileNumber,
                     _tp: "UserMobile"
                 }),
                 ConditionExpression: checkUniquePK
@@ -59,8 +59,8 @@ export default async function (user: User): Promise<User> {
             Put: {
                 TableName: DynamodbConfig.tableName,
                 Item: marshall({
-                    PK: "USER" + "#" + user.email,
-                    SK: "USER" + "#" + user.email,
+                    PK: "USER#EMAIL#" + user.email,
+                    SK: "USER#EMAIL#" + user.email,
                     _tp: "UserEmail"
                 }),
                 ConditionExpression: checkUniquePK
@@ -79,6 +79,6 @@ export default async function (user: User): Promise<User> {
         return user;
     } catch (e) {
         console.log(e)
-        return null;
+        throw e;
     }
 }

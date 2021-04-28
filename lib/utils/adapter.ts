@@ -17,7 +17,7 @@ export default function DynoAdapter (config, options = {}): Adapter {
             _debug('createUser', profile)
             console.log("hi i'm being called inside adapter create user");
             try{
-                const user: User = await User.createAccount(profile.fullName, profile.email, profile.mobileNumber, profile.accountType, profile.password)
+                const user: User = await User.createAccount(profile.fullName, profile.email, profile.mobileNumber, profile.accountType)
                 return {
                     userId: user.userId,
                     fullName: user.fullName,

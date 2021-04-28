@@ -17,7 +17,7 @@ const providers = [
         },
         async authorize(credentials:any):Promise<any> {
             try {
-                const user = await User.loginByEmail(credentials.email, credentials.password);
+                const user = await User.getByEmail(credentials.email, credentials.password);
                 console.log("gotcha user " + JSON.stringify(user, null, 2));
                 if(user) return {
                     userId: user.userId,

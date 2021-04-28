@@ -6,6 +6,7 @@ import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import DynamodbConfig from '../../dynamodbConfig';
 import dynamoDBClient from '../../core/getDynamoDBClient';
 import Session from '../../../models/user/Session';
+import { sessionFactory } from '../../utils/factory';
 
 export async function getSessionByToken(sessionToken: string): Promise<Session> {
     const currentEpoch = Math.floor(Date.now() / 1000);
@@ -20,8 +21,8 @@ export async function getSessionByToken(sessionToken: string): Promise<Session> 
             "#ttl": "ttl"
         },
         ExpressionAttributeValues: marshall({
-            ":pk": "SESSIONTOKEN#" + sessionToken,
-            ":sk": "SESSIONTOKEN#" + sessionToken,
+            ":pk": "SESSION#TOKEN#" + sessionToken,
+            ":sk": "SESSION#TOKEN#" + sessionToken,
             ":epoch": currentEpoch
         }),
         // ProjectionExpression: '',
@@ -39,13 +40,4 @@ export async function getSessionByToken(sessionToken: string): Promise<Session> 
         console.log(e);
         return null;
     }
-}
-
-function sessionFactory(session): Session {
-    return new Session({
-        userId: session.uid,
-        sessionId: session.sid,
-        createdAt: session.ca,
-        expiresAt: session.ea
-    })
 }

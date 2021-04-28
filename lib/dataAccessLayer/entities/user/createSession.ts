@@ -18,10 +18,10 @@ export default async function createSession (userId: string, sessionExpiration: 
     const params: PutItemCommandInput = {
         ConditionExpression: checkUniquePK,
         Item: marshall({
-            PK: "SESSIONTOKEN" + "#" + sessionToken,
-            SK: "SESSIONTOKEN" + "#" + sessionToken,
-            GSI1PK: "SESSIONUSER" + "#" + userId,
-            GSI1SK: "SESSIONTOKEN" + "#" + sessionToken,
+            PK: "SESSION#TOKEN#" + sessionToken,
+            SK: "SESSION#TOKEN#" + sessionToken,
+            GSI1PK: "USER#ID#" + userId,
+            GSI1SK: "SESSION#TOKEN#" + sessionToken,
             sid: sessionToken,
             uid: userId,
             ca: createdAt.toISOString(),
@@ -44,6 +44,6 @@ export default async function createSession (userId: string, sessionExpiration: 
         });
     } catch (e) {
         console.log(e);
-        return null;
+        throw e;
     }
 }

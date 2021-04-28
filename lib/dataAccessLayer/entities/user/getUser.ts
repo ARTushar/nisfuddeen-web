@@ -9,12 +9,13 @@ import User from '../../../models/user/User';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import DynamodbConfig from '../../dynamodbConfig';
 import dynamoDBClient from '../../core/getDynamoDBClient';
+import { userFactory } from '../../utils/factory';
 
 export async function  getUserById(userId: string): Promise<User> {
     const params: GetItemCommandInput = {
         Key: marshall({
-            PK: "USER#" + userId,
-            SK: "USER#" + userId
+            PK: "USER#ID#" + userId,
+            SK: "USER#ID#" + userId
         }),
         ProjectionExpression: '', // TO DO: add required attributes
         TableName: DynamodbConfig.tableName
@@ -30,21 +31,21 @@ export async function  getUserById(userId: string): Promise<User> {
         return null;
     } catch (e) {
         console.log(e);
-        return null;
+        throw e;
     }
 }
 
 export async function getUserByEmail(email: string): Promise<User> {
     const params: QueryCommandInput = {
         IndexName: 'GSI1',
-        KeyConditionExpression: '#gsi1pk = :gsi1pk AND #gsi1sk = :gsi1sk',
+        KeyConditionExpression: '#pk = :pk AND #sk = :sk',
         ExpressionAttributeNames: {
-            "#gsi1pk": "GSI1PK",
-            "#gsi1sk": "GSI1SK"
+            "#pk": "GSI1PK",
+            "#sk": "GSI1SK"
         },
         ExpressionAttributeValues: marshall({
-            ":gsi1pk": "USER#" + email,
-            ":gsi1sk": "USER#" + email,
+            ":pk": "USER#EMAIL#" + email,
+            ":sk": "USER#EMAIL#" + email,
         }),
         // ProjectionExpression: '', // TO DO: add required attributes
         TableName: DynamodbConfig.tableName
@@ -61,21 +62,21 @@ export async function getUserByEmail(email: string): Promise<User> {
         return null;
     } catch (e) {
         console.log(e);
-        return null;
+        throw e;
     }
 }
 
 export async function getUserByMobile(mobile: string): Promise<User> {
     const params: QueryCommandInput = {
         IndexName: 'GSI2',
-        KeyConditionExpression: '#gsi2pk = :gsi2pk AND #gsi2sk = :gsi2sk',
+        KeyConditionExpression: '#pk = :pk AND #sk = :sk',
         ExpressionAttributeNames: {
-            "#gsi2pk": "GSI2PK",
-            "#gsi2sk": "GSI2SK"
+            "#pk": "GSI2PK",
+            "#sk": "GSI2SK"
         },
         ExpressionAttributeValues: marshall({
-            ":gsi2pk": "USER#" + mobile,
-            ":gsi2sk": "USER#" + mobile,
+            ":pk": "USER#MOBILE#" + mobile,
+            ":sk": "USER#MOBILE#" + mobile,
         }),
         // ProjectionExpression: '', // TO DO: add required attributes
         TableName: DynamodbConfig.tableName
@@ -90,20 +91,6 @@ export async function getUserByMobile(mobile: string): Promise<User> {
         return null;
     } catch (e) {
         console.log(e);
-        return null;
+        throw e
     }
-}
-
-function userFactory(user): User {
-    return new User({
-        accountType: user.ac,
-        createdAt: user._ca,
-        email: user.em,
-        fullName: user.fn,
-        mobileNumber: user.mb,
-        subscriptionType: user.st,
-        updatedAt: user._ua,
-        userId: user.id,
-        password: user.ha
-    });
 }
