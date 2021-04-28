@@ -5,7 +5,7 @@ import dynamoDBClient from '../../core/getDynamoDBClient';
 import Account from '../../../models/user/Account';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 
-export default async function createAccount (account: Account): Promise<Account> {
+export default async function(account: Account): Promise<Account> {
     const createdAt = new Date().toISOString();
     // const ttl = Math.floor(expiresAt.getTime() / 1000);
 

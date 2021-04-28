@@ -2,30 +2,31 @@ import {
     UpdateItemCommand, UpdateItemCommandInput, UpdateItemCommandOutput
 } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import { addDays } from '../../../utils/helpers';
 import DynamodbConfig from '../../dynamodbConfig';
 import dynamoDBClient from '../../core/getDynamoDBClient';
 import Session from '../../../models/user/Session';
 
-export default async function updateSession (sessionToken: string, userId: string, sessionExpiration: number): Promise<Session> {
-    const createdAt = new Date();
-    const expiresAt = addDays(createdAt, sessionExpiration);
+export default async function updateSession (session: Session, sessionExpiration: number): Promise<Session> {
+    const updatedAt = new Date();
+    const expiresAt = new Date(updatedAt.getTime() + sessionExpiration);
     const ttl = Math.floor(expiresAt.getTime() / 1000);
 
     const params: UpdateItemCommandInput = {
         TableName: DynamodbConfig.tableName,
         Key: marshall({
-            PK: "SESSIONTOKEN" + "#" + sessionToken,
-            SK: "SESSIONTOKEN" + "#" + sessionToken,
+            PK: "SESSION#TOKEN#" + session.sessionId,
+            SK: "SESSION#TOKEN#" + session.sessionId,
         }),
-        UpdateExpression: 'SET #ea = :ea, #ttl = :ttl',
+        UpdateExpression: 'SET #ea = :ea,, #ua = :ua, #ttl = :ttl',
         ExpressionAttributeNames: {
             "#ea": "ea",
+            "#ua": "ua",
             "#ttl": "ttl"
         },
         ExpressionAttributeValues: marshall({
             ":ea": expiresAt.toISOString(),
             ":ttl": ttl,
+            ":ua": updatedAt.toISOString()
         }),
     }
 
@@ -34,9 +35,8 @@ export default async function updateSession (sessionToken: string, userId: strin
         const response: UpdateItemCommandOutput = await dynamoDBClient.send(command);
         console.log(response);
         return new Session({
-            userId: userId,
-            sessionId: sessionToken,
-            createdAt: createdAt.toISOString(), // TO DO: not the valid createdAt
+            ...session,
+            updatedAt: updatedAt.toISOString(), // TO DO: not the valid createdAt
             expiresAt: expiresAt.toISOString()
         });
     } catch (e) {

@@ -32,7 +32,9 @@ export function sessionFactory(session): Session {
     return new Session({
         userId: session.uid,
         sessionId: session.sid,
+        accessToken: session.at,
         createdAt: session.ca,
+        updatedAt: session.ua,
         expiresAt: session.ea
     })
 }

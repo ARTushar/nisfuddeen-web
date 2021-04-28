@@ -3,7 +3,7 @@ import {
     PutItemCommandInput,
 } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import { addDays, generateSessionToken } from '../../../utils/helpers';
+import { generateSessionToken } from '../../../utils/helpers';
 import DynamodbConfig from '../../dynamodbConfig';
 import dynamoDBClient from '../../core/getDynamoDBClient';
 import Session from '../../../models/user/Session';
@@ -11,8 +11,9 @@ import { checkUniquePK } from '../../../utils/dynoUtils';
 
 export default async function createSession (userId: string, sessionExpiration: number): Promise<Session> {
     const sessionToken = generateSessionToken();
+    const accessToken = generateSessionToken();
     const createdAt = new Date();
-    const expiresAt = addDays(createdAt, sessionExpiration);
+    const expiresAt = new Date(createdAt.getTime() + sessionExpiration);
     const ttl = Math.floor(expiresAt.getTime() / 1000);
 
     const params: PutItemCommandInput = {
@@ -23,8 +24,10 @@ export default async function createSession (userId: string, sessionExpiration: 
             GSI1PK: "USER#ID#" + userId,
             GSI1SK: "SESSION#TOKEN#" + sessionToken,
             sid: sessionToken,
+            at: accessToken,
             uid: userId,
             ca: createdAt.toISOString(),
+            ua: createdAt.toISOString(),
             ea: expiresAt.toISOString(),
             ttl: ttl,
             _tp: "Session"
@@ -39,7 +42,9 @@ export default async function createSession (userId: string, sessionExpiration: 
         return new Session({
             userId: userId,
             sessionId: sessionToken,
+            accessToken: accessToken,
             createdAt: createdAt.toISOString(),
+            updatedAt: createdAt.toISOString(),
             expiresAt: expiresAt.toISOString()
         });
     } catch (e) {

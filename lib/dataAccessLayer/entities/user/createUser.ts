@@ -8,7 +8,6 @@ import {
 import { marshall } from '@aws-sdk/util-dynamodb';
 import DynamodbConfig from '../../dynamodbConfig';
 import { generateID } from '../../../utils/helpers';
-import { hashPassword } from '../../../utils/passwordHelpers';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 
 
