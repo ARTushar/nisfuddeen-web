@@ -1,6 +1,7 @@
 import Account from '../../models/user/Account';
 import User from '../../models/user/User';
 import Session from '../../models/user/Session';
+import VR from '../../models/user/VR';
 
 export function accountFactory(account): Account {
     return new Account({
@@ -36,5 +37,15 @@ export function sessionFactory(session): Session {
         createdAt: session.ca,
         updatedAt: session.ua,
         expiresAt: session.ea
+    })
+}
+
+export function vrFactory(vr): VR {
+    return new VR({
+        token: vr.ht,
+        identifier: vr.id,
+        expiresAt: vr.ea,
+        createdAt: vr.ca,
+        updatedAt: vr.ua
     })
 }

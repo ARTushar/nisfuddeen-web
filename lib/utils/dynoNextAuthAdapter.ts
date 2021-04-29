@@ -1,5 +1,3 @@
-import { createHash } from 'crypto';
-
 import {
     CreateSessionError,
     CreateUserError,
@@ -20,9 +18,9 @@ import {
 import User from '../models/user/User';
 import Account from '../models/user/Account';
 import Session from '../models/user/Session';
+import VR from '../models/user/VR';
 
 export default function DynamoDBAdapter(config) {
-    const DynamoClient = new config.AWS.DynamoDB.DocumentClient()
 
     /** @param {import("next-auth/internals").AppOptions} appOptions */
     async function getAdapter(appOptions) {
@@ -138,7 +136,7 @@ export default function DynamoDBAdapter(config) {
             )
 
             try {
-                return Account.createAccount({
+                return await Account.createAccount({
                     providerId, accountId: providerAccountId, providerType, refreshToken, accessToken, accessTokenExpires, userId
                 });
             } catch (error) {
@@ -162,7 +160,7 @@ export default function DynamoDBAdapter(config) {
             debug("createSession", user)
 
             try {
-                return Session.createSession(user.userId, sessionMaxAge);
+                return await Session.createSession(user.userId, sessionMaxAge);
             } catch (error) {
                 logger.error("CREATE_SESSION_ERROR", error)
                 throw new CreateSessionError(error)
@@ -248,34 +246,8 @@ export default function DynamoDBAdapter(config) {
             const { baseUrl } = appOptions
             const { sendVerificationRequest, maxAge } = provider
 
-            const hashedToken = createHash("sha256")
-              .update(`${token}${secret}`)
-              .digest("hex")
-
-            let expires = null
-            if (maxAge) {
-                const dateExpires = new Date()
-                dateExpires.setTime(dateExpires.getTime() + maxAge * 1000)
-
-                expires = dateExpires.toISOString()
-            }
-
-            const now = new Date()
-
-            const item = {
-                pk: `VR#${identifier}`,
-                sk: `VR#${hashedToken}`,
-                token: hashedToken,
-                identifier,
-                type: "VR",
-                expires: expires === null ? null : expires,
-                createdAt: now.toISOString(),
-                updatedAt: now.toISOString(),
-            }
-
             try {
-                await DynamoClient.put({ TableName, Item: item }).promise()
-
+                const vr = await VR.createVR(identifier, token, secret, maxAge * 1000);
                 await sendVerificationRequest({
                     identifier,
                     url,
@@ -283,8 +255,7 @@ export default function DynamoDBAdapter(config) {
                     baseUrl,
                     provider,
                 })
-
-                return item
+                return vr;
             } catch (error) {
                 logger.error("CREATE_VERIFICATION_REQUEST_ERROR", error)
                 throw new CreateVerificationRequestError(error)
@@ -294,39 +265,14 @@ export default function DynamoDBAdapter(config) {
         async function getVerificationRequest(identifier, token, secret, provider) {
             debug("getVerificationRequest", identifier, token, secret)
 
-            const hashedToken = createHash("sha256")
-              .update(`${token}${secret}`)
-              .digest("hex")
-
             try {
-                const data = await DynamoClient.get({
-                    TableName,
-                    Key: {
-                        pk: `VR#${identifier}`,
-                        sk: `VR#${hashedToken}`,
-                    },
-                }).promise()
-
-                const nowDate = Date.now()
-                if (data.Item && data.Item.expires && data.Item.expires < nowDate) {
-                    // Delete the expired request so it cannot be used
-                    await DynamoClient.delete({
-                        TableName,
-                        Key: {
-                            pk: `VR#${identifier}`,
-                            sk: `VR#${hashedToken}`,
-                        },
-                    }).promise()
-
-                    return null
-                }
-
-                return data.Item || null
+                return await VR.getVR(token, secret);
             } catch (error) {
                 logger.error("GET_VERIFICATION_REQUEST_ERROR", error)
                 throw new GetVerificationRequestError(error)
             }
         }
+
 
         async function deleteVerificationRequest(
           identifier,
@@ -336,20 +282,10 @@ export default function DynamoDBAdapter(config) {
         ) {
             debug("deleteVerification", identifier, token, secret)
 
-            const hashedToken = createHash("sha256")
-              .update(`${token}${secret}`)
-              .digest("hex")
+            // Dynamodb ttl automatically delete the item a
 
             try {
-                const data = await DynamoClient.delete({
-                    TableName,
-                    Key: {
-                        pk: `VR#${identifier}`,
-                        sk: `VR#${hashedToken}`,
-                    },
-                }).promise()
-
-                return data
+                return await VR.deleteVR(token, secret);
             } catch (error) {
                 logger.error("DELETE_VERIFICATION_REQUEST_ERROR", error)
                 throw new DeleteVerificationRequestError(error)

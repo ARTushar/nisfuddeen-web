@@ -1,6 +1,7 @@
 import KSUID from "ksuid";
 import { v4 as uuidv4 } from 'uuid';
 import validator from 'validator';
+import { createHash } from 'crypto';
 
 
 export const titleCase = (name) =>
@@ -53,4 +54,10 @@ export function checkValidEmail(value, helpers) {
     return helpers.error("invalid mobile phone");
   }
   return value;
+}
+
+export function generateVRToken(token: string, secret: string){
+  return createHash("sha256")
+    .update(`${token}${secret}`)
+    .digest("hex");
 }
