@@ -7,10 +7,14 @@ import authConfig from '../../../lib/config/authConfig';
 const handler = createNC();
 
 const providers = [
-    Providers.Google({
-        clientId: authConfig.googleClientId,
-        clientSecret: authConfig.googleClientSecret
-    })
+    // Providers.Google({
+    //     clientId: authConfig.googleClientId,
+    //     clientSecret: authConfig.googleClientSecret
+    // })
+  Providers.Facebook({
+      clientId: authConfig.facebookClientId,
+      clientSecret: authConfig.facebookClientSecret
+  })
 ];
 
 const options = {

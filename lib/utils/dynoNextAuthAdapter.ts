@@ -42,7 +42,7 @@ export default function DynamoDBAdapter(config) {
             debug("createUser", profile)
 
             try {
-                return await User.createAccount(profile.fullName, profile.email, profile.mobile, profile.accountType);
+                return await User.createAccount(profile.fullName, profile.email, profile.emailVerified, profile.mobile, profile.accountType);
             } catch (error) {
                 logger.error("CREATE_USER", error)
                 throw new CreateUserError(error)
@@ -78,7 +78,7 @@ export default function DynamoDBAdapter(config) {
             try {
                 const account = await Account.getAccountByProviderAccountId(providerId, providerAccountId);
                 if(!account) return null;
-                return await User.getById(account.userId)
+                return await User.getById(account.userId);
             } catch (error) {
                 logger.error("GET_USER_BY_PROVIDER_ACCOUNT_ID", error)
                 throw new GetUserByProviderAccountIdError(error)
@@ -108,7 +108,7 @@ export default function DynamoDBAdapter(config) {
             debug("deleteUser", userId)
 
             try {
-                return await User.deleteUserById(userId)
+                return await User.deleteUserById(userId);
             } catch (error) {
                 logger.error("DELETE_USER_ERROR", error)
                 throw new DeleteUserError(error)
@@ -171,7 +171,7 @@ export default function DynamoDBAdapter(config) {
             debug("getSession", sessionToken)
 
             try {
-                return await Session.getSession(sessionToken)
+                return await Session.getSession(sessionToken);
             } catch (error) {
                 logger.error("GET_SESSION_ERROR", error)
                 throw new GetSessionError(error)
@@ -254,7 +254,7 @@ export default function DynamoDBAdapter(config) {
                     token,
                     baseUrl,
                     provider,
-                })
+                });
                 return vr;
             } catch (error) {
                 logger.error("CREATE_VERIFICATION_REQUEST_ERROR", error)

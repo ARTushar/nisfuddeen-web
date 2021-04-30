@@ -13,5 +13,7 @@ export default {
   publicKey: PUBLIC_KEY,
   privateKey: PRIVATE_KEY,
   googleClientId: process.env.GOOGLE_ID,
-  googleClientSecret: process.env.GOOGLE_SECRET
+  googleClientSecret: process.env.GOOGLE_SECRET,
+  facebookClientId: process.env.FACEBOOK_ID,
+  facebookClientSecret: process.env.FACEBOOK_SECRET
 }

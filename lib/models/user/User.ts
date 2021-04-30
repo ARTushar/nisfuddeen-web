@@ -48,7 +48,7 @@ export default class User {
         this.emailVerified = emailVerified
     }
 
-    static async createAccount(fullName: string, email: string, mobile: string, accountType: string): Promise<User> {
+    static async createAccount(fullName: string, email: string, emailVerified: string, mobile: string, accountType: string): Promise<User> {
         const ac = accountTypeFactory(accountType);
 
         try {
