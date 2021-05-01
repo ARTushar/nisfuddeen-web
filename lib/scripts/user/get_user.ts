@@ -1,7 +1,6 @@
 #!/usr/bin/env ts-node
 import { getUserByEmail, getUserById, getUserByMobile } from '../../dataAccessLayer/entities/user/getUser';
 
-export {}
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const argv = yargs(hideBin(process.argv)).argv;
@@ -10,7 +9,7 @@ function printObject(obj) {
   console.log(JSON.stringify(obj, null, 2))
 }
 
-const run = async ()=> {
+(async ()=> {
   if(argv.userid) {
     try {
       const user = await getUserById(argv.userid)
@@ -37,8 +36,4 @@ const run = async ()=> {
         console.log(e)
     }
   }
-};
-
-run();
-
-
+})();

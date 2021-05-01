@@ -4,7 +4,6 @@ import User from '../../models/user/User';
 import { accountTypeFactory, subscriptionTypeFactory } from '../../Types/factoryTypes';
 import createUser from '../../dataAccessLayer/entities/user/createUser';
 
-export {}
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const argv = yargs(hideBin(process.argv)).argv;
@@ -13,7 +12,7 @@ function printObject(obj) {
     console.log(JSON.stringify(obj, null, 2))
 }
 
-const run = async ()=> {
+(async ()=> {
     const user = new User({
         fullName: argv.name,
         mobileNumber: argv.mobile,
@@ -28,6 +27,4 @@ const run = async ()=> {
     } catch(e){
         console.log(e)
     }
-};
-
-run().then(r => console.log(r));
+})();
