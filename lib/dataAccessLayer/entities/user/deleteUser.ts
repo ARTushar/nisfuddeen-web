@@ -11,7 +11,7 @@ import dynamoDBClient from '../../core/getDynamoDBClient';
 import { getUserById } from './getUser';
 
 export async function deleteUserById(userId: string): Promise<User> {
-    // TO DO: Delete all the associated sessions and linked accounts
+    // TODO: Delete all the associated sessions and linked accounts
     const user: User = await getUserById(userId);
 
     const items: TransactWriteItem[] = [

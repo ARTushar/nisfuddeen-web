@@ -31,6 +31,8 @@ export default async function createSession (userId: string, sessionExpiration: 
             ea: expiresAt.toISOString(),
             ttl: ttl,
             _tp: "Session"
+        }, {
+            removeUndefinedValues: true
         }),
         TableName: DynamodbConfig.tableName
     }

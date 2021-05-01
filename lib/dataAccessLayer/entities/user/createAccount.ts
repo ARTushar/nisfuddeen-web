@@ -26,6 +26,8 @@ export default async function(account: Account): Promise<Account> {
             _ca: createdAt,
             _ua: createdAt,
             _tp: "Account"
+        }, {
+            removeUndefinedValues: true
         }),
         TableName: DynamodbConfig.tableName
     }

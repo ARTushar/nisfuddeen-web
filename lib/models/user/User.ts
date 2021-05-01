@@ -7,10 +7,10 @@ import { deleteUserById } from '../../dataAccessLayer/entities/user/deleteUser';
 
 interface UserConstructorParams {
     userId?: string;
-    fullName: string;
-    mobileNumber: string;
-    email: string;
-    accountType: AccountType;
+    fullName?: string;
+    mobileNumber?: string;
+    email?: string;
+    accountType?: AccountType;
     subscriptionType?: SubscriptionType;
     createdAt?: string;
     updatedAt?: string;
@@ -38,7 +38,7 @@ export default class User {
     createdAt: string;
     updatedAt: string;
 
-    constructor({userId=null, fullName, mobileNumber, email,  accountType, subscriptionType=SubscriptionType.Free, emailVerified}: UserConstructorParams) {
+    constructor({userId, fullName, mobileNumber, email,  accountType, subscriptionType, emailVerified}: UserConstructorParams) {
         this.userId = userId;
         this.fullName = fullName;
         this.mobileNumber = mobileNumber;
@@ -46,6 +46,20 @@ export default class User {
         this.accountType = accountType;
         this.subscriptionType = subscriptionType;
         this.emailVerified = emailVerified
+    }
+
+    static async createAccountByProvider(fullName: string, email: string, emailVerified: string) {
+        try {
+            return await createUser(new User({
+                fullName: fullName,
+                email: email,
+                emailVerified: emailVerified,
+                subscriptionType: SubscriptionType.Free
+            }));
+        } catch (e) {
+            // throw createServerError("Cannot Create the account.");
+            throw e;
+        }
     }
 
     static async createAccount(fullName: string, email: string, emailVerified: string, mobile: string, accountType: string): Promise<User> {

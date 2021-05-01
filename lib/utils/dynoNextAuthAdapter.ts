@@ -40,9 +40,10 @@ export default function DynamoDBAdapter(config) {
 
         async function createUser(profile) {
             debug("createUser", profile)
+            console.log(profile)
 
             try {
-                return await User.createAccount(profile.fullName, profile.email, profile.emailVerified, profile.mobile, profile.accountType);
+                return await User.createAccountByProvider(profile.name, profile.email, profile.emailVerified);
             } catch (error) {
                 logger.error("CREATE_USER", error)
                 throw new CreateUserError(error)

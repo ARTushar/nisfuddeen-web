@@ -17,7 +17,7 @@ export async function  getUserById(userId: string): Promise<User> {
             PK: "USER#ID#" + userId,
             SK: "USER#ID#" + userId
         }),
-        ProjectionExpression: '', // TO DO: add required attributes
+        // ProjectionExpression: '', TODO: add required attributes
         TableName: DynamodbConfig.tableName
     }
     const command = new GetItemCommand(params);
@@ -36,6 +36,7 @@ export async function  getUserById(userId: string): Promise<User> {
 }
 
 export async function getUserByEmail(email: string): Promise<User> {
+    console.log("email: " + email)
     const params: QueryCommandInput = {
         IndexName: 'GSI1',
         KeyConditionExpression: '#pk = :pk AND #sk = :sk',
@@ -47,7 +48,7 @@ export async function getUserByEmail(email: string): Promise<User> {
             ":pk": "USER#EMAIL#" + email,
             ":sk": "USER#EMAIL#" + email,
         }),
-        // ProjectionExpression: '', // TO DO: add required attributes
+        // ProjectionExpression: '', // TODO: add required attributes
         TableName: DynamodbConfig.tableName
     }
 
@@ -78,7 +79,7 @@ export async function getUserByMobile(mobile: string): Promise<User> {
             ":pk": "USER#MOBILE#" + mobile,
             ":sk": "USER#MOBILE#" + mobile,
         }),
-        // ProjectionExpression: '', // TO DO: add required attributes
+        // ProjectionExpression: '', // TODO: add required attributes
         TableName: DynamodbConfig.tableName
     }
     const command = new QueryCommand(params);
