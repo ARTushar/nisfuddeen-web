@@ -12,13 +12,13 @@ export default async function(account: Account): Promise<Account> {
     const params: PutItemCommandInput = {
         ConditionExpression: checkUniquePK,
         Item: marshall({
-            PK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.accountId,
-            SK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.accountId,
+            PK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.providerAccountId,
+            SK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.providerAccountId,
             GSI1PK: "USER#ID#" + account.userId,
-            GSI1SK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.accountId,
+            GSI1SK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.providerAccountId,
             pid: account.providerId,
             uid: account.userId,
-            aid: account.accountId,
+            aid: account.providerAccountId,
             pt: account.providerType,
             rt: account.refreshToken,
             at: account.accessToken,

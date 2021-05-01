@@ -5,7 +5,7 @@ import { deleteSessionByToken } from '../../dataAccessLayer/entities/user/delete
 
 interface SessionConstructorParams {
     userId: string;
-    sessionId: string;
+    sessionToken: string;
     accessToken: string;
     createdAt: string;
     updatedAt: string;
@@ -14,19 +14,19 @@ interface SessionConstructorParams {
 
 export default class Session {
     userId: string;
-    sessionId: string;
+    sessionToken: string;
     accessToken: string;
     createdAt: string;
     updatedAt: string;
-    expiresAt: string;
+    expires: string;
 
-    constructor({userId, sessionId, accessToken, createdAt, updatedAt, expiresAt}: SessionConstructorParams) {
+    constructor({userId, sessionToken, accessToken, createdAt, updatedAt, expiresAt}: SessionConstructorParams) {
         this.userId = userId;
-        this.sessionId = sessionId;
+        this.sessionToken = sessionToken;
         this.accessToken = accessToken;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.expiresAt = expiresAt;
+        this.expires = expiresAt;
     }
 
     static async createSession(userId: string, sessionExpiration: number): Promise<Session> {

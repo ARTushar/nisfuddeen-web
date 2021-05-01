@@ -27,7 +27,7 @@ interface CreateAccountParams {
 export default class Account {
     userId: string;
     providerId: string;
-    accountId: string;
+    providerAccountId: string;
     providerType: string;
     refreshToken: string;
     accessToken: string;
@@ -48,7 +48,7 @@ export default class Account {
                 }: AcConstructorParams) {
         this.userId = userId;
         this.providerId = providerId;
-        this.accountId = accountId;
+        this.providerAccountId = accountId;
         this.providerType = providerType;
         this.refreshToken = refreshToken;
         this.accessToken = accessToken;

@@ -43,7 +43,7 @@ export default function DynamoDBAdapter(config) {
             console.log(profile)
 
             try {
-                return await User.createAccountByProvider(profile.name, profile.email, profile.emailVerified);
+                return await User.createAccountByProvider(profile.name, profile.email, profile.emailVerified? profile.emailVerified.toISOString(): undefined);
             } catch (error) {
                 logger.error("CREATE_USER", error)
                 throw new CreateUserError(error)
@@ -91,8 +91,8 @@ export default function DynamoDBAdapter(config) {
 
             try {
                 return await User.updateUser({
-                    userId: user.userId,
-                    fullName: user.fullName,
+                    userId: user.id,
+                    fullName: user.name,
                     mobileNumber: user.mobileNumber,
                     email: user.email,
                     emailVerified: user.emailVerified,
@@ -161,7 +161,7 @@ export default function DynamoDBAdapter(config) {
             debug("createSession", user)
 
             try {
-                return await Session.createSession(user.userId, sessionMaxAge);
+                return await Session.createSession(user.id, sessionMaxAge);
             } catch (error) {
                 logger.error("CREATE_SESSION_ERROR", error)
                 throw new CreateSessionError(error)
@@ -170,6 +170,7 @@ export default function DynamoDBAdapter(config) {
 
         async function getSession(sessionToken) {
             debug("getSession", sessionToken)
+            console.log("session token: ", sessionToken);
 
             try {
                 return await Session.getSession(sessionToken);
@@ -186,7 +187,7 @@ export default function DynamoDBAdapter(config) {
                 const shouldUpdate =
                   sessionMaxAge &&
                   (sessionUpdateAge || sessionUpdateAge === 0) &&
-                  session.expiresAt
+                  session.expires
                 if (!shouldUpdate && !force) {
                     return null
                 }

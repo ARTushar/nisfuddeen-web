@@ -16,7 +16,7 @@ export async function updateUser(user: User): Promise<User> {
     user.updatedAt = new Date().toISOString();
     let oldUser;
     try {
-        oldUser = await getUserById(user.userId);
+        oldUser = await getUserById(user.id);
         if(!oldUser) return null;
     } catch (e) {
         throw e;
@@ -76,8 +76,8 @@ export async function updateUser(user: User): Promise<User> {
         Update: {
             TableName: DynamodbConfig.tableName,
             Key: marshall({
-                PK: "USER#ID#" + user.userId,
-                SK: "USER#ID#" + user.userId,
+                PK: "USER#ID#" + user.id,
+                SK: "USER#ID#" + user.id,
             }),
             UpdateExpression: updatedVals.updateExpression,
             ExpressionAttributeNames: updatedVals.attributeNames,

@@ -28,8 +28,8 @@ interface  UserUpdateParams {
 }
 
 export default class User {
-    userId: string;
-    fullName: string;
+    id: string;
+    name: string;
     mobileNumber: string;
     email: string;
     accountType: AccountType;
@@ -39,8 +39,8 @@ export default class User {
     updatedAt: string;
 
     constructor({userId, fullName, mobileNumber, email,  accountType, subscriptionType, emailVerified}: UserConstructorParams) {
-        this.userId = userId;
-        this.fullName = fullName;
+        this.id = userId;
+        this.name = fullName;
         this.mobileNumber = mobileNumber;
         this.email = email;
         this.accountType = accountType;

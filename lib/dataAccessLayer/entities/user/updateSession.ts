@@ -14,8 +14,8 @@ export default async function updateSession (session: Session, sessionExpiration
     const params: UpdateItemCommandInput = {
         TableName: DynamodbConfig.tableName,
         Key: marshall({
-            PK: "SESSION#TOKEN#" + session.sessionId,
-            SK: "SESSION#TOKEN#" + session.sessionId,
+            PK: "SESSION#TOKEN#" + session.sessionToken,
+            SK: "SESSION#TOKEN#" + session.sessionToken,
         }),
         UpdateExpression: 'SET #ea = :ea,, #ua = :ua, #ttl = :ttl',
         ExpressionAttributeNames: {

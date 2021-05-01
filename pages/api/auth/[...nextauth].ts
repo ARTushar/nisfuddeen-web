@@ -15,27 +15,25 @@ const providers = [
         clientId: authConfig.facebookClientId,
         clientSecret: authConfig.facebookClientSecret
     }),
-    Providers.Email({
-        server: {
-            host: authConfig.emailHost,
-            port: authConfig.emailPort,
-            auth: {
-                user: authConfig.emailUser,
-                pass: authConfig.emailPassword
-            }
-        },
-        from: authConfig.emailFrom
-    })
+    // Providers.Email({
+    //     server: {
+    //         host: authConfig.emailHost,
+    //         port: authConfig.emailPort,
+    //         auth: {
+    //             user: authConfig.emailUser,
+    //             pass: authConfig.emailPassword
+    //         }
+    //     },
+    //     from: authConfig.emailFrom
+    // })
 ];
 
 const options = {
+    debug: true,
     providers,
     adapter: DynamoDBAdapter({}),
     callbacks: {
         async signIn(user, account, profile) {
-            console.log(user);
-            console.log(account);
-            console.log(profile);
             return true;
         }
     }

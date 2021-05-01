@@ -43,7 +43,7 @@ export default async function createSession (userId: string, sessionExpiration: 
         console.log(response);
         return new Session({
             userId: userId,
-            sessionId: sessionToken,
+            sessionToken: sessionToken,
             accessToken: accessToken,
             createdAt: createdAt.toISOString(),
             updatedAt: createdAt.toISOString(),

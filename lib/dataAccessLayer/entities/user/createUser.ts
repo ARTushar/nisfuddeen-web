@@ -13,7 +13,7 @@ import { checkUniquePK } from '../../../utils/dynoUtils';
 
 export default async function (user: User): Promise<User> {
     const userId = await generateID();
-    user.userId = userId;
+    user.id = userId;
     user.createdAt = new Date().toISOString();
     user.updatedAt = user.createdAt;
 
@@ -28,7 +28,7 @@ export default async function (user: User): Promise<User> {
                 GSI2PK: "USER#MOBILE#" + user.mobileNumber,
                 GSI2SK: "USER#MOBILE#" + user.mobileNumber,
                 id: userId,
-                fn: user.fullName,
+                fn: user.name,
                 em: user.email,
                 mb: user.mobileNumber,
                 ac: user.accountType,
