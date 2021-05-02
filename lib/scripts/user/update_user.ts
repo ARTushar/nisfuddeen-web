@@ -3,14 +3,10 @@
 import { updateUser } from '../../dataAccessLayer/entities/user/updateUser';
 import User from '../../models/user/User';
 import { accountTypeFactory, subscriptionTypeFactory } from '../../Types/factoryTypes';
+import generateArgv from '../utils/generateArgv';
+import printObject from '../utils/printObject';
 
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
-const argv = yargs(hideBin(process.argv)).argv;
-
-function printObject(obj) {
-    console.log(JSON.stringify(obj, null, 2))
-}
+const argv = generateArgv();
 
 (async ()=> {
     if(argv.userid) {
