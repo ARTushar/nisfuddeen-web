@@ -25,5 +25,7 @@ const argv = generateArgv();
         } catch(e){
             console.log(e)
         }
+    } else {
+        console.log("Please provide userid");
     }
 })();

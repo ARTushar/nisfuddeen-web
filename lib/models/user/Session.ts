@@ -6,10 +6,10 @@ import { deleteSessionByToken } from '../../dataAccessLayer/entities/user/delete
 interface SessionConstructorParams {
     userId: string;
     sessionToken: string;
-    accessToken: string;
-    createdAt: string;
-    updatedAt: string;
-    expiresAt: string;
+    accessToken?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    expiresAt?: string;
 }
 
 export default class Session {

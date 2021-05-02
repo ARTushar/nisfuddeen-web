@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node
 
-import { deleteUserById } from '../../dataAccessLayer/entities/user/deleteUser';
 import generateArgv from '../utils/generateArgv';
 import printObject from '../utils/printObject';
+import { getAccountsSessionsById } from '../../dataAccessLayer/entities/user/getAccountsSessions';
 
 const argv = generateArgv();
 
@@ -11,8 +11,8 @@ const argv = generateArgv();
         console.log("Please provide userid");
     }
     try {
-        const user = await deleteUserById(argv.userid);
-        printObject(user);
+        const accounts = await getAccountsSessionsById(argv.userid);
+        printObject(accounts);
     } catch(e){
         console.log(e);
     }

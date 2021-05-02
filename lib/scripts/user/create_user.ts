@@ -16,11 +16,11 @@ const argv = generateArgv();
         accountType: argv.at? accountTypeFactory(argv.at): undefined,
         subscriptionType: argv.st? subscriptionTypeFactory(argv.st): undefined,
         emailVerified: argv.emailVerified
-    })
+    });
     try {
-        const newUser= await createUser(user)
-        printObject(newUser)
+        const newUser= await createUser(user);
+        printObject(newUser);
     } catch(e){
-        console.log(e)
+        console.log(e);
     }
 })();
