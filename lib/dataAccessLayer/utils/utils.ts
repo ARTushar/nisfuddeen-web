@@ -4,12 +4,21 @@ import { marshall } from '@aws-sdk/util-dynamodb';
 
 export function generateDelTransactItem(pk: string, sk: string): TransactWriteItem {
     return {
-        'Delete': {
+        Delete: {
             TableName: DynamodbConfig.tableName,
             Key: marshall({
                 PK: pk,
                 SK: sk
             })
+        }
+    }
+}
+
+export function generatePutTransactItem(item): TransactWriteItem {
+    return {
+        Put: {
+            TableName: DynamodbConfig.tableName,
+            Item: marshall(item, {removeUndefinedValues: true}),
         }
     }
 }

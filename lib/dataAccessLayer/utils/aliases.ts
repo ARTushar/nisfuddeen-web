@@ -115,7 +115,7 @@ export const partnerQualitiesAliases = {
     'desiredQualities': 'dq',
 }
 
-export const PersonalInformationAliases = {
+export const personalInformationAliases = {
     'outfit': 'of', // BoyOutfit[] | GirlOutfit[],
     'beardStyle': 'bs', // BeardStyle
     'pantPajamaAboveKnee': 'ak',
@@ -140,8 +140,23 @@ export const PersonalInformationAliases = {
 
 }
 
+export const biodataAliases = {
+    'userId' : 'uid',
+    'enabled': 'en',
+    'verified': 'vr',
+    'createdAt': '_ca',
+    'updatedAt': '_ua',
+    'type': '_tp',
+    'gender': 'gn',
+    'country': 'cn',
+    'district': 'di',
+    'maritalStatus': 'ms',
+    'occupation': 'oc',
+    'birthYear': 'by'
+}
+
 export const shortBiodataAliases = {
-    'userid': 'uid',
+    'userId': 'uid',
     'gender': 'gn',
     'country': 'cn',
     'district': 'di',

@@ -9,6 +9,7 @@ import PartnerQualities from './PartnerQualities';
 import ContactInformation from './ContactInformation';
 
 interface BiodataConstructorParams {
+    userId: string;
     enabled: boolean;
     verified: boolean;
     basicInformation: BasicInformation;
@@ -23,6 +24,7 @@ interface BiodataConstructorParams {
 }
 
 export default class Biodata {
+    userId: string;
     enabled: boolean;
     verified: boolean;
     basicInformation: BasicInformation;
@@ -34,9 +36,10 @@ export default class Biodata {
     extraInformation: ExtraInformation;
     partnerQualities: PartnerQualities;
     contactInformation: ContactInformation;
+    createdAt: string;
+    updatedAt: string;
 
-
-    constructor({enabled=true, verified=false, basicInformation, addresses, educationQualifications, familyInformation, personaInformation, marriageInformation, extraInformation, partnerQualities, contactInformation}: BiodataConstructorParams) {
+    constructor({userId, enabled=true, verified=false, basicInformation, addresses, educationQualifications, familyInformation, personaInformation, marriageInformation, extraInformation, partnerQualities, contactInformation}: BiodataConstructorParams) {
         this.enabled = enabled;
         this.verified = verified;
         this.basicInformation = basicInformation;
