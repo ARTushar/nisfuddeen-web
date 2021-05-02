@@ -1,15 +1,15 @@
 interface EIConstructorParams {
     aboutMe: string;
-    aboutOccupation?: string | null
+    aboutOccupation?: string
     guardianKnowsAboutSubmission: boolean;
 }
 
 export default class ExtraInformation {
     aboutMe: string;
-    aboutOccupation: string | null;
+    aboutOccupation: string;
     guardianKnowsAboutSubmission: boolean;
 
-    constructor({aboutMe, aboutOccupation=null, guardianKnowsAboutSubmission}: EIConstructorParams) {
+    constructor({aboutMe, aboutOccupation, guardianKnowsAboutSubmission}: EIConstructorParams) {
         this.aboutMe = aboutMe;
         this.aboutOccupation = aboutOccupation;
         this.guardianKnowsAboutSubmission = guardianKnowsAboutSubmission;

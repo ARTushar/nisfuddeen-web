@@ -1,16 +1,16 @@
 interface CIConstructorParams {
-    fatherMobile?: string | null;
-    motherMobile?: string | null;
-    guardianMobile?: string | null;
+    fatherMobile?: string;
+    motherMobile?: string;
+    guardianMobile?: string;
 }
 
 export default class ContactInformation {
-    fatherMobile: string | null;
-    motherMobile: string | null;
-    guardianMobile: string | null;
+    fatherMobile: string;
+    motherMobile: string;
+    guardianMobile: string;
 
 
-    constructor({fatherMobile=null, motherMobile=null, guardianMobile=null}: CIConstructorParams) {
+    constructor({fatherMobile, motherMobile, guardianMobile}: CIConstructorParams) {
         this.fatherMobile = fatherMobile;
         this.motherMobile = motherMobile;
         this.guardianMobile = guardianMobile;

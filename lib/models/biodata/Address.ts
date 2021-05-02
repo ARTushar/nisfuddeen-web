@@ -1,6 +1,5 @@
-import { AddressType } from '../../Types/types';
-
 interface AConstructorParams {
+    type: string;
     country: string;
     division: string;
     district: string;
@@ -8,13 +7,14 @@ interface AConstructorParams {
 }
 
 export default class Address {
-    type: AddressType
+    type: string
     country: string;
     division: string;
     district: string;
     postOffice: string;
 
-    constructor({country, division, district, postOffice}: AConstructorParams) {
+    constructor({type, country, division, district, postOffice}: AConstructorParams) {
+        this.type = type;
         this.country = country;
         this.division = division;
         this.district = district;

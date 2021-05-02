@@ -1,29 +1,17 @@
-import {
-    BeardStyle,
-    BoyOutfit,
-    GirlOutfit,
-    Guardian,
-    Majhab,
-    MixAnswer,
-    NegativeAnswer,
-    PositiveAnswer
-} from '../../Types/types';
-
-
 interface PIConstructorParams {
-    outfit: BoyOutfit[] | GirlOutfit[];
-    beardStyle?: BeardStyle | null;
-    pantPajamaAboveKnee?: boolean | null;
+    outfit: string[]; // BoyOutfit[] | GirlOutfit[];
+    beardStyle: string; // BeardStyle
+    pantPajamaAboveKnee: boolean;
     prayerTimes: number;
-    malePrayerTimesInJamah: number | null;
-    femalePrayerTimesInAwwal: number | null;
-    durationOfRegularPrayer?: number | null;
-    mahramMaintain: MixAnswer;
-    majhab: Majhab;
-    politicalPhylosophy: string;
-    watchDramaMovie: NegativeAnswer;
-    readSahihQuran: PositiveAnswer;
-    listenMusic: NegativeAnswer;
+    malePrayerTimesInJamah: number;
+    femalePrayerTimesInAwwal: number;
+    durationOfRegularPrayer: number;
+    mahramMaintain: string; // MixAnswer;
+    majhab: string; // Majhab;
+    politicalPhilosophy: string;
+    watchDramaMovie: string; // NegativeAnswer;
+    readSahihQuran: string; // PositiveAnswer;
+    listenMusic: string; // NegativeAnswer;
     anyDisease: string;
     deenMehnat: string;
     pirFollower: string;
@@ -31,23 +19,23 @@ interface PIConstructorParams {
     favoriteIslamicBooks: string;
     favoriteScholars: string;
     specialQualities: string;
-    guardian: Guardian;
+    guardian: string; // Guardian;
 }
 
 export default class PersonalInformation {
-    outfit: BoyOutfit[] | GirlOutfit[];
-    beardStyle: BeardStyle | null
-    pantPajamaAboveKnee: boolean | null;
+    outfit: string[]; // BoyOutfit[] | GirlOutfit[];
+    beardStyle: string; // BeardStyle
+    pantPajamaAboveKnee: boolean;
     prayerTimes: number;
-    malePrayerTimesInJamah: number | null;
-    femalePrayerTimesInAwwal: number | null;
-    durationOfRegularPrayer: number | null;
-    mahramMaintain: MixAnswer;
-    majhab: Majhab;
+    malePrayerTimesInJamah: number;
+    femalePrayerTimesInAwwal: number;
+    durationOfRegularPrayer: number;
+    mahramMaintain: string; // MixAnswer;
+    majhab: string; // Majhab;
     politicalPhilosophy: string;
-    watchDramaMovie: NegativeAnswer;
-    readSahihQuran: PositiveAnswer;
-    listenSong: NegativeAnswer;
+    watchDramaMovie: string; // NegativeAnswer;
+    readSahihQuran: string; // PositiveAnswer;
+    listenMusic: string; // NegativeAnswer;
     anyDisease: string;
     deenMehnat: string;
     pirFollower: string;
@@ -55,10 +43,10 @@ export default class PersonalInformation {
     favoriteIslamicBooks: string;
     favoriteScholars: string;
     specialQualities: string;
-    guardian: Guardian;
+    guardian: string; // Guardian;
 
 
-    constructor({outfit, beardStyle=null, pantPajamaAboveKnee=null, prayerTimes, malePrayerTimesInJamah=null, femalePrayerTimesInAwwal=null, durationOfRegularPrayer=null, mahramMaintain, majhab, politicalPhylosophy, watchDramaMovie, readSahihQuran, listenMusic, anyDisease, deenMehnat, pirFollower, mazarBelief, favoriteIslamicBooks, favoriteScholars, specialQualities, guardian}: PIConstructorParams) {
+    constructor({outfit, beardStyle, pantPajamaAboveKnee, prayerTimes, malePrayerTimesInJamah, femalePrayerTimesInAwwal, durationOfRegularPrayer, mahramMaintain, majhab, politicalPhilosophy, watchDramaMovie, readSahihQuran, listenMusic, anyDisease, deenMehnat, pirFollower, mazarBelief, favoriteIslamicBooks, favoriteScholars, specialQualities, guardian}: PIConstructorParams) {
         this.outfit = outfit;
         this.beardStyle = beardStyle;
         this.pantPajamaAboveKnee = pantPajamaAboveKnee;
@@ -68,10 +56,10 @@ export default class PersonalInformation {
         this.durationOfRegularPrayer = durationOfRegularPrayer;
         this.mahramMaintain = mahramMaintain;
         this.majhab = majhab;
-        this.politicalPhilosophy = politicalPhylosophy;
+        this.politicalPhilosophy = politicalPhilosophy;
         this.watchDramaMovie = watchDramaMovie;
         this.readSahihQuran = readSahihQuran;
-        this.listenSong = listenMusic;
+        this.listenMusic = listenMusic;
         this.anyDisease = anyDisease;
         this.deenMehnat = deenMehnat;
         this.pirFollower = pirFollower;

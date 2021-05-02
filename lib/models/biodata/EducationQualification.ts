@@ -1,19 +1,19 @@
 interface ConstructorParams {
     degreeName: string;
     department: string;
-    passYear: number | null;
+    passYear: number;
     instituteName: string;
-    result: string | null;
+    result: string;
 }
 
 export default class EducationQualification {
     degreeName: string;
     department: string;
-    passYear: number | null;
+    passYear: number;
     instituteName: string;
-    result: string | null;
+    result: string;
 
-    constructor({degreeName, department, passYear=null, instituteName, result=null}: ConstructorParams) {
+    constructor({degreeName, department, passYear, instituteName, result}: ConstructorParams) {
         this.degreeName = degreeName;
         this.department = department;
         this.passYear = passYear;

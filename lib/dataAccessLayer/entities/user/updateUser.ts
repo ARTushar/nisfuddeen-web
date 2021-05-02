@@ -7,7 +7,7 @@ import {
 import { marshall } from '@aws-sdk/util-dynamodb';
 import DynamodbConfig from '../../utils/dynamodbConfig';
 import dynamoDBClient from '../../utils/getDynamoDBClient';
-import { userAliasAttributes } from '../../utils/aliases';
+import { userAliases } from '../../utils/aliases';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 import { getUserById } from './getUser';
 
@@ -118,7 +118,7 @@ function generateUpdateAttributes(user: User) {
     for(const key in user) {
         if(key === "userId" || key === 'createdAt') continue;
         if(user.hasOwnProperty(key) && user[key] !== undefined){
-            const alias = userAliasAttributes[key];
+            const alias = userAliases[key];
             const av = ':' + alias;
             const an = '#' + alias;
             attributeValues[av] = user[key];

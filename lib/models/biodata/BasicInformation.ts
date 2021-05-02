@@ -1,25 +1,25 @@
-import { BirthDay, BloodGroup, FacialColor, Gender, MaritalStatus } from '../../Types/types';
+import { BirthDay } from '../../Types/types';
 
 
 interface BIConstructorParams {
-    gender: Gender;
-    maritalStatus: MaritalStatus;
+    gender: string;
+    maritalStatus: string;
     birthDay: BirthDay;
-    facialColor: FacialColor;
+    facialColor: string;
     height: number;
     weight: number;
-    bloodGroup: BloodGroup;
+    bloodGroup: string;
     occupation: string;
 }
 
 export default class BasicInformation {
-    gender: Gender;
-    maritalStatus: MaritalStatus;
+    gender: string;
+    maritalStatus: string;
     birthDay: BirthDay;
-    facialColor: FacialColor; 
+    facialColor: string;
     height: number;
     weight: number;
-    bloodGroup: BloodGroup;
+    bloodGroup: string;
     occupation: string;
 
     constructor({gender, maritalStatus, birthDay, facialColor, height, weight, bloodGroup, occupation}: BIConstructorParams) {

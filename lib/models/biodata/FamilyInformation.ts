@@ -1,5 +1,3 @@
-import { FinancialStatus } from '../../Types/types';
-
 interface FIConstructorParams {
     fatherAlive: boolean;
     fatherOccupation: string;
@@ -7,11 +5,11 @@ interface FIConstructorParams {
     motherOccupation: string;
     totalSisters: number;
     totalBrothers: number;
-    brothersStatus: string | null;
-    sistersStatus: string | null;
-    financialStatus: FinancialStatus;
-    socialStatus: string;
-    unclesStatus: string | null;
+    brothersStatus?: string;
+    sistersStatus?: string;
+    financialStatus: string;
+    socialStatus?: string;
+    unclesStatus?: string;
 }
 
 export default class FamilyInformation {
@@ -21,13 +19,13 @@ export default class FamilyInformation {
     motherOccupation: string;
     totalSisters: number;
     totalBrothers: number;
-    brothersStatus: string | null;
-    sistersStatus: string | null;
-    financialStatus: FinancialStatus;
+    brothersStatus: string;
+    sistersStatus: string;
+    financialStatus: string;
     socialStatus: string;
-    unclesStatus: string | null
+    unclesStatus: string
 
-    constructor({fatherAlive, fatherOccupation, motherAlive, motherOccupation, totalSisters, totalBrothers, brothersStatus=null, sistersStatus=null, financialStatus, socialStatus, unclesStatus=null}: FIConstructorParams) {
+    constructor({fatherAlive, fatherOccupation, motherAlive, motherOccupation, totalSisters, totalBrothers, brothersStatus, sistersStatus, financialStatus, socialStatus, unclesStatus}: FIConstructorParams) {
         this.fatherAlive = fatherAlive;
         this.fatherOccupation = fatherOccupation;
         this.motherAlive = motherAlive;
