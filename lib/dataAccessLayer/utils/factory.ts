@@ -7,7 +7,7 @@ export function accountFactory(account): Account {
     return new Account({
         accessToken: account.at,
         accessTokenExpires: account.ate,
-        accountId: account.aid,
+        providerAccountId: account.aid,
         createdAt: account._ca,
         providerId: account.pid,
         providerType: account.pt,

@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 
-import createGlobalSecondaryIndex from '../dataAccessLayer/core/createGlobalSecondaryIndex';
-import createTable from '../dataAccessLayer/core/createTable';
+import createGlobalSecondaryIndex from '../dataAccessLayer/utils/createGlobalSecondaryIndex';
+import createTable from '../dataAccessLayer/utils/createTable';
 
 const globalIndexes = [
     createGlobalSecondaryIndex({

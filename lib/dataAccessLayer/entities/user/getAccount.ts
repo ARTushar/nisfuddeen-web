@@ -4,8 +4,8 @@ import {
     QueryCommandInput, QueryCommandOutput
 } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
-import DynamodbConfig from '../../dynamodbConfig';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import DynamodbConfig from '../../utils/dynamodbConfig';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 import { accountFactory } from '../../utils/factory';
 
 

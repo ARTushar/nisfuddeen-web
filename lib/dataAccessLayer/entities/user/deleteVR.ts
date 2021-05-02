@@ -1,7 +1,7 @@
 import { DeleteItemCommand, DeleteItemCommandInput, DeleteItemCommandOutput } from '@aws-sdk/client-dynamodb';
-import DynamodbConfig from '../../dynamodbConfig';
+import DynamodbConfig from '../../utils/dynamodbConfig';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 import { generateVRToken } from '../../../utils/helpers';
 
 export async function deleteVR(token: string, secret: string): Promise<boolean> {

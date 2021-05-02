@@ -2,9 +2,9 @@ import {
     DeleteItemCommand,
     DeleteItemCommandInput, DeleteItemCommandOutput,
 } from '@aws-sdk/client-dynamodb';
-import DynamodbConfig from '../../dynamodbConfig';
+import DynamodbConfig from '../../utils/dynamodbConfig';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 
 export async function deleteSessionByToken(sessionToken: string): Promise<boolean> {
     const params: DeleteItemCommandInput = {

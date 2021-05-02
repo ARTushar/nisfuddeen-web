@@ -3,8 +3,8 @@ import {
     DeleteItemCommandInput, DeleteItemCommandOutput,
 } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import DynamodbConfig from '../../dynamodbConfig';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import DynamodbConfig from '../../utils/dynamodbConfig';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 
 export async function deleteAccount(providerId: string, accountId: string): Promise<boolean> {
     const params: DeleteItemCommandInput = {

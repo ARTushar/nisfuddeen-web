@@ -5,44 +5,35 @@ import {
     TransactWriteItemsCommandInput,
     TransactWriteItemsCommandOutput
 } from '@aws-sdk/client-dynamodb';
-import DynamodbConfig from '../../dynamodbConfig';
-import { marshall } from '@aws-sdk/util-dynamodb';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 import { getUserById } from './getUser';
+import { getAccountsSessionsById } from './getAccountsSessions';
+import { generateDelTransactItem } from '../../utils/utils';
 
 export async function deleteUserById(userId: string): Promise<User> {
-    // TODO: Delete all the associated sessions and linked accounts
+    // Delete all the associated sessions and linked accounts
     const user: User = await getUserById(userId);
+    if(!user) return null;
+    let accountsSessions;
+    try {
+        accountsSessions = await getAccountsSessionsById(userId);
+    } catch (e) {
+        throw e;
+    }
 
-    const items: TransactWriteItem[] = [
-        {
-            Delete: {
-                TableName: DynamodbConfig.tableName,
-                Key: marshall({
-                    PK: "USER#ID#" + userId,
-                    SK: "USER#ID#" + userId,
-                })
-            }
-        },
-        {
-            Delete: {
-                TableName: DynamodbConfig.tableName,
-                Key: marshall({
-                    PK: "USER#MOBILE#" + user.mobileNumber,
-                    SK: "USER#MOBILE#" + user.mobileNumber,
-                })
-            }
-        },
-        {
-            Delete: {
-                TableName: DynamodbConfig.tableName,
-                Key: marshall({
-                    PK: "USER#EMAIL#" + user.email,
-                    SK: "USER#EMAIL#" + user.email,
-                })
-            }
-        }
-    ]
+    const userKey = "USER#ID#" + userId;
+    const mobileKey = "USER#MOBILE#" + user.mobileNumber;
+    const emailKey = "USER#EMAIL#" + user.email;
+
+    let items: TransactWriteItem[] = [generateDelTransactItem(userKey, userKey)];
+    if(user.mobileNumber) items.push(generateDelTransactItem(mobileKey, mobileKey));
+    if(user.email) items.push(generateDelTransactItem(emailKey, emailKey));
+
+    for(const output of accountsSessions){
+        items.push(generateDelTransactItem(output.GSI1SK, output.GSI1SK))
+    }
+    // TODO: Assure the length is less than 25 (hard limit of transact write)
+    console.assert(items.length <= 25);
 
     const params: TransactWriteItemsCommandInput = {
         TransactItems: items,
@@ -58,3 +49,4 @@ export async function deleteUserById(userId: string): Promise<User> {
         throw e;
     }
 }
+

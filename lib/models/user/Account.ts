@@ -5,7 +5,7 @@ import { deleteAccount } from '../../dataAccessLayer/entities/user/deleteAccount
 interface AcConstructorParams {
     userId: string;
     providerId: string;
-    accountId: string;
+    providerAccountId: string;
     providerType: string;
     refreshToken: string;
     accessToken: string;
@@ -38,7 +38,7 @@ export default class Account {
     constructor({
                     userId,
                     providerId,
-                    accountId,
+                    providerAccountId,
                     providerType,
                     refreshToken,
                     accessToken,
@@ -48,7 +48,7 @@ export default class Account {
                 }: AcConstructorParams) {
         this.userId = userId;
         this.providerId = providerId;
-        this.providerAccountId = accountId;
+        this.providerAccountId = providerAccountId;
         this.providerType = providerType;
         this.refreshToken = refreshToken;
         this.accessToken = accessToken;
@@ -78,7 +78,7 @@ export default class Account {
             return await createAccount(new Account({
                 userId,
                 providerId,
-                accountId,
+                providerAccountId: accountId,
                 providerType,
                 refreshToken,
                 accessToken,

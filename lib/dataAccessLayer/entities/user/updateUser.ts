@@ -5,8 +5,8 @@ import {
     TransactWriteItem
 } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import DynamodbConfig from '../../dynamodbConfig';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import DynamodbConfig from '../../utils/dynamodbConfig';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 import { userAliasAttributes } from '../../utils/aliases';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 import { getUserById } from './getUser';

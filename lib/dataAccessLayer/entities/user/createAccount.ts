@@ -1,7 +1,7 @@
 import { PutItemCommand, PutItemCommandInput } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import DynamodbConfig from '../../dynamodbConfig';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import DynamodbConfig from '../../utils/dynamodbConfig';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 import Account from '../../../models/user/Account';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 

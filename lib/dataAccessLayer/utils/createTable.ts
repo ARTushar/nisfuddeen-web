@@ -5,7 +5,7 @@ import {
     CreateTableOutput,
     GlobalSecondaryIndex
 } from '@aws-sdk/client-dynamodb';
-import DynamodbConfig from '../dynamodbConfig';
+import DynamodbConfig from './dynamodbConfig';
 import dynamoDBClient from './getDynamoDBClient';
 
 const createTable = async (primaryKey: string, sortKey:string, indexAttributes: string[], gsis: GlobalSecondaryIndex[]): Promise<CreateTableOutput> => {

@@ -1,5 +1,5 @@
-import User from '../models/user/User';
-import Session from '../models/user/Session';
+import User from '../../models/user/User';
+import Session from '../../models/user/Session';
 
 (async () => {
     try {

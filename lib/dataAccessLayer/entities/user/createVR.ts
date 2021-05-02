@@ -2,8 +2,8 @@ import VR from '../../../models/user/VR';
 import { PutItemCommand, PutItemCommandInput } from '@aws-sdk/client-dynamodb';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import DynamodbConfig from '../../dynamodbConfig';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import DynamodbConfig from '../../utils/dynamodbConfig';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 import { generateVRToken } from '../../../utils/helpers';
 
 export default async function createVR (identifier: string, token:string, secret: string, sessionExpiration: number): Promise<VR> {

@@ -2,8 +2,8 @@ import {
     UpdateItemCommand, UpdateItemCommandInput, UpdateItemCommandOutput
 } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import DynamodbConfig from '../../dynamodbConfig';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import DynamodbConfig from '../../utils/dynamodbConfig';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 import Session from '../../../models/user/Session';
 
 export default async function updateSession (session: Session, sessionExpiration: number): Promise<Session> {

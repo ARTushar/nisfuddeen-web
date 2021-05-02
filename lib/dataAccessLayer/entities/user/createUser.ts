@@ -1,12 +1,12 @@
 import User from '../../../models/user/User';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 import {
     TransactWriteItem,
     TransactWriteItemsCommand,
     TransactWriteItemsCommandInput, TransactWriteItemsCommandOutput
 } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import DynamodbConfig from '../../dynamodbConfig';
+import DynamodbConfig from '../../utils/dynamodbConfig';
 import { generateID } from '../../../utils/helpers';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 

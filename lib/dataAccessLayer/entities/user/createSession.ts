@@ -4,8 +4,8 @@ import {
 } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
 import { generateSessionToken } from '../../../utils/helpers';
-import DynamodbConfig from '../../dynamodbConfig';
-import dynamoDBClient from '../../core/getDynamoDBClient';
+import DynamodbConfig from '../../utils/dynamodbConfig';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 import Session from '../../../models/user/Session';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 
