@@ -1,4 +1,4 @@
-import KSUID from "ksuid";
+import KSUID from 'ksuid';
 import { v4 as uuidv4 } from 'uuid';
 import validator from 'validator';
 import { createHash } from 'crypto';
@@ -61,3 +61,4 @@ export function generateVRToken(token: string, secret: string){
     .update(`${token}${secret}`)
     .digest("hex");
 }
+

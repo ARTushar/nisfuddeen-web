@@ -1,7 +1,6 @@
 #!/usr/bin/env ts-node
 
-import generateArgv from '../utils/generateArgv';
-import printObject from '../utils/printObject';
+import { generateArgv, printObject } from '../utils/utils';
 import Session from '../../models/user/Session';
 import updateSession from '../../dataAccessLayer/entities/user/updateSession';
 

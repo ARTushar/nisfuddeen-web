@@ -1,3 +1,28 @@
+import {
+    AccountType,
+    AddressType,
+    AfterMarriageStudyReply,
+    BeardStyle,
+    BloodGroup,
+    BoyOutfit,
+    EducationDegree,
+    FacialColor,
+    FinancialStatus,
+    Gender,
+    GirlOutfit,
+    Guardian,
+    Majhab,
+    MaritalStatus,
+    MarriageReply,
+    MixAnswer,
+    MohoranaTimeReply,
+    NegativeAnswer,
+    PositiveAnswer,
+    Relation, RequestBiodataStatus, RequestBiodataType,
+    SubscriptionType
+} from '../dataAccessLayer/utils/aliases';
+import { getKeys } from '../scripts/utils/utils';
+
 export {}
 // import {
 //     AccountType,
@@ -102,3 +127,29 @@ export {}
 //     if(type === 'O+') return BloodGroup.OPos;
 //     if(type === 'O-') return BloodGroup.ONeg;
 // }
+
+export const nisfuddeenEnums = {
+    gender: getKeys(Gender),
+    maritalStatus: getKeys(MaritalStatus),
+    facialColor: getKeys(FacialColor),
+    educationDegree: getKeys(EducationDegree),
+    bloodGroup: getKeys(BloodGroup),
+    beardStyle: getKeys(BeardStyle),
+    financialStatus: getKeys(FinancialStatus),
+    marriageReply: getKeys(MarriageReply),
+    afterMarriageStudyReply: getKeys(AfterMarriageStudyReply),
+    mohoranaTimeReply: getKeys(MohoranaTimeReply),
+    boyOutfit: getKeys(BoyOutfit),
+    girlOutfit: getKeys(GirlOutfit),
+    mixAnswer: getKeys(MixAnswer),
+    positiveAnswer: getKeys(PositiveAnswer),
+    negativeAnswer: getKeys(NegativeAnswer),
+    guardian: getKeys(Guardian),
+    majhab: getKeys(Majhab),
+    addressType: getKeys(AddressType),
+    accountType: getKeys(AccountType),
+    subscriptionType: getKeys(SubscriptionType),
+    relation: getKeys(Relation),
+    requestBiodataType: getKeys(RequestBiodataType),
+    requestBiodataStatus: getKeys(RequestBiodataStatus)
+}

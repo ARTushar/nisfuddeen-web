@@ -11,10 +11,10 @@ interface MIConstructorParams {
     willAllowWifeStudy?: string; // AfterMarriageStudyReply;
     afterMarriageStay?: string;
     desiresDowryOrGift?: boolean;
-    maleMohoranaRange: RangePair;
-    maleMohoranaPaidTime: string; // MohoranaTimeReply;
-    femaleMohoranaExpectation: RangePair;
-    femaleMohoranaExpectedPaidTime: string; // MohoranaTimeReply
+    maleMohoranaRange?: RangePair;
+    maleMohoranaPaidTime?: string; // MohoranaTimeReply;
+    femaleMohoranaExpectation?: RangePair;
+    femaleMohoranaExpectedPaidTime?: string; // MohoranaTimeReply
 }
 
 export default class MarriageInformation {
@@ -33,7 +33,7 @@ export default class MarriageInformation {
     femaleMohoranaExpectedPaidTime: string; // MohoranaTimeReply
 
 
-    constructor({guardianAgreed, reasonOfMarriage, ideaAboutMarriage, jobAfterMarriage=null, carryStudyAfterMarriage=null, willManageWifePardah=null, willAllowWifeStudy=null, afterMarriageStay=null, desiresDowryOrGift=null, maleMohoranaRange=null, maleMohoranaPaidTime=null, femaleMohoranaExpectedPaidTime=null, femaleMohoranaExpectation=null}: MIConstructorParams) {
+    constructor({guardianAgreed, reasonOfMarriage, ideaAboutMarriage, jobAfterMarriage, carryStudyAfterMarriage, willManageWifePardah, willAllowWifeStudy, afterMarriageStay, desiresDowryOrGift, maleMohoranaRange, maleMohoranaPaidTime, femaleMohoranaExpectedPaidTime, femaleMohoranaExpectation}: MIConstructorParams) {
         this.guardianAgreed = guardianAgreed;
         this.reasonOfMarriage = reasonOfMarriage;
         this.ideaAboutMarriage = ideaAboutMarriage;

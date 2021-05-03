@@ -1,8 +1,7 @@
 #!/usr/bin/env ts-node
 
 import { deleteUserById } from '../../dataAccessLayer/entities/user/deleteUser';
-import generateArgv from '../utils/generateArgv';
-import printObject from '../utils/printObject';
+import { generateArgv, printObject } from '../utils/utils';
 
 const argv = generateArgv();
 

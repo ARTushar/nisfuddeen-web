@@ -10,8 +10,8 @@ import ContactInformation from './ContactInformation';
 
 interface BiodataConstructorParams {
     userId: string;
-    enabled: boolean;
-    verified: boolean;
+    enabled?: boolean;
+    verified?: boolean;
     basicInformation: BasicInformation;
     addresses: Address[];
     educationQualifications: EducationQualification[];
@@ -40,6 +40,7 @@ export default class Biodata {
     updatedAt: string;
 
     constructor({userId, enabled=true, verified=false, basicInformation, addresses, educationQualifications, familyInformation, personaInformation, marriageInformation, extraInformation, partnerQualities, contactInformation}: BiodataConstructorParams) {
+        this.userId = userId;
         this.enabled = enabled;
         this.verified = verified;
         this.basicInformation = basicInformation;

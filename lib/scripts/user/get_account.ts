@@ -1,7 +1,6 @@
 #!/usr/bin/env ts-node
 
-import generateArgv from '../utils/generateArgv';
-import printObject from '../utils/printObject';
+import { generateArgv, printObject } from '../utils/utils';
 import { getAccountByProviderAccountId } from '../../dataAccessLayer/entities/user/getAccount';
 
 const argv = generateArgv();

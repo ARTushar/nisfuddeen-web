@@ -1,7 +1,6 @@
 #!/usr/bin/env ts-node
 
-import generateArgv from '../utils/generateArgv';
-import printObject from '../utils/printObject';
+import { generateArgv, printObject } from '../utils/utils';
 import { getVR } from '../../dataAccessLayer/entities/user/getVR';
 
 const argv = generateArgv();

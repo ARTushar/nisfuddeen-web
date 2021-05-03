@@ -1,10 +1,10 @@
 interface PIConstructorParams {
     outfit: string[]; // BoyOutfit[] | GirlOutfit[];
-    beardStyle: string; // BeardStyle
-    pantPajamaAboveKnee: boolean;
+    beardStyle?: string; // BeardStyle
+    pantPajamaAboveKnee?: boolean;
     prayerTimes: number;
-    malePrayerTimesInJamah: number;
-    femalePrayerTimesInAwwal: number;
+    malePrayerTimesInJamah?: number;
+    femalePrayerTimesInAwwal?: number;
     durationOfRegularPrayer: number;
     mahramMaintain: string; // MixAnswer;
     majhab: string; // Majhab;

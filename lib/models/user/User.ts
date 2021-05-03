@@ -1,5 +1,3 @@
-import { AccountType, SubscriptionType } from '../../Types/types';
-import { accountTypeFactory, subscriptionTypeFactory } from '../../Types/factoryTypes';
 import createUser from '../../dataAccessLayer/entities/user/createUser';
 import { getUserByEmail, getUserById, getUserByMobile } from '../../dataAccessLayer/entities/user/getUser';
 import { updateUser } from '../../dataAccessLayer/entities/user/updateUser';
@@ -10,8 +8,8 @@ interface UserConstructorParams {
     fullName?: string;
     mobileNumber?: string;
     email?: string;
-    accountType?: AccountType;
-    subscriptionType?: SubscriptionType;
+    accountType?: string;
+    subscriptionType?: string;
     createdAt?: string;
     updatedAt?: string;
     emailVerified?: string
@@ -32,8 +30,8 @@ export default class User {
     name: string;
     mobileNumber: string;
     email: string;
-    accountType: AccountType;
-    subscriptionType: SubscriptionType;
+    accountType: string;
+    subscriptionType: string;
     emailVerified: string;
     createdAt: string;
     updatedAt: string;
@@ -54,7 +52,7 @@ export default class User {
                 fullName: fullName,
                 email: email,
                 emailVerified: emailVerified,
-                subscriptionType: SubscriptionType.Free
+                subscriptionType: "free"
             }));
         } catch (e) {
             // throw createServerError("Cannot Create the account.");
@@ -63,14 +61,12 @@ export default class User {
     }
 
     static async createAccount(fullName: string, email: string, emailVerified: string, mobile: string, accountType: string): Promise<User> {
-        const ac = accountTypeFactory(accountType);
-
         try {
             return await createUser(new User({
-                fullName: fullName,
+                fullName,
                 mobileNumber: mobile,
-                email: email,
-                accountType: ac
+                email,
+                accountType
             }));
         } catch (e) {
             // throw createServerError("Cannot Create the account.");
@@ -106,9 +102,6 @@ export default class User {
     }
 
     static async updateUser({userId, email, mobileNumber, emailVerified, accountType, fullName, subscriptionType}: UserUpdateParams){
-        const ac = accountTypeFactory(accountType);
-        const st = subscriptionTypeFactory(subscriptionType);
-
         try {
             return await updateUser(new User({
                 userId,
@@ -116,8 +109,8 @@ export default class User {
                 mobileNumber,
                 email,
                 emailVerified,
-                accountType: ac,
-                subscriptionType: st
+                accountType,
+                subscriptionType
             }))
         } catch (e) {
             throw e;

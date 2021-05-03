@@ -1,5 +1,3 @@
-
-
 export class BirthDay {
     year: number;
     month: number;

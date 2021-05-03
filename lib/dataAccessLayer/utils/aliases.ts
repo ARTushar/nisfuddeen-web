@@ -163,185 +163,185 @@ export const shortBiodataAliases = {
 }
 
 export const Gender = {
-    Male :'m',
-    Female :'f'
+    male :'m',
+    female :'f'
 }
 
 export const MaritalStatus = {
-    Unmarried : 'um',
-    MarriedWithChildren : 'mc',
-    MarriedWithoutChildren : 'mwc',
-    DivorcedWithChildren : 'dc',
-    DivorcedWithoutChildren : 'dwc',
-    Widow : 'w'
+    unmarried : 'um',
+    marriedWithChildren : 'mc',
+    marriedWithoutChildren : 'mwc',
+    divorcedWithChildren : 'dc',
+    divorcedWithoutChildren : 'dwc',
+    widow : 'w'
 }
 
 export const FacialColor = {
-    PinkishWhite: 'pkw',
-    PaleWhite : 'plw',
-    FairWhite : 'fw',
-    MediumFair : 'mf',
-    LightBrown : 'lb',
-    ModerateBrown : 'mb',
-    Black : 'bl'
+    pinkishWhite: 'pkw',
+    paleWhite : 'plw',
+    fairWhite : 'fw',
+    mediumFair : 'mf',
+    lightBrown : 'lb',
+    moderateBrown : 'mb',
+    black : 'bl'
 }
 
 export const EducationDegree = {
-    Secondary : 's',
-    HigherSecondary : 'hs',
-    Undergraduate : 'ug',
-    Postgraduate : 'pg',
-    Doctorate : 'd',
-    PostDoctorate : 'pd'
+    secondary : 's',
+    higherSecondary : 'hs',
+    undergraduate : 'ug',
+    postgraduate : 'pg',
+    doctorate : 'd',
+    postDoctorate : 'pd'
 }
 
 export const BloodGroup = {
-    'AB+' : 'ab+',
-    'AB-' : 'ab-',
-    'A+' : 'a+',
-    'A-' : 'a-',
-    'B+' : 'b+',
-    'B-' : 'b-',
-    'O+' : 'o+',
-    'O-' : 'o-',
+    'ab+' : 'ab+',
+    'ab-' : 'ab-',
+    'a+' : 'a+',
+    'a-' : 'a-',
+    'b+' : 'b+',
+    'b-' : 'b-',
+    'o+' : 'o+',
+    'o-' : 'o-',
 }
 
 export const BeardStyle = {
-    StylishBeard : 'stb',
-    NoBeard : 'nb',
-    SunnatiBeard : 'snb'
+    stylishBeard : 'stb',
+    noBeard : 'nb',
+    sunnatiBeard : 'snb'
 }
 
 export const FinancialStatus = {
-    UpperClass : 'uc',
-    UpperMiddleClass : 'umc',
-    MiddleClass : 'mc',
-    LowerMiddleClass : 'lmc',
-    LowerClass : 'lc'
+    upperClass : 'uc',
+    upperMiddleClass : 'umc',
+    middleClass : 'mc',
+    lowerMiddleClass : 'lmc',
+    lowerClass : 'lc'
 }
 
 export const MarriageReply = {
-    Yes : 'y',
-    No : 'n',
-    YesIfSpouseAgrees : 'yis'
+    yes : 'y',
+    no : 'n',
+    yesIfSpouseAgrees : 'yis'
 }
 
 export const AfterMarriageStudyReply = {
-    Yes : 'y',
-    No : 'n',
-    YesIfOnline : 'yio',
-    YesIfHome : 'yih',
-    YesIfOnlineOrHome : 'yioh'
+    yes : 'y',
+    no : 'n',
+    yesIfOnline : 'yio',
+    yesIfHome : 'yih',
+    yesIfOnlineOrHome : 'yioh'
 }
 
 export const MohoranaTimeReply = {
-    PartiallyDayOfMarriage : 'pdm',
-    FullyDayOfMarriage : 'fdm',
-    FullyLater : 'fl',
+    partiallyDayOfMarriage : 'pdm',
+    fullyDayOfMarriage : 'fdm',
+    fullyLater : 'fl',
 }
 
 export const BoyOutfit = {
-    Panjabi : 'pan',
-    Pajama : 'paj',
-    Pant : 'pan',
-    Shirt : 'sh',
-    TShirt : 'tsh',
+    panjabi : 'pan',
+    pajama : 'paj',
+    pant : 'pan',
+    shirt : 'sh',
+    tshirt : 'tsh',
 }
 
 export const GirlOutfit = {
-    Abaya : 'ab',
-    Hijab : 'hi',
-    Scarf : 'sc',
-    Zilbab : 'zi',
-    Khimar : 'kh',
-    SalwarKamiz : 'sk',
-    ShortBurqa : 'sb',
-    Tops : 'tp',
-    Leggings : 'lg',
-    Dupatta : 'dp',
-    Shirt : 'sht',
-    Shari : 'shi',
-    Niqab : 'niq',
-    HandSocks : 'hs',
-    FeetSocks : 'fs',
+    abaya : 'ab',
+    hijab : 'hi',
+    scarf : 'sc',
+    zilbab : 'zi',
+    khimar : 'kh',
+    salwarKamiz : 'sk',
+    shortBurqa : 'sb',
+    tops : 'tp',
+    leggings : 'lg',
+    dupatta : 'dp',
+    shirt : 'sht',
+    shari : 'shi',
+    niqab : 'niq',
+    handSocks : 'hs',
+    feetSocks : 'fs',
 }
 
 
 export const MixAnswer = {
-    Yes : 'y',
-    No : 'n',
-    NoButTryTo : 'nbt',
-    Almost : 'al',
-    Somewhat : 'sw'
+    yes : 'y',
+    no : 'n',
+    noButTryTo : 'nbt',
+    almost : 'al',
+    somewhat : 'sw'
 }
 
 export const PositiveAnswer = {
-    Yes : 'y',
-    NoButTryTo : 'nbt',
-    No : 'n'
+    yes : 'y',
+    noButTryTo : 'nbt',
+    no : 'n'
 }
 
 export const NegativeAnswer = {
-    No : 'n',
-    TryToAvoid : 'tta',
-    Yes : 'y'
+    no : 'n',
+    tryToAvoid : 'tta',
+    yes : 'y'
 }
 
 export const Guardian = {
-    Father : 'f',
-    Mother : 'm',
-    Uncle : 'u',
-    Aunt : 'a',
-    GrandFather : 'gf',
-    GrandMother : 'gm',
-    Other : 'o'
+    father : 'f',
+    mother : 'm',
+    uncle : 'u',
+    aunt : 'a',
+    grandFather : 'gf',
+    grandMother : 'gm',
+    other : 'o'
 }
 
 export const Majhab = {
-    Hanafi : 'h',
-    Shafi : 'sh',
-    Maleki : 'm',
-    Hamboli : 'h',
-    Salafi : 'sa',
+    hanafi : 'h',
+    shafi : 'sh',
+    maleki : 'm',
+    hamboli : 'h',
+    salafi : 'sa',
 }
 
 export const AddressType = {
-    Present : 'pr',
-    Permanent : 'pe',
-    Working : 'w',
-    Home : 'h'
+    present : 'pr',
+    permanent : 'pe',
+    working : 'w',
+    home : 'h'
 }
 
 export const AccountType = {
-    Bridegroom : 'bg',
-    Moderator : 'm',
-    Admin : 'a',
-    Guardian : 'g'
+    bridegroom : 'bg',
+    moderator : 'm',
+    admin : 'a',
+    guardian : 'g'
 }
 
 export const SubscriptionType = {
-    Free : 'f',
-    Premium : 'p'
+    free : 'f',
+    premium : 'p'
 }
 
 export const Relation = {
-    Son : 's',
-    Daughter : 'd',
-    Nephew : 'ne',
-    Niece : 'ni',
-    GrandSon : 'gs',
-    GrandDaughter : 'gd',
-    Other : 'o'
+    son : 's',
+    daughter : 'd',
+    nephew : 'ne',
+    niece : 'ni',
+    grandson : 'gs',
+    granddaughter : 'gd',
+    other : 'o'
 }
 
 export const RequestBiodataType = {
-    Sent : 's',
-    Received : 'r'
+    sent : 's',
+    received : 'r'
 }
 
 export const RequestBiodataStatus = {
-    Sent : 'st',
-    Seen : 'sn',
-    Cancelled : 'ca',
-    Accepted : 'ac'
+    sent : 'st',
+    seen : 'sn',
+    cancelled : 'ca',
+    accepted : 'ac'
 }

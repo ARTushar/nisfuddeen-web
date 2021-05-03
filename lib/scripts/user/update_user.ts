@@ -2,9 +2,8 @@
 
 import { updateUser } from '../../dataAccessLayer/entities/user/updateUser';
 import User from '../../models/user/User';
-import { accountTypeFactory, subscriptionTypeFactory } from '../../Types/factoryTypes';
-import generateArgv from '../utils/generateArgv';
-import printObject from '../utils/printObject';
+import { generateArgv, printObject } from '../utils/utils';
+import { AccountType, SubscriptionType } from '../../dataAccessLayer/utils/aliases';
 
 const argv = generateArgv();
 
@@ -15,8 +14,8 @@ const argv = generateArgv();
             fullName: argv.name,
             mobileNumber: argv.mobile,
             email: argv.email,
-            accountType: argv.at? accountTypeFactory(argv.at): undefined,
-            subscriptionType: argv.st? subscriptionTypeFactory(argv.st): undefined,
+            accountType: argv.at? AccountType[ argv.at ]: undefined,
+            subscriptionType: argv.st? SubscriptionType[ argv.st ]: undefined,
             emailVerified: argv.emailVerified
         })
         try {
