@@ -22,3 +22,21 @@ export function generatePutTransactItem(item): TransactWriteItem {
         }
     }
 }
+
+export function mapItem(item, aliases, values) {
+    for(const key of Object.keys(aliases)){
+        item[aliases[key]] = key !== 'birthDay' ? values[key]: values[key].toISOString()
+    }
+}
+
+export function generatePutTransactItemRaw(keyGenerator, params, aliases, values, type): TransactWriteItem {
+    const keys = keyGenerator(...params);
+    let item = {
+        PK: keys.PK,
+        SK: keys.SK
+    };
+    mapItem(item, aliases, values);
+    item['_tp'] = type;
+
+    return generatePutTransactItem(item);
+}

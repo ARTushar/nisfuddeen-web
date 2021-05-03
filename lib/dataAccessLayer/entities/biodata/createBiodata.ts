@@ -1,9 +1,21 @@
 import Biodata from '../../../models/biodata/Biodata';
-import { TransactWriteItem, TransactWriteItemsInput } from '@aws-sdk/client-dynamodb';
-import DynamodbConfig from '../../utils/dynamodbConfig';
-import { generatePutTransactItem } from '../../utils/utils';
-import { biodataAliases as ba, personalInformationAliases as pia } from '../../utils/aliases';
+import { TransactWriteItem, TransactWriteItemsCommand, TransactWriteItemsInput } from '@aws-sdk/client-dynamodb';
+import { generatePutTransactItemRaw, generatePutTransactItem } from '../../utils/utils';
 import {
+    biodataAliases as ba,
+    personalInformationAliases as pia,
+    basicInformationAliases as bia,
+    addressAliases as ada,
+    contactInformationAliases as cia,
+    educationQualificationAliases as eqa,
+    extraInformationAliases as eia,
+    familyInformationAliases as fia,
+    marriageInformationAliases as mia,
+    partnerQualitiesAliases as pqa
+} from '../../utils/aliases';
+import {
+    generateADKeys,
+    generateBIKeys,
     generateBiodataGSI1Keys,
     generateBiodataGSI2Keys,
     generateBiodataGSI3KeysFemale,
@@ -12,15 +24,22 @@ import {
     generateBiodataGSI4KeysMale,
     generateBiodataGSI5Keys,
     generateBiodataGSI6Keys,
-    generateBiodataPrimaryKeys, generatePIKeys
+    generateBiodataPrimaryKeys,
+    generateCIKeys,
+    generateEIKeys,
+    generateEQKeys,
+    generateFIKeys,
+    generateMIKeys,
+    generatePIKeys, generatePQKeys
 } from '../../utils/generateKeys';
 import EducationQualification from '../../../models/biodata/EducationQualification';
+import dynamoDBClient from '../../utils/getDynamoDBClient';
 
-export default function(biodata: Biodata):Promise<Biodata> {
+export default async function(biodata: Biodata): Promise<Biodata> {
     biodata.createdAt = new Date().toISOString();
     biodata.updatedAt = biodata.createdAt;
 
-    let items: TransactWriteItem[];
+    let items: TransactWriteItem[] = [];
     const type = '_tp';
     const permanentAddress = biodata.addresses.find(a => a.type === 'permanent');
     console.assert(permanentAddress !== undefined);
@@ -37,14 +56,14 @@ export default function(biodata: Biodata):Promise<Biodata> {
     const primaryKeys = generateBiodataPrimaryKeys(biodata.userId);
     const gsi1Keys = generateBiodataGSI1Keys(keyParams);
     const edu: EducationQualification = biodata.educationQualifications.find(e => e.degreeName === 'undergraduate');
-    const gsi2Keys = edu? generateBiodataGSI2Keys({
+    const gsi2Keys = edu ? generateBiodataGSI2Keys({
         ...keyParams,
         ugradInstitute: edu.instituteName
-    }): undefined;
+    }) : undefined;
 
     const gender = biodata.basicInformation.gender;
 
-    const gsi3Keys = gender === 'male'? generateBiodataGSI3KeysMale({
+    const gsi3Keys = gender === 'male' ? generateBiodataGSI3KeysMale({
         ...keyParams,
         prayerTimes: biodata.personaInformation.prayerTimes,
         prayerTimesJamah: biodata.personaInformation.malePrayerTimesInJamah,
@@ -52,14 +71,14 @@ export default function(biodata: Biodata):Promise<Biodata> {
         aboveKnee: biodata.personaInformation.pantPajamaAboveKnee,
         outfit: biodata.personaInformation.outfit.join('-')
 
-    }): generateBiodataGSI3KeysFemale({
+    }) : generateBiodataGSI3KeysFemale({
         ...keyParams,
         prayerTimes: biodata.personaInformation.prayerTimes,
         prayerTimesAwwal: biodata.personaInformation.femalePrayerTimesInAwwal,
         outfit: biodata.personaInformation.outfit.join('-')
     });
 
-    const gsi4Keys = gender === 'male'? generateBiodataGSI4KeysMale({
+    const gsi4Keys = gender === 'male' ? generateBiodataGSI4KeysMale({
         ...keyParams,
         occupation: biodata.basicInformation.occupation,
         prayerTimes: biodata.personaInformation.prayerTimes,
@@ -67,7 +86,7 @@ export default function(biodata: Biodata):Promise<Biodata> {
         beardStyle: biodata.personaInformation.beardStyle,
         aboveKnee: biodata.personaInformation.pantPajamaAboveKnee,
         outfit: biodata.personaInformation.outfit.join('-')
-    }): generateBiodataGSI4KeysFemale({
+    }) : generateBiodataGSI4KeysFemale({
         ...keyParams,
         occupation: biodata.basicInformation.occupation,
         prayerTimes: biodata.personaInformation.prayerTimes,
@@ -117,32 +136,41 @@ export default function(biodata: Biodata):Promise<Biodata> {
         GSI6SK: gsi6Keys.GSI6SK,
     });
 
-    const piKeys = generatePIKeys(biodata.userId);
 
-    const piItem: TransactWriteItem = generatePutTransactItem({
-        PK: piKeys.PK,
-        SK: piKeys.SK,
-        [pia.outfit]: biodata.personaInformation.outfit,
-        [pia.beardStyle]: biodata.personaInformation.beardStyle,
-        [pia.pantPajamaAboveKnee]: biodata.personaInformation.pantPajamaAboveKnee,
-        [pia.prayerTimes]: biodata.personaInformation.prayerTimes,
-        [pia.malePrayerTimesInJamah]: biodata.personaInformation.malePrayerTimesInJamah,
-        [pia.femalePrayerTimesInAwwal]: biodata.personaInformation.femalePrayerTimesInAwwal,
-        [pia.durationOfRegularPrayer]: biodata.personaInformation.durationOfRegularPrayer,
-        [pia.mahramMaintain]: biodata.personaInformation.mahramMaintain,
-        [pia.majhab]: biodata.personaInformation.majhab,
-        [pia.politicalPhilosophy]: biodata.personaInformation.politicalPhilosophy,
-        [pia.watchDramaMovie]: biodata.personaInformation.watchDramaMovie,
-        [pia.readSahihQuran]: biodata.personaInformation.readSahihQuran,
-        [pia.listenMusic]: biodata.personaInformation.listenMusic,
-        [pia.anyDisease]: biodata.personaInformation.anyDisease,
-        [pia.deenMehnat]: biodata.personaInformation.deenMehnat,
-        [pia.pirFollower]: biodata.personaInformation.pirFollower,
-        [pia.mazarBelief]: biodata.personaInformation.mazarBelief,
-        [pia.favoriteIslamicBooks]: biodata.personaInformation.favoriteIslamicBooks,
-        [pia.favoriteScholars]: biodata.personaInformation.favoriteScholars,
-        [pia.specialQualities]: biodata.personaInformation.specialQualities,
-        [pia.guardian]: biodata.personaInformation.guardian,
-        [type]: "PERSONALINFORMATION"
-    });
+    let adItems: TransactWriteItem[] = [];
+    for (const address of biodata.addresses) {
+        adItems.push(generatePutTransactItemRaw(generateADKeys, [biodata.userId, address.type], ada, address, "AD"));
+    }
+
+
+    let eqItems: TransactWriteItem[] = [];
+    for (const eq of biodata.educationQualifications) {
+        eqItems.push(generatePutTransactItemRaw(generateEQKeys, [biodata.userId, eq.degreeName], eqa, eq, "EQ"));
+    }
+
+    const biItem: TransactWriteItem = generatePutTransactItemRaw(generateBIKeys, [biodata.userId], bia, biodata.basicInformation, "BI");
+    const ciItem = generatePutTransactItemRaw(generateCIKeys, [biodata.userId], cia, biodata.contactInformation, "CI");
+    const eiItem: TransactWriteItem = generatePutTransactItemRaw(generateEIKeys, [biodata.userId], eia, biodata.extraInformation, "EI");
+    const fiItem: TransactWriteItem = generatePutTransactItemRaw(generateFIKeys, [biodata.userId], fia, biodata.familyInformation, "FI");
+    const pqItem: TransactWriteItem = generatePutTransactItemRaw(generatePQKeys, [biodata.userId], pqa, biodata.partnerQualities, "PQ");
+    const miItem: TransactWriteItem = generatePutTransactItemRaw(generateMIKeys, [biodata.userId], mia, biodata.marriageInformation, "MI");
+    const piItem: TransactWriteItem = generatePutTransactItemRaw(generatePIKeys, [biodata.userId], pia, biodata.personaInformation, "PI");
+
+    items.push(biodataItem, biItem, ciItem, eiItem, fiItem, pqItem, miItem, piItem, ...adItems, ...eqItems);
+    console.assert(items.length <= 25);
+
+    const params: TransactWriteItemsInput = {
+        TransactItems: items
+    }
+
+    const command = new TransactWriteItemsCommand(params);
+
+    try {
+        const response = await dynamoDBClient.send(command);
+        console.log(response);
+        return biodata;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
 }

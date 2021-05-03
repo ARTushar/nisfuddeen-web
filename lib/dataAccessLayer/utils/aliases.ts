@@ -1,5 +1,3 @@
-import { RangePair } from '../../Types/types';
-
 export const userAliases = {
     "fullName": "fn",
     "email": "em",
@@ -146,7 +144,6 @@ export const biodataAliases = {
     'verified': 'vr',
     'createdAt': '_ca',
     'updatedAt': '_ua',
-    'type': '_tp',
     'gender': 'gn',
     'country': 'cn',
     'district': 'di',
