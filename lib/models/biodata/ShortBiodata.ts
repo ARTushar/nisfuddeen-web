@@ -1,45 +1,53 @@
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
-import { shortBiodataAliases } from '../../dataAccessLayer/utils/aliases';
+import { biodataAliases } from '../../dataAccessLayer/utils/aliases';
 
 interface SBDConstructorParams {
+    enabled: boolean;
+    verified: boolean;
     gender: string;
     country: string;
     district: string;
     maritalStatus: string;
     birthYear: string;
     occupation: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export default class ShortBiodata {
+    enabled: boolean;
+    verified: boolean;
     gender: string;
     country: string;
     district: string;
     maritalStatus: string;
     birthYear: string;
     occupation: string;
+    createdAt: string;
+    updatedAt: string;
 
-    constructor({gender, country, district, maritalStatus, birthYear, occupation}: SBDConstructorParams) {
+    constructor({enabled, verified, gender, country, district, maritalStatus, birthYear, occupation, createdAt, updatedAt}: SBDConstructorParams) {
+        this.enabled = enabled;
+        this.verified = verified;
         this.gender = gender;
         this.country = country;
         this.district = district;
         this.maritalStatus = maritalStatus;
         this.birthYear = birthYear;
         this.occupation = occupation;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     mapToAlias() {
-        return mapItemToAlias(shortBiodataAliases, this);
+        return mapItemToAlias(biodataAliases, this);
     }
 
-    mapFromAlias(item) {
+    static mapFromAlias(item) {
         return new ShortBiodata({
-            birthYear: '',
-            country: '',
-            district: '',
-            gender: '',
-            maritalStatus: '',
-            occupation: '',
-            ...mapItemFromAlias(shortBiodataAliases, item),
+            birthYear: '', country: '', district: '', gender: '', maritalStatus: '', occupation: '',
+            createdAt: '', enabled: false, updatedAt: '', verified: false,
+            ...mapItemFromAlias(biodataAliases, item)
         })
     }
 }

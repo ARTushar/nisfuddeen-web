@@ -154,15 +154,6 @@ export const biodataAliases = {
     'birthYear': 'by'
 }
 
-export const shortBiodataAliases = {
-    'userId': 'uid',
-    'gender': 'gn',
-    'country': 'cn',
-    'district': 'di',
-    'maritalStatus': 'ms',
-    'occupation': 'oc',
-    'birthYear': 'by'
-}
 
 export const Gender = {
     male :'m',
