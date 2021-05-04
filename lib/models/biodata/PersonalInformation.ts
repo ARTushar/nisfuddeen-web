@@ -1,3 +1,6 @@
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { personalInformationAliases as pia } from '../../dataAccessLayer/utils/aliases';
+
 interface PIConstructorParams {
     outfit: string[]; // BoyOutfit[] | GirlOutfit[];
     beardStyle?: string; // BeardStyle
@@ -69,4 +72,32 @@ export default class PersonalInformation {
         this.specialQualities = specialQualities;
         this.guardian = guardian;
     }
+
+    mapToAlias() {
+        return mapItemToAlias(pia, this);
+    }
+
+    static mapFromAlias(item) {
+        return new PersonalInformation({
+            anyDisease: '',
+            deenMehnat: '',
+            durationOfRegularPrayer: 0,
+            favoriteIslamicBooks: '',
+            favoriteScholars: '',
+            guardian: '',
+            listenMusic: '',
+            mahramMaintain: '',
+            majhab: '',
+            mazarBelief: '',
+            outfit: [],
+            pirFollower: '',
+            politicalPhilosophy: '',
+            prayerTimes: 0,
+            readSahihQuran: '',
+            specialQualities: '',
+            watchDramaMovie: '',
+            ...mapItemFromAlias(pia, item)
+        })
+    }
+
 }

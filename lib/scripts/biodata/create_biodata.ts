@@ -10,6 +10,7 @@ const argv = generateArgv();
 
 (async ()=> {
     let user = generateRandomUser();
+    // console.log(user);
     try {
        user = await createUser(user);
         printObject(user);
@@ -18,6 +19,7 @@ const argv = generateArgv();
         return;
     }
     const biodata = generateRandomBiodata(user.id)
+    // console.log(biodata);
     try {
         const newBiodata = await createBiodata(biodata);
         printObject(newBiodata);

@@ -16,6 +16,7 @@ export class BirthDay {
     }
 
     static fromISOString(date: string) {
+        if(!date) return undefined;
         const bday = new Date(date);
         return new BirthDay(bday.getFullYear(), bday.getMonth()+1, bday.getDate());
     }
@@ -32,29 +33,13 @@ export class RangePair {
     }
 
     toFormatString() {
-        let ret = '';
-        if (this.min === undefined) ret += '-';
-        else ret += this.min.toString();
-
-        ret += '-';
-
-        if (this.max === undefined) ret += '-';
-        else ret += this.max.toString();
+        return JSON.stringify(this);
     }
 
     static fromFormatString(val: string) {
-        let min, max;
-        const values = val.split('-');
-        if(values.length == 3 && values[0] === '' && values[1] === '') {
-            max = parseInt(values[2]);
-        }
-        else if(values.length == 2 && values[0] !== '' && values[1] !== '') {
-            min = parseInt(values[0]);
-            max = parseInt(values[1]);
-        } else if(values.length == 3 && values[1] === '' && values[2] === '') {
-            min = parseInt(values[0]);
-        }
-        return new RangePair(min, max);
+        if(!val) return undefined;
+        let value = JSON.parse(val);
+        return new RangePair(value.min, value.max);
     }
 }
 

@@ -1,3 +1,6 @@
+import { addressAliases as ada, AddressType, invertAlias } from '../../dataAccessLayer/utils/aliases';
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+
 interface AConstructorParams {
     type: string;
     country: string;
@@ -21,4 +24,14 @@ export default class Address {
         this.postOffice = postOffice;
     }
 
+    mapToAlias(){
+        return mapItemToAlias(ada, this);
+    }
+    static mapFromAlias(address): Address {
+        return new Address({
+            type: '',
+            country: '', district: '', division: '', postOffice: '',
+            ...mapItemFromAlias(ada, address)
+        })
+    }
 }

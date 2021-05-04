@@ -1,3 +1,6 @@
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { familyInformationAliases as fia, FinancialStatus, invertAlias } from '../../dataAccessLayer/utils/aliases';
+
 interface FIConstructorParams {
     fatherAlive: boolean;
     fatherOccupation: string;
@@ -37,6 +40,22 @@ export default class FamilyInformation {
         this.financialStatus = financialStatus;
         this.socialStatus = socialStatus;
         this.unclesStatus = unclesStatus;
-        
+    }
+
+    mapToAlias() {
+        return mapItemToAlias(fia, this);
+    }
+
+    static mapFromAlias(item) {
+        return new FamilyInformation({
+            fatherAlive: false,
+            fatherOccupation: '',
+            financialStatus: '',
+            motherAlive: false,
+            motherOccupation: '',
+            totalBrothers: 0,
+            totalSisters: 0,
+            ...mapItemFromAlias(fia, item)
+        })
     }
 }

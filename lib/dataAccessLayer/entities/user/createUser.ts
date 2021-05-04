@@ -9,6 +9,7 @@ import { marshall } from '@aws-sdk/util-dynamodb';
 import DynamodbConfig from '../../utils/dynamodbConfig';
 import { generateID } from '../../../utils/helpers';
 import { checkUniquePK } from '../../../utils/dynoUtils';
+import { generateUserGSI1Keys, generateUserGSI2Keys, generateUserPrimaryKeys } from '../../utils/generateKeys';
 
 
 export default async function (user: User): Promise<User> {
@@ -17,16 +18,19 @@ export default async function (user: User): Promise<User> {
     user.createdAt = new Date().toISOString();
     user.updatedAt = user.createdAt;
 
+    const primaryKeys = generateUserPrimaryKeys(userId);
+    const gsi1Keys = generateUserGSI1Keys(user.email);
+    const gsi2Keys = generateUserGSI2Keys(user.mobileNumber);
     const userItem: TransactWriteItem = {
         Put: {
             TableName: DynamodbConfig.tableName,
             Item: marshall({
-                PK: "USER#ID#" + userId,
-                SK: "USER#ID#" + userId,
-                GSI1PK: "USER#EMAIL#" + user.email,
-                GSI1SK: "USER#EMAIL#" + user.email,
-                GSI2PK: "USER#MOBILE#" + user.mobileNumber,
-                GSI2SK: "USER#MOBILE#" + user.mobileNumber,
+                PK: primaryKeys.PK,
+                SK: primaryKeys.SK,
+                GSI1PK: gsi1Keys.GSI1PK,
+                GSI1SK: gsi1Keys.GSI1SK,
+                GSI2PK: gsi2Keys.GSI2PK,
+                GSI2SK: gsi2Keys.GSI2SK,
                 id: userId,
                 fn: user.name,
                 em: user.email,
@@ -48,8 +52,8 @@ export default async function (user: User): Promise<User> {
         Put: {
             TableName: DynamodbConfig.tableName,
             Item: marshall({
-                PK: "USER#EMAIL#" + user.email,
-                SK: "USER#EMAIL#" + user.email,
+                PK: gsi1Keys.GSI1PK,
+                SK: gsi1Keys.GSI1SK,
                 _tp: "UserEmail"
             }),
             ConditionExpression: checkUniquePK
@@ -60,8 +64,8 @@ export default async function (user: User): Promise<User> {
         Put: {
             TableName: DynamodbConfig.tableName,
             Item: marshall({
-                PK: "USER#MOBILE#" + user.mobileNumber,
-                SK: "USER#MOBILE#" + user.mobileNumber,
+                PK: gsi2Keys.GSI2PK,
+                SK: gsi2Keys.GSI2SK,
                 _tp: "UserMobile"
             }),
             ConditionExpression: checkUniquePK

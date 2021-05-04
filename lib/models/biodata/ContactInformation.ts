@@ -1,3 +1,6 @@
+import { contactInformationAliases as cia } from '../../dataAccessLayer/utils/aliases';
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+
 interface CIConstructorParams {
     fatherMobile?: string;
     motherMobile?: string;
@@ -14,5 +17,15 @@ export default class ContactInformation {
         this.fatherMobile = fatherMobile;
         this.motherMobile = motherMobile;
         this.guardianMobile = guardianMobile;
+    }
+
+    mapToAlias() {
+        return mapItemToAlias(cia, this);
+    }
+
+    static mapFromAlias(item) {
+        return new ContactInformation({
+            ...mapItemFromAlias(cia, item)
+        })
     }
 }

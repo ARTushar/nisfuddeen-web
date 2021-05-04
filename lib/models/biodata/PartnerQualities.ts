@@ -1,4 +1,6 @@
 import { RangePair } from '../../Types/types';
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { partnerQualitiesAliases as pqa } from '../../dataAccessLayer/utils/aliases';
 
 interface PQConstructorParams {
     ageRange: RangePair;
@@ -37,5 +39,29 @@ export default class PartnerQualities {
         this.occupation = occupation;
         this.financialStatus = financialStatus;
         this.desiredQualities = desiredQualities;
+    }
+
+    mapToAlias() {
+        return {
+            ...mapItemToAlias(pqa, this),
+            [pqa.ageRange]: this.ageRange.toFormatString(),
+            [pqa.heightRange]: this.heightRange.toFormatString()
+        }
+    }
+
+    static mapFromAlias(item) {
+        return new PartnerQualities({
+            country: '',
+            desiredQualities: '',
+            district: '',
+            facialComplexion: '',
+            financialStatus: [],
+            maritalStatus: '',
+            minimumEducationDegree: '',
+            occupation: '',
+            ...mapItemFromAlias(pqa, item),
+            ageRange: RangePair.fromFormatString(item[pqa.ageRange]),
+            heightRange: RangePair.fromFormatString(item[pqa.heightRange])
+        })
     }
 }

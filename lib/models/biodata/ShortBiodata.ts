@@ -1,3 +1,6 @@
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { shortBiodataAliases } from '../../dataAccessLayer/utils/aliases';
+
 interface SBDConstructorParams {
     gender: string;
     country: string;
@@ -22,5 +25,21 @@ export default class ShortBiodata {
         this.maritalStatus = maritalStatus;
         this.birthYear = birthYear;
         this.occupation = occupation;
+    }
+
+    mapToAlias() {
+        return mapItemToAlias(shortBiodataAliases, this);
+    }
+
+    mapFromAlias(item) {
+        return new ShortBiodata({
+            birthYear: '',
+            country: '',
+            district: '',
+            gender: '',
+            maritalStatus: '',
+            occupation: '',
+            ...mapItemFromAlias(shortBiodataAliases, item),
+        })
     }
 }

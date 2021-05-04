@@ -1,5 +1,27 @@
 import Address from '../../models/biodata/Address';
 
+
+export function generateUserPrimaryKeys(userId: string) {
+    return {
+        PK: "USER#ID#" + userId,
+        SK: "USER#ID#" + userId,
+    }
+}
+
+export function generateUserGSI1Keys(email: string) {
+    return {
+        GSI1PK: "USER#EMAIL#" + email,
+        GSI1SK: "USER#EMAIL#" + email,
+    }
+}
+
+export function generateUserGSI2Keys(mobileNumber: string) {
+    return {
+        GSI2PK: "USER#MOBILE#" + mobileNumber,
+        GSI2SK: "USER#MOBILE#" + mobileNumber,
+    }
+}
+
 export function generateBiodataPrimaryKeys(userId: string) {
     return {
         PK: "UID#"+userId,
@@ -7,6 +29,62 @@ export function generateBiodataPrimaryKeys(userId: string) {
     }
 }
 
+export function generatePIKeys(userId: string) {
+    return {
+        PK: "UID#"+userId,
+        SK: "BIODATA#PI"
+    }
+}
+
+export function generateBIKeys(userId: string) {
+    return {
+        PK: "UID#"+userId,
+        SK: "BIODATA#BI"
+    }
+}
+
+export function generateCIKeys(userId: string) {
+    return {
+        PK: "UID#"+userId,
+        SK: "BIODATA#CI"
+    }
+}
+export function generateEQKeys(userId: string, degree: string) {
+    return {
+        PK: "UID#"+userId,
+        SK: "BIODATA#EQ#"+degree
+    }
+}
+export function generateEIKeys(userId: string) {
+    return {
+        PK: "UID#"+userId,
+        SK: "BIODATA#EI"
+    }
+}
+export function generateFIKeys(userId: string) {
+    return {
+        PK: "UID#"+userId,
+        SK: "BIODATA#FI"
+    }
+}
+export function generateMIKeys(userId: string) {
+    return {
+        PK: "UID#"+userId,
+        SK: "BIODATA#MI"
+    }
+}
+export function generatePQKeys(userId: string) {
+    return {
+        PK: "UID#"+userId,
+        SK: "BIODATA#PQ"
+    }
+}
+export function generateADKeys(userId: string, type: string) {
+    return {
+        PK: "UID#"+userId,
+        SK: "BIODATA#AD#"+type
+    }
+}
 interface GenerateBiodataGSI1KeysParams {
     userId: string;
     enabled: boolean;
@@ -159,59 +237,3 @@ export function generateBiodataGSI6Keys({userId, enabled, verified, gender, mari
     }
 }
 
-export function generatePIKeys(userId: string) {
-    return {
-        PK: "UID#"+userId,
-        SK: "BIODATA#PI"
-    }
-}
-
-export function generateBIKeys(userId: string) {
-    return {
-        PK: "UID#"+userId,
-        SK: "BIODATA#BI"
-    }
-}
-
-export function generateCIKeys(userId: string) {
-    return {
-        PK: "UID#"+userId,
-        SK: "BIODATA#CI"
-    }
-}
-export function generateEQKeys(userId: string, degree: string) {
-    return {
-        PK: "UID#"+userId,
-        SK: "BIODATA#EQ#"+degree
-    }
-}
-export function generateEIKeys(userId: string) {
-    return {
-        PK: "UID#"+userId,
-        SK: "BIODATA#EI"
-    }
-}
-export function generateFIKeys(userId: string) {
-    return {
-        PK: "UID#"+userId,
-        SK: "BIODATA#FI"
-    }
-}
-export function generateMIKeys(userId: string) {
-    return {
-        PK: "UID#"+userId,
-        SK: "BIODATA#MI"
-    }
-}
-export function generatePQKeys(userId: string) {
-    return {
-        PK: "UID#"+userId,
-        SK: "BIODATA#PQ"
-    }
-}
-export function generateADKeys(userId: string, type: string) {
-    return {
-        PK: "UID#"+userId,
-        SK: "BIODATA#AD#"+type
-    }
-}

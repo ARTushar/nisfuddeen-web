@@ -10,6 +10,7 @@ import dynamoDBClient from '../../utils/getDynamoDBClient';
 import { userAliases } from '../../utils/aliases';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 import { getUserById } from './getUser';
+import { generateUserGSI1Keys, generateUserGSI2Keys, generateUserPrimaryKeys } from '../../utils/generateKeys';
 
 export async function updateUser(user: User): Promise<User> {
     console.log("--updating user " + JSON.stringify(user, null, 2));
@@ -29,56 +30,64 @@ export async function updateUser(user: User): Promise<User> {
     console.log("--updating user " + JSON.stringify(user, null, 2));
     console.log("--updated vals " + JSON.stringify(updatedVals, null, 2));
 
+    const oldGsi1Keys = generateUserGSI1Keys(oldUser.email);
+
     const oldEmailItem: TransactWriteItem = {
         Delete: {
             TableName: DynamodbConfig.tableName,
             Key: marshall({
-                PK: "USER#EMAIL#" + oldUser.email,
-                SK: "USER#EMAIL#" + oldUser.email,
+                PK: oldGsi1Keys.GSI1PK,
+                SK: oldGsi1Keys.GSI1SK
             })
         }
     }
+
+    const oldGsi2Keys = generateUserGSI2Keys(oldUser.mobileNumber);
 
     const oldMobileItem: TransactWriteItem = {
         Delete: {
             TableName: DynamodbConfig.tableName,
             Key: marshall({
-                PK: "USER#MOBILE#" + oldUser.mobileNumber,
-                SK: "USER#MOBILE#" + oldUser.mobileNumber,
+                PK: oldGsi2Keys.GSI2PK,
+                SK: oldGsi2Keys.GSI2SK
             })
         }
     }
+
+    const gsi1Keys = generateUserGSI1Keys(user.email);
 
     const emailItem: TransactWriteItem = {
         Put: {
             TableName: DynamodbConfig.tableName,
             Item: marshall({
-                PK: "USER#EMAIL#" + user.email,
-                SK: "USER#EMAIL#" + user.email,
-                _tp: "UserMobile"
-            }),
-            ConditionExpression: checkUniquePK
-        }
-    }
-    const mobileItem: TransactWriteItem = {
-        Put: {
-            TableName: DynamodbConfig.tableName,
-            Item: marshall({
-                PK: "USER#MOBILE#" + user.mobileNumber,
-                SK: "USER#MOBILE#" + user.mobileNumber,
+                PK: gsi1Keys.GSI1PK,
+                SK: gsi1Keys.GSI1SK,
                 _tp: "UserMobile"
             }),
             ConditionExpression: checkUniquePK
         }
     }
 
+    const gsi2Keys = generateUserGSI2Keys(user.mobileNumber);
+
+    const mobileItem: TransactWriteItem = {
+        Put: {
+            TableName: DynamodbConfig.tableName,
+            Item: marshall({
+                PK: gsi2Keys.GSI2PK,
+                SK: gsi2Keys.GSI2SK,
+                _tp: "UserMobile"
+            }),
+            ConditionExpression: checkUniquePK
+        }
+    }
+
+    const primaryKeys = generateUserPrimaryKeys(user.id);
+
     const userItem: TransactWriteItem = {
         Update: {
             TableName: DynamodbConfig.tableName,
-            Key: marshall({
-                PK: "USER#ID#" + user.id,
-                SK: "USER#ID#" + user.id,
-            }),
+            Key: marshall(primaryKeys),
             UpdateExpression: updatedVals.updateExpression,
             ExpressionAttributeNames: updatedVals.attributeNames,
             ExpressionAttributeValues: marshall(updatedVals.attributeValues, {removeUndefinedValues: true})
@@ -125,15 +134,17 @@ function generateUpdateAttributes(user: User) {
             attributeNames[an] = alias;
             updateExpression += `${an} = ${av}, `
             if(key === 'email') {
-                attributeValues[":gsi1pk"] = "USER#EMAIL#" + user.email;
-                attributeValues[":gsi1sk"] = "USER#EMAIL#" + user.email;
+                const gsi1Keys = generateUserGSI1Keys(user.email);
+                attributeValues[":gsi1pk"] = gsi1Keys.GSI1PK;
+                attributeValues[":gsi1sk"] = gsi1Keys.GSI1SK;
                 attributeNames["#gsi1pk"] = "GSI1PK";
                 attributeNames["#gsi1sk"] = "GSI1SK";
                 updateExpression += '#gsi1pk = :gsi1pk, #gsi1sk = :gsi1sk, ';
             }
             if(key === 'mobileNumber') {
-                attributeValues[":gsi2pk"] = "USER#MOBILE#" + user.mobileNumber;
-                attributeValues[":gsi2sk"] = "USER#MOBILE#" + user.mobileNumber;
+                const gsi2Keys = generateUserGSI2Keys(user.mobileNumber);
+                attributeValues[":gsi2pk"] = gsi2Keys.GSI2PK;
+                attributeValues[":gsi2sk"] = gsi2Keys.GSI2SK;
                 attributeNames["#gsi2pk"] = "GSI2PK";
                 attributeNames["#gsi2sk"] = "GSI2SK";
                 updateExpression += '#gsi2pk = :gsi2pk, #gsi2sk = :gsi2sk, ';

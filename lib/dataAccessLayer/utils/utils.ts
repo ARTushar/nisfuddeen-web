@@ -23,20 +23,30 @@ export function generatePutTransactItem(item): TransactWriteItem {
     }
 }
 
-export function mapItem(item, aliases, values) {
+export function mapItemToAlias(aliases, values) {
+    let item = {};
     for(const key of Object.keys(aliases)){
-        item[aliases[key]] = key !== 'birthDay' ? values[key]: values[key].toISOString()
+        item[aliases[key]] = values[key];
     }
+    return item;
 }
 
-export function generatePutTransactItemRaw(keyGenerator, params, aliases, values, type): TransactWriteItem {
+export function mapItemFromAlias(aliases, values) {
+    let item = {};
+    for(const key of Object.keys(aliases)){
+        item[key] =  values[aliases[key]];
+    }
+    return item;
+}
+
+export function generatePutTransactItemRaw(keyGenerator, params, values, type): TransactWriteItem {
     const keys = keyGenerator(...params);
-    let item = {
+    const item = {
         PK: keys.PK,
-        SK: keys.SK
+        SK: keys.SK,
+        ...values.mapToAlias(),
+        '_tp': type
     };
-    mapItem(item, aliases, values);
-    item['_tp'] = type;
 
     return generatePutTransactItem(item);
 }

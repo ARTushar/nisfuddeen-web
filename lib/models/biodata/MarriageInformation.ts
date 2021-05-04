@@ -1,4 +1,6 @@
 import { RangePair } from '../../Types/types';
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { marriageInformationAliases as mia } from '../../dataAccessLayer/utils/aliases';
 
 
 interface MIConstructorParams {
@@ -47,5 +49,23 @@ export default class MarriageInformation {
         this.maleMohoranaPaidTime = maleMohoranaPaidTime;
         this.femaleMohoranaExpectation = femaleMohoranaExpectation;
         this.femaleMohoranaExpectedPaidTime = femaleMohoranaExpectedPaidTime;
+    }
+
+    mapToAlias() {
+        return {
+            ...mapItemToAlias(mia, this),
+            [mia.maleMohoranaRange]: this.maleMohoranaRange?.toFormatString(),
+            [mia.femaleMohoranaExpectation]: this.femaleMohoranaExpectation?.toFormatString()
+        }
+    }
+    static mapFromAlias(item) {
+        return new MarriageInformation({
+            guardianAgreed: false,
+            ideaAboutMarriage: '',
+            reasonOfMarriage: '',
+            ...mapItemFromAlias(mia, item),
+            maleMohoranaRange: RangePair.fromFormatString(item[mia.maleMohoranaRange]),
+            femaleMohoranaExpectation: RangePair.fromFormatString(item[mia.femaleMohoranaExpectation]),
+        })
     }
 }

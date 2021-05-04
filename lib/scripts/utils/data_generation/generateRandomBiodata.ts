@@ -69,7 +69,7 @@ function generateRandomAddress(typeIndex): Address {
     const divIndex = getRandomInt(divisions.length);
     const districts = getKeys(poffices[countries[cnIndex]][divisions[divIndex]]);
     const disIndex = getRandomInt(districts.length);
-    const pOffices = getKeys(poffices[countries[cnIndex]][divisions[divIndex]][districts[disIndex]]);
+    const pOffices = poffices[countries[cnIndex]][divisions[divIndex]][districts[disIndex]];
     const pindex = getRandomInt(pOffices.length);
     return new Address({
         type: nisfuddeenEnums.addressType[typeIndex],
@@ -164,9 +164,9 @@ function genereateRandomMMI(): MarriageInformation {
         ideaAboutMarriage: "It's necessary to keep one from haram deeds",
         willManageWifePardah: generateRandomBoolean(),
         willAllowWifeStudy: getRandomEnumValue(nisfuddeenEnums.afterMarriageStudyReply),
-        afterMarriageStay: getRandomEnumValue(nisfuddeenEnums.afterMarriageStudyReply),
+        afterMarriageStay: "With my parents",
         desiresDowryOrGift: generateRandomBoolean(),
-        maleMohoranaRange: new RangePair(max, min),
+        maleMohoranaRange: new RangePair(min, max),
         maleMohoranaPaidTime: getRandomEnumValue(nisfuddeenEnums.mohoranaTimeReply),
     })
 }
@@ -190,7 +190,7 @@ function genereateRandomPQ(): PartnerQualities {
     const maxAge = getRandomInt(35, minAge)
     const minHeight = getRandomInt(50, 66);
     const maxHeight = getRandomInt(72, minHeight);
-    const country = getRandomEnumValue(poffices);
+    const country = getRandomEnumValue(getKeys(poffices));
     const districts = [];
     for(const div of getKeys(poffices[country])){
         districts.push(getKeys(poffices[country][div]));
@@ -272,8 +272,9 @@ function generateRandomFPI(): PersonalInformation {
 }
 export function generateRandomBiodata(userId: string): Biodata {
     const totalAddresses = getRandomInt(4);
-    let addresses: Address[] = [];
+    let addresses: Address[] = [generateRandomAddress(1)];
     for(let j = 0; j < totalAddresses; j++) {
+        if(j == 1) continue;
         addresses.push(generateRandomAddress(j));
     }
     const totalEqs = getRandomInt(6);

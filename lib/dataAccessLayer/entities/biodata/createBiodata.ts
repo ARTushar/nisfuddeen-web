@@ -3,15 +3,6 @@ import { TransactWriteItem, TransactWriteItemsCommand, TransactWriteItemsInput }
 import { generatePutTransactItemRaw, generatePutTransactItem } from '../../utils/utils';
 import {
     biodataAliases as ba,
-    personalInformationAliases as pia,
-    basicInformationAliases as bia,
-    addressAliases as ada,
-    contactInformationAliases as cia,
-    educationQualificationAliases as eqa,
-    extraInformationAliases as eia,
-    familyInformationAliases as fia,
-    marriageInformationAliases as mia,
-    partnerQualitiesAliases as pqa
 } from '../../utils/aliases';
 import {
     generateADKeys,
@@ -124,8 +115,8 @@ export default async function(biodata: Biodata): Promise<Biodata> {
         [type]: "BIODATA",
         GSI1PK: gsi1Keys.GSI1PK,
         GSI1SK: gsi1Keys.GSI1SK,
-        GSI2PK: gsi2Keys.GSI2PK,
-        GSI2SK: gsi2Keys.GSI2SK,
+        GSI2PK: gsi2Keys?.GSI2PK,
+        GSI2SK: gsi2Keys?.GSI2SK,
         GSI3PK: gsi3Keys.GSI3PK,
         GSI3SK: gsi3Keys.GSI3SK,
         GSI4PK: gsi4Keys.GSI4PK,
@@ -139,22 +130,22 @@ export default async function(biodata: Biodata): Promise<Biodata> {
 
     let adItems: TransactWriteItem[] = [];
     for (const address of biodata.addresses) {
-        adItems.push(generatePutTransactItemRaw(generateADKeys, [biodata.userId, address.type], ada, address, "AD"));
+        adItems.push(generatePutTransactItemRaw(generateADKeys, [biodata.userId, address.type], address, "AD"));
     }
 
 
     let eqItems: TransactWriteItem[] = [];
     for (const eq of biodata.educationQualifications) {
-        eqItems.push(generatePutTransactItemRaw(generateEQKeys, [biodata.userId, eq.degreeName], eqa, eq, "EQ"));
+        eqItems.push(generatePutTransactItemRaw(generateEQKeys, [biodata.userId, eq.degreeName], eq, "EQ"));
     }
 
-    const biItem: TransactWriteItem = generatePutTransactItemRaw(generateBIKeys, [biodata.userId], bia, biodata.basicInformation, "BI");
-    const ciItem = generatePutTransactItemRaw(generateCIKeys, [biodata.userId], cia, biodata.contactInformation, "CI");
-    const eiItem: TransactWriteItem = generatePutTransactItemRaw(generateEIKeys, [biodata.userId], eia, biodata.extraInformation, "EI");
-    const fiItem: TransactWriteItem = generatePutTransactItemRaw(generateFIKeys, [biodata.userId], fia, biodata.familyInformation, "FI");
-    const pqItem: TransactWriteItem = generatePutTransactItemRaw(generatePQKeys, [biodata.userId], pqa, biodata.partnerQualities, "PQ");
-    const miItem: TransactWriteItem = generatePutTransactItemRaw(generateMIKeys, [biodata.userId], mia, biodata.marriageInformation, "MI");
-    const piItem: TransactWriteItem = generatePutTransactItemRaw(generatePIKeys, [biodata.userId], pia, biodata.personaInformation, "PI");
+    const biItem: TransactWriteItem = generatePutTransactItemRaw(generateBIKeys, [biodata.userId], biodata.basicInformation, "BI");
+    const ciItem = generatePutTransactItemRaw(generateCIKeys, [biodata.userId], biodata.contactInformation, "CI");
+    const eiItem: TransactWriteItem = generatePutTransactItemRaw(generateEIKeys, [biodata.userId], biodata.extraInformation, "EI");
+    const fiItem: TransactWriteItem = generatePutTransactItemRaw(generateFIKeys, [biodata.userId], biodata.familyInformation, "FI");
+    const pqItem: TransactWriteItem = generatePutTransactItemRaw(generatePQKeys, [biodata.userId], biodata.partnerQualities, "PQ");
+    const miItem: TransactWriteItem = generatePutTransactItemRaw(generateMIKeys, [biodata.userId], biodata.marriageInformation, "MI");
+    const piItem: TransactWriteItem = generatePutTransactItemRaw(generatePIKeys, [biodata.userId], biodata.personaInformation, "PI");
 
     items.push(biodataItem, biItem, ciItem, eiItem, fiItem, pqItem, miItem, piItem, ...adItems, ...eqItems);
     console.assert(items.length <= 25);

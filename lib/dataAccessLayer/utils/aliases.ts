@@ -1,3 +1,5 @@
+import { getKeys } from '../../scripts/utils/utils';
+
 export const userAliases = {
     "fullName": "fn",
     "email": "em",
@@ -167,6 +169,11 @@ export const Gender = {
     female :'f'
 }
 
+export const InverGender = {
+    "m": "male",
+    "f": "female"
+}
+
 export const MaritalStatus = {
     unmarried : 'um',
     marriedWithChildren : 'mc',
@@ -174,6 +181,15 @@ export const MaritalStatus = {
     divorcedWithChildren : 'dc',
     divorcedWithoutChildren : 'dwc',
     widow : 'w'
+}
+
+export const InvertMaritalStatus = {
+    "um": "unmarried",
+    "mc": "marriedWithChildren",
+    "mwc": "marriedWithoutChildren",
+    "dc": "divorcedWithChildren",
+    "dwc": "divorcedWithoutChildren",
+    "w": "widow"
 }
 
 export const FacialColor = {
@@ -186,6 +202,17 @@ export const FacialColor = {
     black : 'bl'
 }
 
+export const InvertFacialColor = {
+    "pkw": "pinkishWhite",
+    "plw": "paleWhite",
+    "fw": "fairWhite",
+    "mf": "mediumFair",
+    "lb": "lightBrown",
+    "mb": "moderateBrown",
+    "bl": "black"
+}
+
+
 export const EducationDegree = {
     secondary : 's',
     higherSecondary : 'hs',
@@ -194,6 +221,16 @@ export const EducationDegree = {
     doctorate : 'd',
     postDoctorate : 'pd'
 }
+
+export const InvertEducationDegree = {
+    "s": "secondary",
+    "hs": "higherSecondary",
+    "ug": "undergraduate",
+    "pg": "postgraduate",
+    "d": "doctorate",
+    "pd": "postDoctorate"
+}
+
 
 export const BloodGroup = {
     'ab+' : 'ab+',
@@ -204,6 +241,17 @@ export const BloodGroup = {
     'b-' : 'b-',
     'o+' : 'o+',
     'o-' : 'o-',
+}
+
+export const InvertBloodGroup = {
+    "ab+": "ab+",
+    "ab-": "ab-",
+    "a+": "a+",
+    "a-": "a-",
+    "b+": "b+",
+    "b-": "b-",
+    "o+": "o+",
+    "o-": "o-"
 }
 
 export const BeardStyle = {
@@ -301,7 +349,7 @@ export const Majhab = {
     hanafi : 'h',
     shafi : 'sh',
     maleki : 'm',
-    hamboli : 'h',
+    hamboli : 'hm',
     salafi : 'sa',
 }
 
@@ -344,4 +392,13 @@ export const RequestBiodataStatus = {
     seen : 'sn',
     cancelled : 'ca',
     accepted : 'ac'
+}
+
+export function invertAlias(type) {
+    let invertType = {};
+    for(const key of Object.keys(type)) {
+        const val = type[key];
+        invertType[val] = key;
+    }
+    return invertType;
 }

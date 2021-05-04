@@ -19,10 +19,7 @@ const createTable = async (primaryKey: string, sortKey:string, indexAttributes: 
         AttributeDefinitions: [
             { AttributeName: primaryKey, AttributeType: "S"},
             { AttributeName: sortKey, AttributeType: "S"},
-            { AttributeName: indexAttributes[0], AttributeType: "S"},
-            { AttributeName: indexAttributes[1], AttributeType: "S"},
-            { AttributeName: indexAttributes[2], AttributeType: "S"},
-            { AttributeName: indexAttributes[3], AttributeType: "S"},
+          ...generateAttributeDefinition(indexAttributes)
         ],
         BillingMode: 'PAY_PER_REQUEST',
         GlobalSecondaryIndexes: gsis
@@ -32,5 +29,15 @@ const createTable = async (primaryKey: string, sortKey:string, indexAttributes: 
 
     return await dynamoDBClient.send(command);
 };
+
+function generateAttributeDefinition(indexAttributes) {
+    const items = [];
+    for(const attribute of indexAttributes){
+        items.push({
+            AttributeName: attribute, AttributeType: "S"
+        })
+    }
+    return items;
+}
 
 export default createTable;
