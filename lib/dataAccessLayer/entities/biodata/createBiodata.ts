@@ -60,13 +60,13 @@ export default async function(biodata: Biodata): Promise<Biodata> {
         prayerTimesJamah: biodata.personaInformation.malePrayerTimesInJamah,
         beardStyle: biodata.personaInformation.beardStyle,
         aboveKnee: biodata.personaInformation.pantPajamaAboveKnee,
-        outfit: biodata.personaInformation.outfit.join('-')
+        outfit: biodata.personaInformation.outfit
 
     }) : generateBiodataGSI3KeysFemale({
         ...keyParams,
         prayerTimes: biodata.personaInformation.prayerTimes,
         prayerTimesAwwal: biodata.personaInformation.femalePrayerTimesInAwwal,
-        outfit: biodata.personaInformation.outfit.join('-')
+        outfit: biodata.personaInformation.outfit
     });
 
     const gsi4Keys = gender === 'male' ? generateBiodataGSI4KeysMale({
@@ -76,13 +76,13 @@ export default async function(biodata: Biodata): Promise<Biodata> {
         prayerTimesJamah: biodata.personaInformation.malePrayerTimesInJamah,
         beardStyle: biodata.personaInformation.beardStyle,
         aboveKnee: biodata.personaInformation.pantPajamaAboveKnee,
-        outfit: biodata.personaInformation.outfit.join('-')
+        outfit: biodata.personaInformation.outfit
     }) : generateBiodataGSI4KeysFemale({
         ...keyParams,
         occupation: biodata.basicInformation.occupation,
         prayerTimes: biodata.personaInformation.prayerTimes,
         prayerTimesAwwal: biodata.personaInformation.femalePrayerTimesInAwwal,
-        outfit: biodata.personaInformation.outfit.join('-')
+        outfit: biodata.personaInformation.outfit
     });
 
     const gsi5Keys = generateBiodataGSI5Keys({

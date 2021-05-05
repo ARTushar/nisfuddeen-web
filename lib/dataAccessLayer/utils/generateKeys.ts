@@ -126,7 +126,7 @@ interface GenerateBiodataGSI3KeysMaleParams {
     maritalStatus: string;
     prayerTimes: number;
     prayerTimesJamah: number;
-    outfit: string;
+    outfit: string[];
     aboveKnee: boolean;
     beardStyle: string;
     pAddress: Address;
@@ -134,7 +134,7 @@ interface GenerateBiodataGSI3KeysMaleParams {
 
 export function generateBiodataGSI3KeysMale({userId, enabled, verified, gender, maritalStatus, prayerTimes, prayerTimesJamah, outfit, aboveKnee, beardStyle, pAddress}: GenerateBiodataGSI3KeysMaleParams) {
     return {
-        GSI3PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#CN#"+pAddress.country+"#PT#"+prayerTimes+"#DEEN#"+prayerTimes+prayerTimesJamah+aboveKnee+beardStyle+outfit,
+        GSI3PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#CN#"+pAddress.country+"#DEEN#"+prayerTimes+prayerTimesJamah+aboveKnee+beardStyle+outfit.join('-'),
         GSI3SK: "DIV#"+pAddress.district+"#DIS#"+pAddress.district+"#PO#"+pAddress.postOffice+"#UID#"+userId
     }
 }
@@ -147,13 +147,13 @@ interface GenerateBiodataGSI3KeysFemaleParams {
     maritalStatus: string;
     prayerTimes: number;
     prayerTimesAwwal: number;
-    outfit: string;
+    outfit: string[];
     pAddress: Address;
 }
 
 export function generateBiodataGSI3KeysFemale({userId, enabled, verified, gender, maritalStatus, prayerTimes, prayerTimesAwwal, outfit, pAddress}: GenerateBiodataGSI3KeysFemaleParams) {
     return {
-        GSI3PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#CN#"+pAddress.country+"#PT#"+prayerTimes+"#DEEN#"+prayerTimes+prayerTimesAwwal+outfit,
+        GSI3PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#CN#"+pAddress.country+"#DEEN#"+prayerTimes+prayerTimesAwwal+outfit.join('-'),
         GSI3SK: "DIV#"+pAddress.district+"#DIS#"+pAddress.district+"#PO#"+pAddress.postOffice+"#UID#"+userId
     }
 }
@@ -169,13 +169,13 @@ interface GenerateBiodataGSI4KeysMaleParams {
     prayerTimesJamah: number;
     beardStyle: string;
     aboveKnee: boolean;
-    outfit: string;
+    outfit: string[];
     pAddress: Address;
 }
 
 export function generateBiodataGSI4KeysMale({userId, enabled, verified, gender, maritalStatus, occupation, prayerTimes, prayerTimesJamah, beardStyle, aboveKnee, outfit, pAddress}: GenerateBiodataGSI4KeysMaleParams) {
     return {
-        GSI4PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#OC#"+occupation+"#CN#"+pAddress.country+"#DEEN#"+prayerTimes+prayerTimesJamah+aboveKnee+beardStyle+outfit,
+        GSI4PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#OC#"+occupation+"#CN#"+pAddress.country+"#DEEN#"+prayerTimes+prayerTimesJamah+aboveKnee+beardStyle+outfit.join('-'),
         GSI4SK: "DIV#"+pAddress.district+"#DIS#"+pAddress.district+"#PO#"+pAddress.postOffice+"#UID#"+userId
     }
 }
@@ -189,13 +189,13 @@ interface GenerateBiodataGSI4KeysFemaleParams {
     occupation: string;
     prayerTimes: number;
     prayerTimesAwwal: number;
-    outfit: string;
+    outfit: string[];
     pAddress: Address;
 }
 
 export function generateBiodataGSI4KeysFemale({userId, enabled, verified, gender, maritalStatus, occupation, prayerTimes, prayerTimesAwwal, outfit, pAddress}: GenerateBiodataGSI4KeysFemaleParams) {
     return {
-        GSI4PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#OC#"+occupation+"#CN#"+pAddress.country+"#DEEN#"+prayerTimes+prayerTimesAwwal+outfit,
+        GSI4PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#OC#"+occupation+"#CN#"+pAddress.country+"#DEEN#"+prayerTimes+prayerTimesAwwal+outfit.join('-'),
         GSI4SK: "DIV#"+pAddress.district+"#DIS#"+pAddress.district+"#PO#"+pAddress.postOffice+"#UID#"+userId
     }
 }
