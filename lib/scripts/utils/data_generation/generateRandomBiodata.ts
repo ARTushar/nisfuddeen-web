@@ -250,7 +250,6 @@ function generateRandomFPI(): PersonalInformation {
     const prayerTimes = getRandomInt(6);
     return new PersonalInformation({
         outfit: generateFemaleOutfit(),
-        beardStyle: getRandomEnumValue(nisfuddeenEnums.beardStyle),
         prayerTimes,
         femalePrayerTimesInAwwal: getRandomInt(prayerTimes+1),
         durationOfRegularPrayer: getRandomInt(10),
