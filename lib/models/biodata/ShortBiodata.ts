@@ -2,6 +2,7 @@ import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/ut
 import { biodataAliases } from '../../dataAccessLayer/utils/aliases';
 
 interface SBDConstructorParams {
+    userId: string;
     enabled: boolean;
     verified: boolean;
     gender: string;
@@ -15,6 +16,7 @@ interface SBDConstructorParams {
 }
 
 export default class ShortBiodata {
+    userId: string;
     enabled: boolean;
     verified: boolean;
     gender: string;
@@ -26,7 +28,8 @@ export default class ShortBiodata {
     createdAt: string;
     updatedAt: string;
 
-    constructor({enabled, verified, gender, country, district, maritalStatus, birthYear, occupation, createdAt, updatedAt}: SBDConstructorParams) {
+    constructor({userId, enabled, verified, gender, country, district, maritalStatus, birthYear, occupation, createdAt, updatedAt}: SBDConstructorParams) {
+        this.userId = userId;
         this.enabled = enabled;
         this.verified = verified;
         this.gender = gender;
@@ -45,7 +48,7 @@ export default class ShortBiodata {
 
     static mapFromAlias(item) {
         return new ShortBiodata({
-            birthYear: '', country: '', district: '', gender: '', maritalStatus: '', occupation: '',
+            userId: '', birthYear: '', country: '', district: '', gender: '', maritalStatus: '', occupation: '',
             createdAt: '', enabled: false, updatedAt: '', verified: false,
             ...mapItemFromAlias(biodataAliases, item)
         })

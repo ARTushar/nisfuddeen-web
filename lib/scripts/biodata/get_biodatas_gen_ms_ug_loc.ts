@@ -7,7 +7,7 @@ import { generateArgv, printObject } from '../utils/utils';
 const argv = generateArgv();
 
 (async() => {
-    if (argv.gender && argv.ms && argv.country && argv.ug) {
+    if (argv.gender && argv.ms && argv.ug) {
         let enabled = true, verified = false;
         try {
             // const last = {"SK":{"S":"BIODATA"},"PK":{"S":"UID#1s4cBI4sQwBTEz9A5wAdISmHCS0"},"GSI1PK":{"S":"EN#true#VER#false#GEN#male#MS#widow#CN#usa"},"GSI1SK":{"S":"DIV#western#DIS#western#PO#mount vew#UID#1s4cBI4sQwBTEz9A5wAdISmHCS0"}}

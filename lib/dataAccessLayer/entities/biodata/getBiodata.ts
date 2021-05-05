@@ -64,7 +64,7 @@ export async function getBiodatasByGnMsLoc({enabled, verified, gender, maritalSt
         userId, enabled, verified, gender, maritalStatus, pAddress
     }).GSI1PK;
     const SK = generateQuerySK(pAddress, false);
-    const keyExpression = '#pk = :pk' + (SK !== '' ? 'AND begins_with(#sk, :sk)': '');
+    const keyExpression = '#pk = :pk' + (SK !== '' ? ' AND begins_with(#sk, :sk)': '');
     // console.log("expression: ", keyExpression);
     const params = generateParams(keyExpression, 'GSI1PK', 'GSI1SK', PK, SK, 'GSI1', limit, lastEvaluatedKey);
     try {
@@ -86,13 +86,14 @@ interface BiodatasByGnMsUgLoc {
 }
 
 export async function getBiodatasByGnMsUgLoc({enabled, verified, gender, maritalStatus, ugradInstitute, pAddress, limit=1000, lastEvaluatedKey=undefined}: BiodatasByGnMsUgLoc) {
-    console.assert( enabled !== undefined && verified !== undefined && gender && maritalStatus && ugradInstitute && pAddress?.country !== undefined);
+    console.assert( enabled !== undefined && verified !== undefined && gender && maritalStatus && ugradInstitute);
     let userId = undefined;
     const PK = generateBiodataGSI2Keys({
         userId, enabled, verified, gender, maritalStatus, ugradInstitute, pAddress
     }).GSI2PK;
     const SK = generateQuerySK(pAddress, true);
-    const keyExpression = '#pk = :pk' + (SK !== '' ? 'AND begins_with(#sk, :sk)': '');
+    console.log(PK, SK);
+    const keyExpression = '#pk = :pk' + (SK !== '' ? ' AND begins_with(#sk, :sk)': '');
     // console.log("expression: ", keyExpression);
     const params = generateParams(keyExpression, 'GSI2PK', 'GSI2SK', PK, SK, 'GSI2', limit, lastEvaluatedKey);
     try {
@@ -135,7 +136,7 @@ export async function getBiodatasByGnMsLocRel({enabled, verified, gender, marita
         }).GSI3PK;
     }
     SK = generateQuerySK(pAddress, false);
-    const keyExpression = '#pk = :pk' + (SK !== '' ? 'AND begins_with(#sk, :sk)': '');
+    const keyExpression = '#pk = :pk' + (SK !== '' ? ' AND begins_with(#sk, :sk)': '');
     // console.log("expression: ", keyExpression);
     const params = generateParams(keyExpression, 'GSI3PK', 'GSI3SK', PK, SK, 'GSI3', limit, lastEvaluatedKey);
     try {
@@ -178,7 +179,7 @@ export async function getBiodatasByGnMsLocRelOc({enabled, verified, gender, mari
         }).GSI4PK;
     }
     SK = generateQuerySK(pAddress, false);
-    const keyExpression = '#pk = :pk' + (SK !== '' ? 'AND begins_with(#sk, :sk)': '');
+    const keyExpression = '#pk = :pk' + (SK !== '' ? ' AND begins_with(#sk, :sk)': '');
     // console.log("expression: ", keyExpression);
     const params = generateParams(keyExpression, 'GSI4PK', 'GSI4SK', PK, SK, 'GSI4', limit, lastEvaluatedKey);
     try {
@@ -244,7 +245,7 @@ export async function getBiodatasByGnMsOcLoc({enabled, verified, gender, marital
         userId, enabled, verified, gender, maritalStatus, pAddress, occupation
     }).GSI6PK;
     const SK = generateQuerySK(pAddress, false);
-    const keyExpression = '#pk = :pk' + (SK !== '' ? 'AND begins_with(#sk, :sk)': '');
+    const keyExpression = '#pk = :pk' + (SK !== '' ? ' AND begins_with(#sk, :sk)': '');
     // console.log("expression: ", keyExpression);
     const params = generateParams(keyExpression, 'GSI6PK', 'GSI6SK', PK, SK, 'GSI6', limit, lastEvaluatedKey);
     try {
@@ -312,5 +313,5 @@ function generateQuerySK(address: Address, hasCountry: boolean) {
             }
         }
     }
-    return hasCountry? ('CN#'+address.country+"#"+SK): SK;
+    return (hasCountry && address.country)? ('CN#'+address.country+"#"+SK): SK;
 }

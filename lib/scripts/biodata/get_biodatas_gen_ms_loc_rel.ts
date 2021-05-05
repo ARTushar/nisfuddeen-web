@@ -20,7 +20,7 @@ const argv = generateArgv();
                 prayerTimesJamah: argv.ptj,
                 beardStyle: argv.bs,
                 aboveKnee: argv.ak,
-                outfit: argv.split('-'),
+                outfit: argv.outfit.split('-'),
                 pAddress : new Address({
                     type: 'permanent',
                     country: argv.country,
