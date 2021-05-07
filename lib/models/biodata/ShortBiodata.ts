@@ -3,16 +3,16 @@ import { biodataAliases } from '../../dataAccessLayer/utils/aliases';
 import { isEqual } from '../../utils/helpers';
 
 interface SBDConstructorParams {
-    userId: string;
+    userId?: string;
     enabled: boolean;
     verified: boolean;
-    gender: string;
+    gender?: string;
     country: string;
     district: string;
     maritalStatus: string;
-    birthYear: string;
+    birthYear: number;
     occupation: string;
-    createdAt: string;
+    createdAt?: string;
     updatedAt: string;
 }
 
@@ -24,7 +24,7 @@ export default class ShortBiodata {
     country: string;
     district: string;
     maritalStatus: string;
-    birthYear: string;
+    birthYear: number;
     occupation: string;
     createdAt: string;
     updatedAt: string;
@@ -49,7 +49,7 @@ export default class ShortBiodata {
 
     static mapFromAlias(item) {
         return new ShortBiodata({
-            userId: '', birthYear: '', country: '', district: '', gender: '', maritalStatus: '', occupation: '',
+            birthYear: 0, userId: '', country: '', district: '', gender: '', maritalStatus: '', occupation: '',
             createdAt: '', enabled: false, updatedAt: '', verified: false,
             ...mapItemFromAlias(biodataAliases, item)
         })

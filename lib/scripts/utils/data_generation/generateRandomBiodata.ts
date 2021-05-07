@@ -286,6 +286,8 @@ export function generateRandomBiodata(userId: string): Biodata {
     const pi = bi.gender === 'male'? generateRandomMPI(): generateRandomFPI();
     return new Biodata({
         userId,
+        enabled: true,
+        verified: false,
         basicInformation: bi,
         addresses,
         educationQualifications: eqs,

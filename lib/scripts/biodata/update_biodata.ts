@@ -1,8 +1,6 @@
 #!/usr/bin/env ts-node
 
 import { generateArgv, printObject } from '../utils/utils';
-import { generateRandomBiodata } from '../utils/data_generation/generateRandomBiodata';
-import { generateRandomUser } from '../utils/data_generation/generateRandomUser';
 import Biodata from '../../models/biodata/Biodata';
 import BasicInformation from '../../models/biodata/BasicInformation';
 import { BirthDay } from '../../Types/types';

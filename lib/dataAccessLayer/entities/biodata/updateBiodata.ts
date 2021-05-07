@@ -39,6 +39,7 @@ import { debug } from '../../../utils/helpers';
 import { getBiodataByUserId } from './getBiodata';
 import { getKeys } from '../../../scripts/utils/utils';
 import Address from '../../../models/biodata/Address';
+import ShortBiodata from '../../../models/biodata/ShortBiodata';
 
 const debugType: string = 'biodata_update';
 
@@ -78,11 +79,10 @@ export default async function(userId, newBiodata: Biodata, gender: string): Prom
 }
 
 // TODO: add a validation layer after access control layer.
-//  For the time being checking the input here. Later need to refactor code.
 //  Assume required inputs are sent over the input
 
 
-function generateUpdateAttributes(obj, needToUpdate, gender) {
+function generateUpdateAttributes(obj) {
     let attributeNames = {};
     let attributeValues = {};
     let updateExpression = 'set ';
@@ -117,7 +117,7 @@ function generateTransactItems(newBiodata: Biodata, oldBiodata: Biodata, gender:
     }
 
     function addUpdateItem(obj, keyGenerator ) {
-        const vals = generateUpdateAttributes(obj, needToUpdateGSIs, gender);
+        const vals = generateUpdateAttributes(obj);
         if(vals.updated) {
             const key = keyGenerator(oldBiodata.userId);
             items.push(generateUpdateTransactWriteItem(key, vals.updateExpression, vals.attributeNames, vals.attributeValues));
@@ -127,7 +127,7 @@ function generateTransactItems(newBiodata: Biodata, oldBiodata: Biodata, gender:
 
     if(newBiodata.addresses) {
         for(const ad of newBiodata.addresses) {
-            const vals = generateUpdateAttributes(ad, needToUpdateGSIs, gender);
+            const vals = generateUpdateAttributes(ad);
             if(vals.updated) {
                 const key = generateADKeys(oldBiodata.userId, ad.type);
                 items.push(generateUpdateTransactWriteItem(key, vals.updateExpression, vals.attributeNames, vals.attributeValues));
@@ -139,7 +139,7 @@ function generateTransactItems(newBiodata: Biodata, oldBiodata: Biodata, gender:
         for(const eq of newBiodata.educationQualifications) {
             const existedEq = oldBiodata.educationQualifications.find(e => e.degreeName === eq.degreeName);
             if(existedEq) {
-                const vals = generateUpdateAttributes(eq, needToUpdateGSIs, gender);
+                const vals = generateUpdateAttributes(eq);
                 if(vals.updated) {
                     const key = generateEQKeys(oldBiodata.userId, eq.degreeName);
                     items.push(generateUpdateTransactWriteItem(key, vals.updateExpression, vals.attributeNames, vals.attributeValues));
@@ -202,12 +202,13 @@ function generateUpdateAttributesForCoreFields(newBiodata: Biodata, oldBiodata: 
         attributeNames[valns] = sk;
         updateExpression += `${valnp} = ${valp}, ${valns} = ${vals}, `;
     }
-    for(const key of getKeys(newBiodata)) {
-        if(typeof newBiodata[key] !== 'object' && newBiodata[key] !== undefined) {
+    const shortBiodata = generateShortBiodataFromBiodata(newBiodata);
+    for(const key of getKeys(shortBiodata)) {
+        if(typeof shortBiodata[key] !== 'object' && shortBiodata[key] !== undefined) {
             const alias = biodataAliases[key];
             const av = ':' + alias;
             const an = '#' + alias;
-            attributeValues[av] = newBiodata[key];
+            attributeValues[av] = shortBiodata[key];
             attributeNames[an] = alias;
             updateExpression += `${an} = ${av}, `
         }
@@ -476,4 +477,18 @@ function generateGsi6Key(newBiodata:Biodata, oldBiodata: Biodata) {
         occupation: getDefinedValue(newBiodata?.basicInformation?.occupation, oldBiodata?.basicInformation?.occupation),
         pAddress: newPermanent
     })
+}
+
+function generateShortBiodataFromBiodata(newBiodata: Biodata): ShortBiodata{
+    const pAddress = newBiodata.addresses?.find(a => a.type === 'permanent');
+    return new ShortBiodata({
+        enabled: newBiodata.enabled,
+        verified: newBiodata.enabled,
+        country: pAddress?.country,
+        district: pAddress?.district,
+        maritalStatus: newBiodata.basicInformation?.maritalStatus,
+        birthYear: newBiodata.basicInformation?.birthDay?.year,
+        occupation: newBiodata.basicInformation?.occupation,
+        updatedAt: newBiodata.updatedAt
+    });
 }
