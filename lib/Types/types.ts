@@ -8,7 +8,7 @@ export class BirthDay {
         this.year = year;
         this.month = month;
         this.day = day;
-        this.isoDate = new Date(year, month-1, day);
+        this.isoDate = (year && month && day)?  new Date(year, month-1, day): undefined;
     }
 
     toISOString(){

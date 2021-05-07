@@ -44,7 +44,7 @@ export default class Biodata {
     createdAt: string;
     updatedAt: string;
 
-    constructor({userId, enabled=true, verified=false, basicInformation, addresses, educationQualifications, familyInformation, personaInformation, marriageInformation, extraInformation, partnerQualities, contactInformation}: BiodataConstructorParams) {
+    constructor({userId, enabled, verified, basicInformation, addresses, educationQualifications, familyInformation, personaInformation, marriageInformation, extraInformation, partnerQualities, contactInformation}: BiodataConstructorParams) {
         this.userId = userId;
         this.enabled = enabled;
         this.verified = verified;

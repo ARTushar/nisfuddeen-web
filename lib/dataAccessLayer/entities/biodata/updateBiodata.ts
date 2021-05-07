@@ -1,6 +1,7 @@
 import Biodata from '../../../models/biodata/Biodata';
 import { TransactWriteItem, TransactWriteItemsCommand, TransactWriteItemsInput } from '@aws-sdk/client-dynamodb';
 import {
+    generatePutTransactItemRaw,
     generateUpdateTransactWriteItem
 } from '../../utils/utils';
 import {
@@ -37,6 +38,7 @@ import dynamoDBClient from '../../utils/getDynamoDBClient';
 import { debug } from '../../../utils/helpers';
 import { getBiodataByUserId } from './getBiodata';
 import { getKeys } from '../../../scripts/utils/utils';
+import Address from '../../../models/biodata/Address';
 
 const debugType: string = 'biodata_update';
 
@@ -44,23 +46,24 @@ export default async function(userId, newBiodata: Biodata, gender: string): Prom
     debug(debugType, newBiodata);
     console.assert(userId !== undefined);
 
-    newBiodata.userId = userId;
     newBiodata.updatedAt = new Date().toISOString();
     let items: TransactWriteItem[] = [];
-    let oldBiodata;
+    let oldBiodata: Biodata;
     try {
         oldBiodata = await getBiodataByUserId(userId);
     } catch (e) {
         throw e;
     }
 
-    items = generateTransactItems(userId, newBiodata, oldBiodata, gender);
+    debug("oldbiodata", oldBiodata);
 
+    items = generateTransactItems(newBiodata, oldBiodata, gender);
     console.assert(items.length <= 25);
 
     const params: TransactWriteItemsInput = {
         TransactItems: items
     }
+    debug("params", JSON.stringify(params, null, 2));
 
     const command = new TransactWriteItemsCommand(params);
 
@@ -88,19 +91,21 @@ function generateUpdateAttributes(obj, needToUpdate, gender) {
 
     for(const key of getKeys(aliasObj)) {
         // if(key === "id" || key === 'createdAt') continue;
-        determineGlobalIndexUpdates(key, needToUpdate, gender);
-        const av = ':' + key;
-        const an = '#' + key;
-        attributeValues[av] = aliasObj[key];
-        attributeNames[an] = key;
-        updateExpression += `${an} = ${av}, `
-        updated = true
+        debug("generate update attributes_"+key, aliasObj[key]);
+        if(aliasObj[key] !== undefined){
+            const av = ':' + key;
+            const an = '#' + key;
+            attributeValues[av] = aliasObj[key];
+            attributeNames[an] = key;
+            updateExpression += `${an} = ${av}, `
+            updated = true
+        }
     }
     updateExpression = updateExpression.substr(0, updateExpression.length-2)
     return {updated, updateExpression, attributeNames, attributeValues};
 }
 
-function generateTransactItems(userId: string, newBiodata: Biodata, oldBiodata: Biodata, gender: string) {
+function generateTransactItems(newBiodata: Biodata, oldBiodata: Biodata, gender: string) {
     let items: TransactWriteItem[] = [];
     let needToUpdateGSIs = {
         GSI1: false,
@@ -114,24 +119,34 @@ function generateTransactItems(userId: string, newBiodata: Biodata, oldBiodata: 
     function addUpdateItem(obj, keyGenerator ) {
         const vals = generateUpdateAttributes(obj, needToUpdateGSIs, gender);
         if(vals.updated) {
-            const key = keyGenerator(newBiodata.userId);
+            const key = keyGenerator(oldBiodata.userId);
             items.push(generateUpdateTransactWriteItem(key, vals.updateExpression, vals.attributeNames, vals.attributeValues));
         }
     }
 
-    for(const ad of newBiodata.addresses) {
-        const vals = generateUpdateAttributes(ad, needToUpdateGSIs, gender);
-        if(vals.updated) {
-            const key = generateADKeys(newBiodata.userId, ad.type);
-            items.push(generateUpdateTransactWriteItem(key, vals.updateExpression, vals.attributeNames, vals.attributeValues));
+
+    if(newBiodata.addresses) {
+        for(const ad of newBiodata.addresses) {
+            const vals = generateUpdateAttributes(ad, needToUpdateGSIs, gender);
+            if(vals.updated) {
+                const key = generateADKeys(oldBiodata.userId, ad.type);
+                items.push(generateUpdateTransactWriteItem(key, vals.updateExpression, vals.attributeNames, vals.attributeValues));
+            }
         }
     }
 
-    for(const eq of newBiodata.educationQualifications) {
-        const vals = generateUpdateAttributes(eq, needToUpdateGSIs, gender);
-        if(vals.updated) {
-            const key = generateEQKeys(newBiodata.userId, eq.degreeName);
-            items.push(generateUpdateTransactWriteItem(key, vals.updateExpression, vals.attributeNames, vals.attributeValues));
+    if(newBiodata.educationQualifications) {
+        for(const eq of newBiodata.educationQualifications) {
+            const existedEq = oldBiodata.educationQualifications.find(e => e.degreeName === eq.degreeName);
+            if(existedEq) {
+                const vals = generateUpdateAttributes(eq, needToUpdateGSIs, gender);
+                if(vals.updated) {
+                    const key = generateEQKeys(oldBiodata.userId, eq.degreeName);
+                    items.push(generateUpdateTransactWriteItem(key, vals.updateExpression, vals.attributeNames, vals.attributeValues));
+                }
+            } else {
+                items.push(generatePutTransactItemRaw(generateEQKeys, [oldBiodata.userId, eq.degreeName], eq, "EQ"))
+            }
         }
     }
 
@@ -163,7 +178,7 @@ function generateTransactItems(userId: string, newBiodata: Biodata, oldBiodata: 
         addUpdateItem(newBiodata.extraInformation, generateEIKeys);
     }
 
-    const primaryKey = generateBiodataPrimaryKeys(userId);
+    const primaryKey = generateBiodataPrimaryKeys(oldBiodata.userId);
     const coreValues = generateUpdateAttributesForCoreFields(newBiodata, oldBiodata, gender);
     items.push(generateUpdateTransactWriteItem(primaryKey, coreValues.updateExpression, coreValues.attributeNames, coreValues.attributeValues));
 
@@ -185,10 +200,10 @@ function generateUpdateAttributesForCoreFields(newBiodata: Biodata, oldBiodata: 
         attributeValues[vals] = keys[sk];
         attributeNames[valnp] = pk;
         attributeNames[valns] = sk;
-        updateExpression += `${valnp} = ${valnp}, ${valns} = ${valns}, `;
+        updateExpression += `${valnp} = ${valp}, ${valns} = ${vals}, `;
     }
     for(const key of getKeys(newBiodata)) {
-        if(typeof newBiodata[key] !== 'object') {
+        if(typeof newBiodata[key] !== 'object' && newBiodata[key] !== undefined) {
             const alias = biodataAliases[key];
             const av = ':' + alias;
             const an = '#' + alias;
@@ -221,11 +236,12 @@ function generateUpdateAttributesForCoreFields(newBiodata: Biodata, oldBiodata: 
     }
     if(gsi.GSI6) {
         const keys = generateGsi6Key(newBiodata, oldBiodata);
-        updateValuesGsi(keys, 'GSI6PK', 'GSI5SK');
+        updateValuesGsi(keys, 'GSI6PK', 'GSI6SK');
     }
 
-updateExpression = updateExpression.substr(0, updateExpression.length-2)
-return {updateExpression, attributeNames, attributeValues};
+    debug("update_expression", updateExpression);
+    updateExpression = updateExpression.substr(0, updateExpression.length-2)
+    return {updateExpression, attributeNames, attributeValues};
 }
 
 function updatedIndexes(newBiodata: Biodata, gender: string) {
@@ -309,7 +325,8 @@ function mergeObjs(newObj, oldObj) {
 }
 
 function generateGsi1Key(newBiodata:Biodata, oldBiodata: Biodata) {
-    const newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    let newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    if(!newPermanent) newPermanent = new Address({type: 'permanent'});
     const oldPermanent = oldBiodata.addresses?.find(a => a.type === 'permanent')
     mergeObjs(newPermanent, oldPermanent);
 
@@ -324,7 +341,8 @@ function generateGsi1Key(newBiodata:Biodata, oldBiodata: Biodata) {
     })
 }
 function generateGsi2Key(newBiodata:Biodata, oldBiodata: Biodata) {
-    const newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    let newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    if(!newPermanent) newPermanent = new Address({type: 'permanent'});
     const oldPermanent = oldBiodata.addresses?.find(a => a.type === 'permanent')
     mergeObjs(newPermanent, oldPermanent);
 
@@ -342,7 +360,8 @@ function generateGsi2Key(newBiodata:Biodata, oldBiodata: Biodata) {
     })
 }
 function generateGsi3KeyMale(newBiodata:Biodata, oldBiodata: Biodata) {
-    const newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    let newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    if(!newPermanent) newPermanent = new Address({type: 'permanent'});
     const oldPermanent = oldBiodata.addresses?.find(a => a.type === 'permanent')
     mergeObjs(newPermanent, oldPermanent);
 
@@ -362,7 +381,8 @@ function generateGsi3KeyMale(newBiodata:Biodata, oldBiodata: Biodata) {
     })
 }
 function generateGsi3KeyFemale(newBiodata:Biodata, oldBiodata: Biodata) {
-    const newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    let newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    if(!newPermanent) newPermanent = new Address({type: 'permanent'});
     const oldPermanent = oldBiodata.addresses?.find(a => a.type === 'permanent')
     mergeObjs(newPermanent, oldPermanent);
 
@@ -401,7 +421,8 @@ function generateGsi4KeyMale(newBiodata:Biodata, oldBiodata: Biodata) {
     })
 }
 function generateGsi4KeyFemale(newBiodata:Biodata, oldBiodata: Biodata) {
-    const newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    let newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    if(!newPermanent) newPermanent = new Address({type: 'permanent'});
     const oldPermanent = oldBiodata.addresses?.find(a => a.type === 'permanent')
     mergeObjs(newPermanent, oldPermanent);
 
@@ -420,7 +441,8 @@ function generateGsi4KeyFemale(newBiodata:Biodata, oldBiodata: Biodata) {
     })
 }
 function generateGsi5Key(newBiodata:Biodata, oldBiodata: Biodata) {
-    const newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    let newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    if(!newPermanent) newPermanent = new Address({type: 'permanent'});
     const oldPermanent = oldBiodata.addresses?.find(a => a.type === 'permanent')
     mergeObjs(newPermanent, oldPermanent);
 
@@ -429,17 +451,18 @@ function generateGsi5Key(newBiodata:Biodata, oldBiodata: Biodata) {
         userId: oldBiodata.userId,
         enabled: getDefinedValue(newBiodata.enabled, oldBiodata.enabled),
         verified: getDefinedValue(newBiodata.verified, oldBiodata.verified),
-        gender: getDefinedValue(newBiodata?.basicInformation?.gender, oldBiodata?.basicInformation?.gender),
-        maritalStatus: getDefinedValue(newBiodata?.basicInformation?.maritalStatus, oldBiodata?.basicInformation?.maritalStatus),
+        gender: getDefinedValue(newBiodata.basicInformation?.gender, oldBiodata.basicInformation?.gender),
+        maritalStatus: getDefinedValue(newBiodata.basicInformation?.maritalStatus, oldBiodata.basicInformation?.maritalStatus),
         pAddress: newPermanent,
-        occupation: getDefinedValue(newBiodata?.basicInformation?.occupation, oldBiodata?.basicInformation?.occupation),
-        facialComplexion: getDefinedValue(newBiodata?.basicInformation?.facialColor, oldBiodata?.basicInformation?.facialColor),
-        financialStatus: getDefinedValue(newBiodata?.familyInformation?.financialStatus, newBiodata?.familyInformation?.financialStatus),
-        bDay: getDefinedValue(newBiodata?.basicInformation?.birthDay.toISOString(), oldBiodata?.basicInformation?.birthDay.toISOString())
+        occupation: getDefinedValue(newBiodata.basicInformation?.occupation, oldBiodata.basicInformation?.occupation),
+        facialComplexion: getDefinedValue(newBiodata.basicInformation?.facialColor, oldBiodata.basicInformation?.facialColor),
+        financialStatus: getDefinedValue(newBiodata.familyInformation?.financialStatus, newBiodata.familyInformation?.financialStatus),
+        bDay: getDefinedValue(newBiodata.basicInformation?.birthDay?.toISOString(), oldBiodata.basicInformation?.birthDay?.toISOString())
     })
 }
 function generateGsi6Key(newBiodata:Biodata, oldBiodata: Biodata) {
-    const newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    let newPermanent = newBiodata.addresses?.find(a => a.type === 'permanent')
+    if(!newPermanent) newPermanent = new Address({type: 'permanent'});
     const oldPermanent = oldBiodata.addresses?.find(a => a.type === 'permanent')
     mergeObjs(newPermanent, oldPermanent);
 

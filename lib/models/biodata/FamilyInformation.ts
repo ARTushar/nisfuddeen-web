@@ -3,15 +3,15 @@ import { familyInformationAliases as fia, FinancialStatus, invertAlias } from '.
 import { isEqual } from '../../utils/helpers';
 
 interface FIConstructorParams {
-    fatherAlive: boolean;
-    fatherOccupation: string;
-    motherAlive: boolean;
-    motherOccupation: string;
-    totalSisters: number;
-    totalBrothers: number;
+    fatherAlive?: boolean;
+    fatherOccupation?: string;
+    motherAlive?: boolean;
+    motherOccupation?: string;
+    totalSisters?: number;
+    totalBrothers?: number;
     brothersStatus?: string;
     sistersStatus?: string;
-    financialStatus: string;
+    financialStatus?: string;
     socialStatus?: string;
     unclesStatus?: string;
 }
