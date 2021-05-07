@@ -1,5 +1,6 @@
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
 import { biodataAliases } from '../../dataAccessLayer/utils/aliases';
+import { isEqual } from '../../utils/helpers';
 
 interface SBDConstructorParams {
     userId: string;
@@ -52,5 +53,10 @@ export default class ShortBiodata {
             createdAt: '', enabled: false, updatedAt: '', verified: false,
             ...mapItemFromAlias(biodataAliases, item)
         })
+    }
+
+
+    isEqual(obj: ShortBiodata): boolean {
+        return isEqual(this, obj);
     }
 }

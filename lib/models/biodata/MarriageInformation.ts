@@ -1,6 +1,7 @@
 import { RangePair } from '../../Types/types';
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
 import { marriageInformationAliases as mia } from '../../dataAccessLayer/utils/aliases';
+import { isEqual } from '../../utils/helpers';
 
 
 interface MIConstructorParams {
@@ -67,5 +68,10 @@ export default class MarriageInformation {
             maleMohoranaRange: RangePair.fromFormatString(item[mia.maleMohoranaRange]),
             femaleMohoranaExpectation: RangePair.fromFormatString(item[mia.femaleMohoranaExpectation]),
         })
+    }
+
+
+    isEqual(obj: MarriageInformation): boolean {
+        return isEqual(this, obj)
     }
 }

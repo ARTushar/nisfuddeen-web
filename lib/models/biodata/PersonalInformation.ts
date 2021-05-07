@@ -1,28 +1,29 @@
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
 import { personalInformationAliases as pia } from '../../dataAccessLayer/utils/aliases';
+import { isEqual } from '../../utils/helpers';
 
 interface PIConstructorParams {
-    outfit: string[]; // BoyOutfit[] | GirlOutfit[];
+    outfit?: string[]; // BoyOutfit[] | GirlOutfit[];
     beardStyle?: string; // BeardStyle
     pantPajamaAboveKnee?: boolean;
-    prayerTimes: number;
+    prayerTimes?: number;
     malePrayerTimesInJamah?: number;
     femalePrayerTimesInAwwal?: number;
-    durationOfRegularPrayer: number;
-    mahramMaintain: string; // MixAnswer;
-    majhab: string; // Majhab;
-    politicalPhilosophy: string;
-    watchDramaMovie: string; // NegativeAnswer;
-    readSahihQuran: string; // PositiveAnswer;
-    listenMusic: string; // NegativeAnswer;
-    anyDisease: string;
-    deenMehnat: string;
-    pirFollower: string;
-    mazarBelief: string;
-    favoriteIslamicBooks: string;
-    favoriteScholars: string;
-    specialQualities: string;
-    guardian: string; // Guardian;
+    durationOfRegularPrayer?: number;
+    mahramMaintain?: string; // MixAnswer;
+    majhab?: string; // Majhab;
+    politicalPhilosophy?: string;
+    watchDramaMovie?: string; // NegativeAnswer;
+    readSahihQuran?: string; // PositiveAnswer;
+    listenMusic?: string; // NegativeAnswer;
+    anyDisease?: string;
+    deenMehnat?: string;
+    pirFollower?: string;
+    mazarBelief?: string;
+    favoriteIslamicBooks?: string;
+    favoriteScholars?: string;
+    specialQualities?: string;
+    guardian?: string; // Guardian;
 }
 
 export default class PersonalInformation {
@@ -98,6 +99,11 @@ export default class PersonalInformation {
             watchDramaMovie: '',
             ...mapItemFromAlias(pia, item)
         })
+    }
+
+
+    isEqual(obj: PersonalInformation): boolean {
+        return isEqual(this, obj)
     }
 
 }

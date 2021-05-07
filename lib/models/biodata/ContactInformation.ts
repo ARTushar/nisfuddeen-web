@@ -1,5 +1,6 @@
 import { contactInformationAliases as cia } from '../../dataAccessLayer/utils/aliases';
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { isEqual } from '../../utils/helpers';
 
 interface CIConstructorParams {
     fatherMobile?: string;
@@ -27,5 +28,9 @@ export default class ContactInformation {
         return new ContactInformation({
             ...mapItemFromAlias(cia, item)
         })
+    }
+
+    isEqual(obj: ContactInformation): boolean {
+        return isEqual(this, obj)
     }
 }

@@ -7,17 +7,18 @@ import {
     MaritalStatus
 } from '../../dataAccessLayer/utils/aliases';
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { isEqual } from '../../utils/helpers';
 
 
 interface BIConstructorParams {
-    gender: string;
-    maritalStatus: string;
-    birthDay: BirthDay;
-    facialColor: string;
-    height: number;
-    weight: number;
-    bloodGroup: string;
-    occupation: string;
+    gender?: string;
+    maritalStatus?: string;
+    birthDay?: BirthDay;
+    facialColor?: string;
+    height?: number;
+    weight?: number;
+    bloodGroup?: string;
+    occupation?: string;
 }
 
 export default class BasicInformation {
@@ -44,7 +45,7 @@ export default class BasicInformation {
     mapToAlias() {
         return {
             ...mapItemToAlias(bia, this),
-            [bia.birthDay]: this.birthDay.toISOString(),
+            [bia.birthDay]: this.birthDay?.toISOString(),
         }
     }
 
@@ -54,5 +55,9 @@ export default class BasicInformation {
             ...mapItemFromAlias(bia, bi),
             birthDay: BirthDay.fromISOString(bi[bia.birthDay])
         })
+    }
+
+    isEqual(obj: BasicInformation): boolean {
+        return isEqual(this, obj)
     }
 }

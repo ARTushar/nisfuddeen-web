@@ -9,20 +9,21 @@ import PartnerQualities from './PartnerQualities';
 import ContactInformation from './ContactInformation';
 import { biodataAliases } from '../../dataAccessLayer/utils/aliases';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
+import { isEqual } from '../../utils/helpers';
 
 interface BiodataConstructorParams {
-    userId: string;
+    userId?: string;
     enabled?: boolean;
     verified?: boolean;
-    basicInformation: BasicInformation;
-    addresses: Address[];
-    educationQualifications: EducationQualification[];
-    familyInformation: FamilyInformation;
-    personaInformation: PersonalInformation;
-    marriageInformation: MarriageInformation;
-    extraInformation: ExtraInformation;
-    partnerQualities: PartnerQualities;
-    contactInformation: ContactInformation;
+    basicInformation?: BasicInformation;
+    addresses?: Address[];
+    educationQualifications?: EducationQualification[];
+    familyInformation?: FamilyInformation;
+    personaInformation?: PersonalInformation;
+    marriageInformation?: MarriageInformation;
+    extraInformation?: ExtraInformation;
+    partnerQualities?: PartnerQualities;
+    contactInformation?: ContactInformation;
     createdAt?: string;
     updatedAt?: string;
 }
@@ -117,5 +118,9 @@ export default class Biodata {
             partnerQualities: pq,
             contactInformation: ci,
         })
+    }
+
+    isEqual(obj: Biodata): boolean {
+        return isEqual(this, obj);
     }
 }

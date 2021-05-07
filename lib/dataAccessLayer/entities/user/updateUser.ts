@@ -94,11 +94,11 @@ export async function updateUser(user: User): Promise<User> {
         }
     }
     let items: TransactWriteItem[] = [userItem];
-    if(user.email && (oldUser.email && oldUser.email !== user.email)) {
+    if(user.email && oldUser.email !== user.email) {
         items.push(emailItem);
         if(oldUser.email) items.push(oldEmailItem);
     }
-    if(user.mobileNumber && (oldUser.mobileNumber && oldUser.mobileNumber !== user.mobileNumber)) {
+    if(user.mobileNumber && oldUser.mobileNumber !== user.mobileNumber) {
         items.push(mobileItem);
         if(oldUser.mobileNumber) items.push(oldMobileItem);
     }
@@ -125,7 +125,7 @@ function generateUpdateAttributes(user: User) {
     let updateExpression = 'set ';
 
     for(const key in user) {
-        if(key === "userId" || key === 'createdAt') continue;
+        if(key === "id" || key === 'createdAt') continue;
         if(user.hasOwnProperty(key) && user[key] !== undefined){
             const alias = userAliases[key];
             const av = ':' + alias;
@@ -157,7 +157,7 @@ function generateUpdateAttributes(user: User) {
 
 function deleteSameFields(oldObject, newObject) {
     for(const key in oldObject){
-        if(key === 'userId') continue;
+        if(key === 'id') continue;
         if(oldObject.hasOwnProperty(key) && newObject.hasOwnProperty(key)){
             if(oldObject[key] === newObject[key]){
                 delete newObject[key];

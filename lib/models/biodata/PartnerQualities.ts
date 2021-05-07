@@ -1,6 +1,7 @@
 import { RangePair } from '../../Types/types';
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
 import { partnerQualitiesAliases as pqa } from '../../dataAccessLayer/utils/aliases';
+import { isEqual } from '../../utils/helpers';
 
 interface PQConstructorParams {
     ageRange: RangePair;
@@ -63,5 +64,9 @@ export default class PartnerQualities {
             ageRange: RangePair.fromFormatString(item[pqa.ageRange]),
             heightRange: RangePair.fromFormatString(item[pqa.heightRange])
         })
+    }
+
+    isEqual(obj: PartnerQualities): boolean {
+        return isEqual(this, obj)
     }
 }

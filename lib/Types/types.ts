@@ -21,6 +21,10 @@ export class BirthDay {
         return new BirthDay(bday.getFullYear(), bday.getMonth()+1, bday.getDate());
     }
 
+    isEqual(obj: BirthDay): boolean {
+        return this.year === obj.year && this.month === obj.month && this.day === obj.day;
+    }
+
 }
 
 export class RangePair {
@@ -40,6 +44,10 @@ export class RangePair {
         if(!val) return undefined;
         let value = JSON.parse(val);
         return new RangePair(value.min, value.max);
+    }
+
+    isEqual(obj: RangePair): boolean {
+        return this.min === obj.min && this.max === obj.max;
     }
 }
 

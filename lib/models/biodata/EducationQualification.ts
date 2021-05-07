@@ -4,13 +4,14 @@ import {
     educationQualificationAliases as eia,
     invertAlias
 } from '../../dataAccessLayer/utils/aliases';
+import { isEqual } from '../../utils/helpers';
 
 interface ConstructorParams {
     degreeName: string;
-    department: string;
-    passYear: number;
-    instituteName: string;
-    result: string;
+    department?: string;
+    passYear?: number;
+    instituteName?: string;
+    result?: string;
 }
 
 export default class EducationQualification {
@@ -37,5 +38,9 @@ export default class EducationQualification {
             degreeName: '', department: '', instituteName: '', passYear: 0, result: '',
             ...mapItemFromAlias(eia, item)
         });
+    }
+
+    isEqual(obj: EducationQualification): boolean {
+        return isEqual(this, obj)
     }
 }

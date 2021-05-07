@@ -1,12 +1,13 @@
 import { addressAliases as ada, AddressType, invertAlias } from '../../dataAccessLayer/utils/aliases';
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { isEqual } from '../../utils/helpers';
 
 interface AConstructorParams {
     type: string;
-    country: string;
-    division: string;
-    district: string;
-    postOffice: string;
+    country?: string;
+    division?: string;
+    district?: string;
+    postOffice?: string;
 }
 
 export default class Address {
@@ -33,5 +34,9 @@ export default class Address {
             country: '', district: '', division: '', postOffice: '',
             ...mapItemFromAlias(ada, address)
         })
+    }
+
+    isEqual(obj: Address): boolean {
+        return isEqual(this, obj)
     }
 }

@@ -1,5 +1,71 @@
 import Address from '../../models/biodata/Address';
+import {
+    addressAliases,
+    basicInformationAliases,
+    biodataAliases,
+    educationQualificationAliases, familyInformationAliases,
+    personalInformationAliases
+} from './aliases';
 
+
+export const globalIndexArgs = {
+    biodata: {
+        GSI1: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address'],
+        GSI2: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'institute'],
+        GSI3Male: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'prayerTimes', 'prayerTimesJamah', 'outfit', 'aboveKnee', 'beardStyle'],
+        GSI3Female: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'prayerTimes', 'prayerTimesAwwal', 'outfit'],
+        GSI4Male: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'prayerTimes', 'prayerTimesJamah', 'outfit', 'aboveKnee', 'beardStyle', 'occupation'],
+        GSI4Female: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'prayerTimes', 'prayerTimesAwwal', 'outfit', 'occupation'],
+        GSI5: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'occupation', 'facialColor', 'financialStatus'],
+        GSI6: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'occupation'],
+    }
+}
+
+export const commonBiodataGlobalArgs = [
+    biodataAliases.enabled,
+    biodataAliases.verified,
+    basicInformationAliases.maritalStatus,
+    addressAliases.country,
+    addressAliases.district
+]
+
+export const biodataGsi1args = [addressAliases.division, addressAliases.postOffice];
+export const biodataGsi2args = [addressAliases.division, addressAliases.postOffice, educationQualificationAliases.instituteName];
+export const biodataGsi3argsMale = [addressAliases.division, addressAliases.postOffice,
+    personalInformationAliases.prayerTimes,
+    personalInformationAliases.malePrayerTimesInJamah,
+    personalInformationAliases.beardStyle,
+    personalInformationAliases.pantPajamaAboveKnee,
+    personalInformationAliases.outfit,
+];
+export const biodataGsi3argsFemale = [addressAliases.division, addressAliases.postOffice,
+    personalInformationAliases.prayerTimes,
+    personalInformationAliases.femalePrayerTimesInAwwal,
+    personalInformationAliases.outfit,
+];
+export const biodataGsi4argsMale = [addressAliases.division, addressAliases.postOffice,
+    personalInformationAliases.prayerTimes,
+    personalInformationAliases.malePrayerTimesInJamah,
+    personalInformationAliases.beardStyle,
+    personalInformationAliases.pantPajamaAboveKnee,
+    personalInformationAliases.outfit,
+    basicInformationAliases.occupation
+];
+export const biodataGsi4argsFemale = [addressAliases.division, addressAliases.postOffice,
+    personalInformationAliases.prayerTimes,
+    personalInformationAliases.femalePrayerTimesInAwwal,
+    personalInformationAliases.outfit,
+    basicInformationAliases.occupation
+];
+export const biodataGsi5args = [
+    basicInformationAliases.occupation,
+    basicInformationAliases.facialColor,
+    familyInformationAliases.financialStatus,
+    basicInformationAliases.birthDay,
+];
+export const biodataGsi6args = [
+    basicInformationAliases.occupation,
+];
 
 export function generateUserPrimaryKeys(userId: string) {
     return {
@@ -85,6 +151,8 @@ export function generateADKeys(userId: string, type: string) {
         SK: "BIODATA#AD#"+type
     }
 }
+
+
 interface GenerateBiodataGSI1KeysParams {
     userId: string;
     enabled: boolean;
@@ -94,12 +162,14 @@ interface GenerateBiodataGSI1KeysParams {
     pAddress: Address;
 }
 
+
 export function generateBiodataGSI1Keys({userId, enabled, verified, gender, maritalStatus, pAddress}: GenerateBiodataGSI1KeysParams) {
     return {
         GSI1PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#CN#"+pAddress.country,
         GSI1SK: "DIV#"+pAddress.district+"#DIS#"+pAddress.district+"#PO#"+pAddress.postOffice+"#UID#"+userId
     }
 }
+
 
 interface GenerateBiodataGSI2KeysParams {
     userId: string;
@@ -117,6 +187,7 @@ export function generateBiodataGSI2Keys({userId, enabled, verified, gender, mari
         GSI2SK: "CN#"+pAddress.country+"#DIV#"+pAddress.district+"#DIS#"+pAddress.district+"#PO#"+pAddress.postOffice+"#UID#"+userId
     }
 }
+
 
 interface GenerateBiodataGSI3KeysMaleParams {
     userId: string;
@@ -139,6 +210,7 @@ export function generateBiodataGSI3KeysMale({userId, enabled, verified, gender, 
     }
 }
 
+
 interface GenerateBiodataGSI3KeysFemaleParams {
     userId: string;
     enabled: boolean;
@@ -157,6 +229,7 @@ export function generateBiodataGSI3KeysFemale({userId, enabled, verified, gender
         GSI3SK: "DIV#"+pAddress.district+"#DIS#"+pAddress.district+"#PO#"+pAddress.postOffice+"#UID#"+userId
     }
 }
+
 
 interface GenerateBiodataGSI4KeysMaleParams {
     userId: string;
@@ -180,6 +253,7 @@ export function generateBiodataGSI4KeysMale({userId, enabled, verified, gender, 
     }
 }
 
+
 interface GenerateBiodataGSI4KeysFemaleParams {
     userId: string;
     enabled: boolean;
@@ -200,6 +274,7 @@ export function generateBiodataGSI4KeysFemale({userId, enabled, verified, gender
     }
 }
 
+
 interface GenerateBiodataGSI5KeysParams {
     userId: string;
     enabled: boolean;
@@ -213,12 +288,14 @@ interface GenerateBiodataGSI5KeysParams {
     pAddress: Address;
 }
 
+
 export function generateBiodataGSI5Keys({userId, enabled, verified, gender, maritalStatus, occupation, facialComplexion, financialStatus, bDay, pAddress}: GenerateBiodataGSI5KeysParams) {
     return {
         GSI5PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#OC#"+occupation+"#FC#"+facialComplexion+"#FS#"+financialStatus+"#CN#"+pAddress.country+"#DIS#"+pAddress.district,
         GSI5SK: "BD#"+bDay+"#UID#"+userId
     }
 }
+
 
 interface GenerateBiodataGSI6KeysParams {
     userId: string;

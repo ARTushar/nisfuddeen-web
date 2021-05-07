@@ -50,3 +50,19 @@ export function generatePutTransactItemRaw(keyGenerator, params, values, type): 
 
     return generatePutTransactItem(item);
 }
+
+export function generateUpdateTransactWriteItem(key, expression, names, values, condition=undefined): TransactWriteItem {
+    let item = {
+        Update: {
+            TableName: DynamodbConfig.tableName,
+            Key: marshall(key),
+            UpdateExpression: expression,
+            ExpressionAttributeNames: names,
+            ExpressionAttributeValues: marshall(values, { removeUndefinedValues:true}),
+        }
+    }
+    if(condition) {
+        item.Update['ConditionalExpression'] = condition;
+    }
+    return item;
+}

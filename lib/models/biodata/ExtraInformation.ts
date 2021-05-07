@@ -1,5 +1,6 @@
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
 import { extraInformationAliases } from '../../dataAccessLayer/utils/aliases';
+import { isEqual } from '../../utils/helpers';
 
 interface EIConstructorParams {
     aboutMe: string;
@@ -27,5 +28,9 @@ export default class ExtraInformation {
             aboutMe: '', guardianKnowsAboutSubmission: false,
             ...mapItemFromAlias(extraInformationAliases, item)
         })
+    }
+
+    isEqual(obj: ExtraInformation): boolean {
+        return isEqual(this, obj)
     }
 }

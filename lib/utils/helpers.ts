@@ -2,6 +2,8 @@ import KSUID from 'ksuid';
 import { v4 as uuidv4 } from 'uuid';
 import validator from 'validator';
 import { createHash } from 'crypto';
+import { type } from '@headlessui/react/dist/test-utils/interactions';
+import { getKeys } from '../scripts/utils/utils';
 
 
 export const titleCase = (name) =>
@@ -62,3 +64,54 @@ export function generateVRToken(token: string, secret: string){
     .digest("hex");
 }
 
+
+export function debug(debugCode, ...args) {
+  console.debug(`${debugCode}`, ...args)
+}
+
+export function isEqual(obja, objb): boolean {
+  const typeA = typeof obja;
+  const typeB = typeof objb;
+  console.assert(typeA === typeB);
+  for(const key of Object.keys(obja)) {
+      if(typeof obja[key] === 'object') {
+        if(!obja[key].isEqual(objb[key])) {
+          return false;
+        }
+        continue;
+      }
+      if(obja[key] !== objb[key]) return false;
+  }
+  return true;
+}
+
+export function deleteSameFields(oldObject, newObject, keeps) {
+  console.assert(typeof oldObject === typeof newObject);
+  for(const key of Object.keys(oldObject)) {
+    if(keeps.includes(key)) continue;
+    if(typeof newObject[key] === 'object' && typeof oldObject[key] === 'object') {
+      deleteSameFields(oldObject[key], newObject[key], keeps);
+    } else if(newObject[key] === oldObject[key]) {
+      delete newObject[key];
+    }
+  }
+}
+
+export function deleteGivenFields(obj, fields) {
+  for(const key of getKeys(obj)) {
+    if(fields.includes(key)) delete obj[key];
+  }
+}
+
+export function isEqualDeep(obja, objb) {
+  console.assert(typeof obja === typeof objb);
+  for(const key of Object.keys(obja)) {
+    if(typeof obja[key] === 'object') {
+      const status = isEqualDeep(obja[key], objb[key]);
+      if (!status) return false;
+    } else if(obja[key] !== objb[key]) {
+      return false;
+    }
+  }
+  return true;
+}

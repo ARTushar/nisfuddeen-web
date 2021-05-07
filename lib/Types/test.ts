@@ -1,5 +1,15 @@
 import { generatePutTransactItemRaw, mapItemToAlias } from '../dataAccessLayer/utils/utils';
-import { generateBIKeys, generateEIKeys } from '../dataAccessLayer/utils/generateKeys';
+import {
+    biodataGsi1args,
+    biodataGsi2args,
+    biodataGsi3argsFemale,
+    biodataGsi3argsMale,
+    biodataGsi4argsFemale,
+    biodataGsi4argsMale, biodataGsi5args, biodataGsi6args,
+    commonBiodataGlobalArgs,
+    generateBIKeys,
+    generateEIKeys
+} from '../dataAccessLayer/utils/generateKeys';
 import {
     AddressType,
     basicInformationAliases, BloodGroup, EducationDegree,
@@ -10,6 +20,12 @@ import ExtraInformation from '../models/biodata/ExtraInformation';
 import BasicInformation from '../models/biodata/BasicInformation';
 import { BirthDay, RangePair } from './types';
 import Address from '../models/biodata/Address';
+import { deleteSameFields, isEqual, isEqualDeep } from '../utils/helpers';
+import { generateRandomBiodata } from '../scripts/utils/data_generation/generateRandomBiodata';
+import { getKeys } from '../scripts/utils/utils';
+import Biodata from '../models/biodata/Biodata';
+import PersonalInformation from '../models/biodata/PersonalInformation';
+import EducationQualification from '../models/biodata/EducationQualification';
 
 export {}
 
@@ -45,6 +61,9 @@ const bi: BasicInformation = new BasicInformation({
     occupation: "engineer"
 })
 
+const newBi = BasicInformation.mapFromAlias(bi.mapToAlias());
+console.log(isEqualDeep(bi, newBi));
+
 // printObject(generatePutTransactItemRaw(generateBIKeys, ["124"], basicInformationAliases, bi, "BIj"));
 
 
@@ -61,13 +80,32 @@ const address = new Address({
     district: 'Dh',
     postOffice: "Jatrabari",
 })
+
+const addressCopy = new Address({
+    type: 'permanent',
+    country: "BD",
+    division: "Dh",
+    district: 'Dh',
+    postOffice: "Jatrabari",
+})
 const mapped = address.mapToAlias();
 // printJSON(mapped);
 const newAddress = Address.mapFromAlias(mapped);
 // printJSON(newAddress);
 
-let range = new RangePair(undefined, 3);
-console.log(range);
-let v = range.toFormatString();
-console.log(v);
-console.log(RangePair.fromFormatString(v));
+// let range = new RangePair(undefined, 3);
+// console.log(range);
+// let v = range.toFormatString();
+// console.log(v);
+// console.log(RangePair.fromFormatString(v));
+
+// console.log(isEqualDeep(addressCopy, newAddress));
+
+let a = generateRandomBiodata('halamadrid');
+// let b = generateRandomBiodata('halamadrid');
+// console.log(isEqualDeep(a, b))
+// console.log(a);
+// console.log(b)
+// deleteSameFields(a, b, ['userID']);
+// console.log(a);
+// console.log(b)

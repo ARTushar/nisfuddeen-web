@@ -1,5 +1,6 @@
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
 import { familyInformationAliases as fia, FinancialStatus, invertAlias } from '../../dataAccessLayer/utils/aliases';
+import { isEqual } from '../../utils/helpers';
 
 interface FIConstructorParams {
     fatherAlive: boolean;
@@ -57,5 +58,9 @@ export default class FamilyInformation {
             totalSisters: 0,
             ...mapItemFromAlias(fia, item)
         })
+    }
+
+    isEqual(obj: FamilyInformation): boolean {
+        return isEqual(this, obj)
     }
 }
