@@ -154,13 +154,34 @@ export const biodataAliases = {
     'birthYear': 'by'
 }
 
+export const starAliases = {
+    'starBy': 'by',
+    'starTo': 'to',
+    'starredAt': 'sa',
+}
+
+export const linkAliases = {
+    'linkBy': 'by',
+    'linkTo': 'to',
+    'relation': 'rel',
+    'createdAt': 'ca',
+    'updatedAt': 'ua',
+}
+
+export const requestAliases = {
+    'requestBy': 'by',
+    'requestTo': 'to',
+    'status': 'st',
+    'createdAt': 'ca',
+    'updatedAt': 'ua'
+}
 
 export const Gender = {
     male :'m',
     female :'f'
 }
 
-export const InverGender = {
+export const InvertGender = {
     "m": "male",
     "f": "female"
 }

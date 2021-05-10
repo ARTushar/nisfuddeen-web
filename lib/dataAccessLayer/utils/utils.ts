@@ -1,6 +1,7 @@
-import { TransactWriteItem } from '@aws-sdk/client-dynamodb';
+import { PutItemCommandInput, TransactWriteItem } from '@aws-sdk/client-dynamodb';
 import DynamodbConfig from './dynamodbConfig';
 import { marshall } from '@aws-sdk/util-dynamodb';
+import { getKeys } from '../../scripts/utils/utils';
 
 export function generateDelTransactItem(pk: string, sk: string): TransactWriteItem {
     return {
@@ -52,7 +53,7 @@ export function generatePutTransactItemRaw(keyGenerator, params, values, type): 
 }
 
 export function generateUpdateTransactWriteItem(key, expression, names, values, condition=undefined): TransactWriteItem {
-    let item = {
+    let item: TransactWriteItem = {
         Update: {
             TableName: DynamodbConfig.tableName,
             Key: marshall(key),
@@ -62,7 +63,32 @@ export function generateUpdateTransactWriteItem(key, expression, names, values, 
         }
     }
     if(condition) {
-        item.Update['ConditionalExpression'] = condition;
+        item.Update['ConditionExpression'] = condition;
     }
+    return item;
+}
+
+export function generatePutItemRaw(keyGenerators, params, values, type, condition=undefined): PutItemCommandInput{
+    let item: PutItemCommandInput = {
+        TableName: DynamodbConfig.tableName,
+        Item: marshall(generateItemFromGenerators(keyGenerators, params, values, type)),
+    }
+    if(condition) {
+        item['ConditionExpression'] = condition;
+    }
+    return item;
+}
+
+function generateItemFromGenerators(keyGenerators, params, values, type) {
+    let item = values.mapToAlias();
+    let i = 0;
+    for(const generator of keyGenerators) {
+        const key = generator(...params[i]);
+        for(const k of getKeys(key)) {
+            item[k] = key[k];
+        }
+        i++;
+    }
+    item['_tp'] = type;
     return item;
 }

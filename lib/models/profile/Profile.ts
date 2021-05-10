@@ -1,25 +1,28 @@
-import LinkAccount from './LinkAccount';
-import RequestBiodata from './RequestBiodata';
+import Link from './Link';
+import Request from './Request';
 import Star from './Star';
 import Biodata from '../biodata/Biodata';
 
 interface ProfileConstructorParams {
-    linkAccounts: LinkAccount[];
-    requestBiodatas: RequestBiodata[];
+    links: Link[];
+    sentRequests: Request[];
+    receivedRequests: Request[];
     stars: Star[];
-    biodata?: Biodata | null;
+    biodata?: Biodata;
 }
 
 export default class Profile {
-    linkAccounts: LinkAccount[];
-    requestBiodatas: RequestBiodata[];
+    links: Link[];
+    sentRequests: Request[];
+    receivedRequests: Request[];
     stars: Star[];
-    biodata: Biodata | null;
+    biodata: Biodata;
 
 
-    constructor({linkAccounts, requestBiodatas, stars, biodata=null}: ProfileConstructorParams) {
-        this.linkAccounts = linkAccounts;
-        this.requestBiodatas = requestBiodatas;
+    constructor({links, sentRequests, receivedRequests, stars, biodata}: ProfileConstructorParams) {
+        this.links = links;
+        this.sentRequests = sentRequests;
+        this.receivedRequests = receivedRequests;
         this.stars = stars;
         this.biodata = biodata;
     }

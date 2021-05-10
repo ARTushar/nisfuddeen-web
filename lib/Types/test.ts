@@ -1,4 +1,4 @@
-import { generatePutTransactItemRaw, mapItemToAlias } from '../dataAccessLayer/utils/utils';
+import { generatePutItemRaw, generatePutTransactItemRaw, mapItemToAlias } from '../dataAccessLayer/utils/utils';
 import {
     biodataGsi1args,
     biodataGsi2args,
@@ -8,7 +8,7 @@ import {
     biodataGsi4argsMale, biodataGsi5args, biodataGsi6args,
     commonBiodataGlobalArgs,
     generateBIKeys,
-    generateEIKeys
+    generateEIKeys, generateStarGSI1Key, generateStarPrimaryKey
 } from '../dataAccessLayer/utils/generateKeys';
 import {
     AddressType,
@@ -26,6 +26,7 @@ import { getKeys } from '../scripts/utils/utils';
 import Biodata from '../models/biodata/Biodata';
 import PersonalInformation from '../models/biodata/PersonalInformation';
 import EducationQualification from '../models/biodata/EducationQualification';
+import Star from '../models/profile/Star';
 
 export {}
 
@@ -109,3 +110,9 @@ let a = generateRandomBiodata('halamadrid');
 // deleteSameFields(a, b, ['userID']);
 // console.log(a);
 // console.log(b)
+
+console.log(generatePutItemRaw([generateStarPrimaryKey, generateStarGSI1Key], [['from','to'], ['from', 'to']], new Star({
+    starBy: 'from',
+    starTo: 'to',
+    starredAt: new Date().toISOString()
+}), 'Star'))

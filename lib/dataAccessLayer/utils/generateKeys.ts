@@ -21,6 +21,10 @@ export const globalIndexArgs = {
     }
 }
 
+/**
+ * Biodata indexing parameters
+ */
+
 export const commonBiodataGlobalArgs = [
     biodataAliases.enabled,
     biodataAliases.verified,
@@ -67,6 +71,9 @@ export const biodataGsi6args = [
     basicInformationAliases.occupation,
 ];
 
+/**
+ * USER primary keys and index keys
+ */
 export function generateUserPrimaryKeys(userId: string) {
     return {
         PK: "USER#ID#" + userId,
@@ -88,6 +95,9 @@ export function generateUserGSI2Keys(mobileNumber: string) {
     }
 }
 
+/**
+ * Biodata primary keys and index keys
+ */
 export function generateBiodataPrimaryKeys(userId: string) {
     return {
         PK: "UID#"+userId,
@@ -314,3 +324,54 @@ export function generateBiodataGSI6Keys({userId, enabled, verified, gender, mari
     }
 }
 
+/**
+ * Star primary key and index keys
+ */
+
+export function generateStarPrimaryKey(by: string, to: string) {
+    return {
+        PK: `UID#${by}#STAR`,
+        SK: to
+    }
+}
+
+export function generateStarGSI1Key(by: string, to: string) {
+    return {
+        GSI1PK: `STO#${to}`,
+        GSI1SK: by
+    }
+}
+/**
+ * Link primary key and index keys
+ */
+
+export function generateLinkPrimaryKey(by: string, to: string) {
+    return {
+        PK: `UID#${by}#LINK`,
+        SK: to
+    }
+}
+
+export function generateLinkGSI1Key(by: string, to: string) {
+    return {
+        GSI1PK: `LTO#${to}`,
+        GSI1SK: by
+    }
+}
+/**
+ * Request Biodata primary key and index keys
+ */
+
+export function generateRequestPrimaryKey(by: string, to: string) {
+    return {
+        PK: `UID#${by}#REQ`,
+        SK: to
+    }
+}
+
+export function generateRequestGSI1Key(by: string, to: string) {
+    return {
+        GSI1PK: `RTO#${to}`,
+        GSI1SK: by
+    }
+}
