@@ -18,7 +18,7 @@ import {
     MohoranaTimeReply,
     NegativeAnswer,
     PositiveAnswer,
-    Relation, RequestBiodataStatus, RequestBiodataType,
+    Relation, RequestStatus, RequestType,
     SubscriptionType
 } from '../dataAccessLayer/utils/aliases';
 import { getKeys } from '../scripts/utils/utils';
@@ -150,6 +150,6 @@ export const nisfuddeenEnums = {
     accountType: getKeys(AccountType),
     subscriptionType: getKeys(SubscriptionType),
     relation: getKeys(Relation),
-    requestBiodataType: getKeys(RequestBiodataType),
-    requestBiodataStatus: getKeys(RequestBiodataStatus)
+    requestBiodataType: getKeys(RequestType),
+    requestBiodataStatus: getKeys(RequestStatus)
 }

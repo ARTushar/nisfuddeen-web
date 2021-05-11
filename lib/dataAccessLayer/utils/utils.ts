@@ -1,7 +1,10 @@
-import { PutItemCommandInput, TransactWriteItem } from '@aws-sdk/client-dynamodb';
+import { BatchGetItemInput, PutItemCommandInput, QueryCommandInput, TransactWriteItem } from '@aws-sdk/client-dynamodb';
 import DynamodbConfig from './dynamodbConfig';
 import { marshall } from '@aws-sdk/util-dynamodb';
 import { getKeys } from '../../scripts/utils/utils';
+import { generateBiodataPrimaryKeys } from './generateKeys';
+import { starAliases } from './aliases';
+import { debug } from '../../utils/helpers';
 
 export function generateDelTransactItem(pk: string, sk: string): TransactWriteItem {
     return {
@@ -91,4 +94,57 @@ function generateItemFromGenerators(keyGenerators, params, values, type) {
     }
     item['_tp'] = type;
     return item;
+}
+
+export function generateQueryInput(keyConditionExpression, attributeNames, attributeValues, indexForward=false, indexName=undefined): QueryCommandInput {
+
+    let queryInput: QueryCommandInput = {
+        TableName: DynamodbConfig.tableName,
+        KeyConditionExpression: keyConditionExpression,
+        ExpressionAttributeNames: attributeNames,
+        ExpressionAttributeValues: marshall(attributeValues),
+        ScanIndexForward: indexForward
+    }
+    if(indexName) {
+        queryInput['IndexName'] = indexName;
+    }
+    return queryInput;
+}
+
+export function generateBatchGetItem(items, alias, key): BatchGetItemInput {
+    let keys = [];
+    for(const item of items) {
+        keys.push(marshall(
+          generateBiodataPrimaryKeys(item[alias[key]])
+        ))
+    }
+    return {
+        RequestItems: {
+            [DynamodbConfig.tableName]: {
+                Keys: keys
+            }
+        }
+    };
+}
+export function generateUpdateAttributes(obj) {
+    let attributeNames = {};
+    let attributeValues = {};
+    let updateExpression = 'set ';
+    const aliasObj = obj.mapToAlias();
+    let updated = false;
+
+    for(const key of getKeys(aliasObj)) {
+        // if(key === "id" || key === 'createdAt') continue;
+        debug("generate update attributes_"+key, aliasObj[key]);
+        if(aliasObj[key] !== undefined){
+            const av = ':' + key;
+            const an = '#' + key;
+            attributeValues[av] = aliasObj[key];
+            attributeNames[an] = key;
+            updateExpression += `${an} = ${av}, `
+            updated = true
+        }
+    }
+    updateExpression = updateExpression.substr(0, updateExpression.length-2)
+    return {updated, updateExpression, attributeNames, attributeValues};
 }

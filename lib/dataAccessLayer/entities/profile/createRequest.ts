@@ -5,7 +5,7 @@ import { generateRequestGSI1Key, generateRequestPrimaryKey } from '../../utils/g
 import dynamoDBClient from '../../utils/getDynamoDBClient';
 import { debug } from '../../../utils/helpers';
 
-export default async function(by: string, to: string, relation: string): Promise<Request> {
+export default async function(by: string, to: string): Promise<Request> {
     const createdAt = new Date().toISOString();
     const defaultStatus = 'sent'
     const request: Request = new Request({

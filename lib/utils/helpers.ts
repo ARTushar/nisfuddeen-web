@@ -69,6 +69,14 @@ export function debug(debugCode, ...args) {
   console.debug(`${debugCode}`, ...args)
 }
 
+export function objStringify(ob) {
+  try {
+    return JSON.stringify(ob, null, 2);
+  } catch (e) {
+    throw e;
+  }
+}
+
 export function isEqual(obja, objb): boolean {
   const typeA = typeof obja;
   const typeB = typeof objb;

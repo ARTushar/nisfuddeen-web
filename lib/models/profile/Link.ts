@@ -6,7 +6,8 @@ interface LAConstructorParams {
     linkBy?: string;
     linkTo?: string;
     createdAt?: string;
-    updatedAt?: string,
+    updatedAt?: string;
+    status?: string,
 }
 
 export default class Link {
@@ -15,13 +16,15 @@ export default class Link {
     linkTo: string;
     createdAt: string;
     updatedAt: string;
+    status: string
 
-    constructor({relation, linkBy, linkTo, createdAt, updatedAt}: LAConstructorParams) {
+    constructor({relation, linkBy, linkTo, createdAt, updatedAt, status}: LAConstructorParams) {
         this.relation = relation;
         this.linkBy = linkBy;
         this.linkTo = linkTo;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.status = status;
     }
 
     mapToAlias() {

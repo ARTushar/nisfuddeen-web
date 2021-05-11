@@ -1,7 +1,7 @@
 import Biodata from '../../../models/biodata/Biodata';
 import { TransactWriteItem, TransactWriteItemsCommand, TransactWriteItemsInput } from '@aws-sdk/client-dynamodb';
 import {
-    generatePutTransactItemRaw,
+    generatePutTransactItemRaw, generateUpdateAttributes,
     generateUpdateTransactWriteItem
 } from '../../utils/utils';
 import {
@@ -82,28 +82,28 @@ export default async function(userId, newBiodata: Biodata, gender: string): Prom
 //  Assume required inputs are sent over the input
 
 
-function generateUpdateAttributes(obj) {
-    let attributeNames = {};
-    let attributeValues = {};
-    let updateExpression = 'set ';
-    const aliasObj = obj.mapToAlias();
-    let updated = false;
-
-    for(const key of getKeys(aliasObj)) {
-        // if(key === "id" || key === 'createdAt') continue;
-        debug("generate update attributes_"+key, aliasObj[key]);
-        if(aliasObj[key] !== undefined){
-            const av = ':' + key;
-            const an = '#' + key;
-            attributeValues[av] = aliasObj[key];
-            attributeNames[an] = key;
-            updateExpression += `${an} = ${av}, `
-            updated = true
-        }
-    }
-    updateExpression = updateExpression.substr(0, updateExpression.length-2)
-    return {updated, updateExpression, attributeNames, attributeValues};
-}
+// function generateUpdateAttributes(obj) {
+//     let attributeNames = {};
+//     let attributeValues = {};
+//     let updateExpression = 'set ';
+//     const aliasObj = obj.mapToAlias();
+//     let updated = false;
+//
+//     for(const key of getKeys(aliasObj)) {
+//         // if(key === "id" || key === 'createdAt') continue;
+//         debug("generate update attributes_"+key, aliasObj[key]);
+//         if(aliasObj[key] !== undefined){
+//             const av = ':' + key;
+//             const an = '#' + key;
+//             attributeValues[av] = aliasObj[key];
+//             attributeNames[an] = key;
+//             updateExpression += `${an} = ${av}, `
+//             updated = true
+//         }
+//     }
+//     updateExpression = updateExpression.substr(0, updateExpression.length-2)
+//     return {updated, updateExpression, attributeNames, attributeValues};
+// }
 
 function generateTransactItems(newBiodata: Biodata, oldBiodata: Biodata, gender: string) {
     let items: TransactWriteItem[] = [];

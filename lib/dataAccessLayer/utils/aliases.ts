@@ -166,6 +166,7 @@ export const linkAliases = {
     'relation': 'rel',
     'createdAt': 'ca',
     'updatedAt': 'ua',
+    'status': 'st'
 }
 
 export const requestAliases = {
@@ -394,16 +395,22 @@ export const Relation = {
     other : 'o'
 }
 
-export const RequestBiodataType = {
+export const RequestType = {
     sent : 's',
     received : 'r'
 }
 
-export const RequestBiodataStatus = {
+export const RequestStatus = {
     sent : 'st',
     seen : 'sn',
     cancelled : 'ca',
     accepted : 'ac'
+}
+
+export const LinkStatus = {
+    confirmed: 'cf',
+    pending: 'pd',
+    cancelled: 'cl'
 }
 
 export function invertAlias(type) {
