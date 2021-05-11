@@ -7,13 +7,14 @@ import dynamoDBClient from '../../utils/getDynamoDBClient';
 import { debug, objStringify } from '../../../utils/helpers';
 
 export default async function(requestBy: string, requestTo: string, status: string): Promise<boolean> {
+    const updatedAt = new Date().toISOString();
 
     const params: UpdateItemCommandInput = {
         TableName: DynamodbConfig.tableName,
         Key: marshall(generateRequestPrimaryKey(requestBy, requestTo)),
-        UpdateExpression: 'set #status = :status',
-        ExpressionAttributeNames: { '#status': requestAliases.status },
-        ExpressionAttributeValues: marshall({ ':status': status }),
+        UpdateExpression: 'set #status = :status, #ua = :ua',
+        ExpressionAttributeNames: { '#status': requestAliases.status, '#ua': requestAliases.updatedAt },
+        ExpressionAttributeValues: marshall({ ':status': status, ':ua': updatedAt }),
     }
     const command: UpdateItemCommand = new UpdateItemCommand(params);
 

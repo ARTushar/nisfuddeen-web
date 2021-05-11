@@ -1,6 +1,6 @@
 import { BatchGetItemInput, PutItemCommandInput, QueryCommandInput, TransactWriteItem } from '@aws-sdk/client-dynamodb';
 import DynamodbConfig from './dynamodbConfig';
-import { marshall } from '@aws-sdk/util-dynamodb';
+import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { getKeys } from '../../scripts/utils/utils';
 import { generateBiodataPrimaryKeys } from './generateKeys';
 import { starAliases } from './aliases';
@@ -74,7 +74,7 @@ export function generateUpdateTransactWriteItem(key, expression, names, values, 
 export function generatePutItemRaw(keyGenerators, params, values, type, condition=undefined): PutItemCommandInput{
     let item: PutItemCommandInput = {
         TableName: DynamodbConfig.tableName,
-        Item: marshall(generateItemFromGenerators(keyGenerators, params, values, type)),
+        Item: marshall(generateItemFromGenerators(keyGenerators, params, values, type), {removeUndefinedValues: true}),
     }
     if(condition) {
         item['ConditionExpression'] = condition;
@@ -111,11 +111,12 @@ export function generateQueryInput(keyConditionExpression, attributeNames, attri
     return queryInput;
 }
 
-export function generateBatchGetItem(items, alias, key): BatchGetItemInput {
+export function generateBatchGetItem(items, key): BatchGetItemInput {
     let keys = [];
     for(const item of items) {
+        debug("batch_get_item", item);
         keys.push(marshall(
-          generateBiodataPrimaryKeys(item[alias[key]])
+          generateBiodataPrimaryKeys(item[key])
         ))
     }
     return {

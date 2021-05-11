@@ -1,4 +1,4 @@
-import { mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
 import { starAliases } from '../../dataAccessLayer/utils/aliases';
 
 interface StarConstructorParams {
@@ -24,7 +24,7 @@ export default class Star {
 
     static mapFromAlias(item) {
         return new Star({
-            ...mapItemToAlias(starAliases, item)
+            ...mapItemFromAlias(starAliases, item)
         })
     }
 }

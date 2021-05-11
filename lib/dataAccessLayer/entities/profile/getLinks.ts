@@ -2,7 +2,7 @@ import { QueryCommand, QueryCommandInput, QueryCommandOutput } from '@aws-sdk/cl
 import { generateLinkGSI1Key, generateLinkPrimaryKey } from '../../utils/generateKeys';
 import { generateQueryInput } from '../../utils/utils';
 import dynamoDBClient from '../../utils/getDynamoDBClient';
-import { debug } from '../../../utils/helpers';
+import { debug, objStringify } from '../../../utils/helpers';
 import Link from '../../../models/profile/Link';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 
@@ -12,7 +12,7 @@ export default async function(userId: string) {
         '#pk': 'PK'
     };
     const attributeNamesTo = {
-        '#pk': 'GSI1'
+        '#pk': 'GSI1PK'
     };
     const attributeValuesBy = {
         ':pk': generateLinkPrimaryKey(userId, undefined).PK
@@ -21,7 +21,10 @@ export default async function(userId: string) {
         ':pk': generateLinkGSI1Key(undefined, userId).GSI1PK
     }
     const paramsBy: QueryCommandInput = generateQueryInput(conditionExpression, attributeNamesBy, attributeValuesBy);
-    const paramsTo: QueryCommandInput = generateQueryInput(conditionExpression, attributeNamesTo, attributeValuesTo);
+    const paramsTo: QueryCommandInput = generateQueryInput(conditionExpression, attributeNamesTo, attributeValuesTo, false, 'GSI1');
+
+    debug("get_links", 'paramsBy', objStringify(paramsBy));
+    debug("get_links", 'paramsTo', objStringify(paramsTo));
 
     const commandBy = new QueryCommand(paramsBy);
     const commandTo = new QueryCommand(paramsTo);

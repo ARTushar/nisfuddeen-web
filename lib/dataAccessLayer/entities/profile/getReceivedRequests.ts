@@ -9,13 +9,13 @@ import { debug } from '../../../utils/helpers';
 export default async function(userId: string) {
     const conditionExpression = "#pk = :pk";
     const attributeNames = {
-        '#pk': 'GSI1'
+        '#pk': 'GSI1PK'
     };
     const attributeValues = {
         ':pk': generateRequestGSI1Key(undefined, userId).GSI1PK
     };
 
-    const params: QueryCommandInput = generateQueryInput(conditionExpression, attributeNames, attributeValues);
+    const params: QueryCommandInput = generateQueryInput(conditionExpression, attributeNames, attributeValues, false, 'GSI1');
 
     const command = new QueryCommand(params);
 

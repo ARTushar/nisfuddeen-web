@@ -7,12 +7,14 @@ import { debug } from '../../../utils/helpers';
 
 export default async function(by: string, to: string, relation: string): Promise<Link> {
     const createdAt = new Date().toISOString();
+    const defaultStatus = 'pending';
     const link: Link = new Link({
         linkBy: by,
         linkTo: to,
         relation,
         createdAt: createdAt,
-        updatedAt: createdAt
+        updatedAt: createdAt,
+        status: defaultStatus
     })
 
     const params: PutItemCommandInput = generatePutItemRaw(

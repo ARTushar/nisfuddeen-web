@@ -7,13 +7,14 @@ import { debug, objStringify } from '../../../utils/helpers';
 import dynamoDBClient from '../../utils/getDynamoDBClient';
 
 export default async function(linkBy: string, linkTo: string, status: string): Promise<boolean> {
+    const updatedAt = new Date().toISOString();
 
     const params: UpdateItemCommandInput = {
         TableName: DynamodbConfig.tableName,
         Key: marshall(generateLinkPrimaryKey(linkBy, linkTo)),
-        UpdateExpression: 'set #status = :status',
-        ExpressionAttributeNames: { '#status': linkAliases.status },
-        ExpressionAttributeValues: marshall({ ':status': status }),
+        UpdateExpression: 'set #status = :status, #ua = :ua',
+        ExpressionAttributeNames: { '#status': linkAliases.status, '#ua': linkAliases.updatedAt },
+        ExpressionAttributeValues: marshall({ ':status': status, ':ua': updatedAt }),
     }
     const command: UpdateItemCommand = new UpdateItemCommand(params);
 
