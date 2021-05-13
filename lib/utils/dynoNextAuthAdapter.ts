@@ -91,8 +91,8 @@ export default function DynamoDBAdapter(config) {
 
             try {
                 return await User.updateUser({
-                    userId: user.id,
-                    fullName: user.name,
+                    id: user.id,
+                    name: user.name,
                     mobileNumber: user.mobileNumber,
                     email: user.email,
                     emailVerified: user.emailVerified,

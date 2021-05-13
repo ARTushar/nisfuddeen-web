@@ -33,7 +33,7 @@ export async function getSessionByToken(sessionToken: string): Promise<Session> 
         console.log(response);
         if (response.Items.length == 1){
             const session = unmarshall(response.Items[0]);
-            return sessionFactory(session);
+            return Session.mapFromAlias(session);
         }
         return null;
     } catch (e) {

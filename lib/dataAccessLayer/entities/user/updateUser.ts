@@ -11,6 +11,7 @@ import { userAliases } from '../../utils/aliases';
 import { checkUniquePK } from '../../../utils/dynoUtils';
 import { getUserById } from './getUser';
 import { generateUserGSI1Keys, generateUserGSI2Keys, generateUserPrimaryKeys } from '../../utils/generateKeys';
+import { getKeys } from '../../../scripts/utils/utils';
 
 export async function updateUser(user: User): Promise<User> {
     console.log("--updating user " + JSON.stringify(user, null, 2));
@@ -23,7 +24,8 @@ export async function updateUser(user: User): Promise<User> {
         throw e;
     }
     // check same values as before
-    deleteSameFields(oldUser, user);
+    const updated = deleteSameFields(oldUser, user);
+    if(!updated) return null;
 
     const updatedVals = generateUpdateAttributes(user)
 
@@ -155,13 +157,14 @@ function generateUpdateAttributes(user: User) {
     return {updateExpression, attributeNames, attributeValues};
 }
 
-function deleteSameFields(oldObject, newObject) {
-    for(const key in oldObject){
-        if(key === 'id') continue;
-        if(oldObject.hasOwnProperty(key) && newObject.hasOwnProperty(key)){
-            if(oldObject[key] === newObject[key]){
-                delete newObject[key];
-            }
+function deleteSameFields(oldObject, newObject): boolean {
+    let updated = false;
+    for(const key of getKeys(oldObject)){
+        if(key === 'id' || key === 'updatedAt') continue;
+        if(oldObject[key] === newObject[key]){
+            delete newObject[key];
         }
+        if(newObject[key] === undefined) delete newObject[key]
     }
-}
+    if(getKeys(newObject).length > 2) updated = true;
+    return updated;

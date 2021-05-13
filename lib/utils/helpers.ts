@@ -46,14 +46,14 @@ export function addDays(date: Date, day: number): Date {
 
 export function checkValidMobileNumber(value, helpers) {
     if(!validator.isMobilePhone(value, 'any', {strictMode: true})){
-      return helpers.error("invalid mobile phone");
+      return helpers.error("invalid mobile number");
     }
     return value;
 }
 
 export function checkValidEmail(value, helpers) {
   if(!validator.isEmail(value, )){
-    return helpers.error("invalid mobile phone");
+    return helpers.error("invalid email");
   }
   return value;
 }

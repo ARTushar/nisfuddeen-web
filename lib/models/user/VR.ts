@@ -1,6 +1,8 @@
 import createVR from '../../dataAccessLayer/entities/user/createVR';
 import { getVR } from '../../dataAccessLayer/entities/user/getVR';
 import { deleteVR } from '../../dataAccessLayer/entities/user/deleteVR';
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { vrAliases } from '../../dataAccessLayer/utils/aliases';
 
 interface VRConstructorParams {
     token: string;
@@ -24,6 +26,17 @@ export default class VR {
         this.expiresAt = expiresAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    mapToAlias() {
+        return mapItemToAlias(vrAliases, this);
+    }
+
+    static mapFromAlias(item): VR {
+        return new VR({
+            createdAt: '', expiresAt: '', identifier: '', token: '', updatedAt: '',
+            ...mapItemFromAlias(vrAliases, item)
+        })
     }
 
     static async createVR(identifier: string, token: string, secret: string, expiration: number): Promise<VR> {

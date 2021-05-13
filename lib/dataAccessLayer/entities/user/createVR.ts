@@ -12,16 +12,20 @@ export default async function createVR (identifier: string, token:string, secret
     const expiresAt = sessionExpiration ? new Date(createdAt.getTime() + sessionExpiration) : null;
     const ttl = expiresAt ? Math.floor(expiresAt.getTime() / 1000) : undefined;
 
+    const vr = new VR({
+        token: hashedToken,
+        identifier: identifier,
+        expiresAt: expiresAt?.toISOString(),
+        createdAt: createdAt.toISOString(),
+        updatedAt: createdAt.toISOString()
+    })
+
     const params: PutItemCommandInput = {
         ConditionExpression: checkUniquePK,
         Item: marshall({
             PK: "VR#TOKEN#" + hashedToken,
             SK: "VR#TOKEN#" + hashedToken,
-            ht: hashedToken,
-            id: identifier,
-            ca: createdAt.toISOString(),
-            ua: createdAt.toISOString(),
-            ea: expiresAt ? expiresAt.toISOString() : null,
+            ...vr.mapToAlias(),
             ttl: ttl,
             _tp: "VR"
         }, {
@@ -34,13 +38,7 @@ export default async function createVR (identifier: string, token:string, secret
     try {
         const response = await dynamoDBClient.send(command);
         console.log(response);
-        return new VR({
-            createdAt: createdAt.toISOString(),
-            updatedAt: createdAt.toISOString(),
-            expiresAt: expiresAt?.toISOString(),
-            identifier,
-            token: hashedToken
-        });
+        return vr;
     } catch (e) {
         console.log(e);
         throw e;

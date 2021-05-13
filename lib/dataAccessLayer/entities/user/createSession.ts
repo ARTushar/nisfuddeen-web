@@ -15,6 +15,14 @@ export default async function createSession (userId: string, sessionExpiration: 
     const createdAt = new Date();
     const expiresAt = new Date(createdAt.getTime() + sessionExpiration);
     const ttl = Math.floor(expiresAt.getTime() / 1000);
+    const session = new Session({
+        userId,
+        sessionToken,
+        accessToken,
+        createdAt: createdAt.toISOString(),
+        updatedAt: createdAt.toISOString(),
+        expiresAt: expiresAt.toISOString()
+    })
 
     const params: PutItemCommandInput = {
         ConditionExpression: checkUniquePK,
@@ -23,12 +31,7 @@ export default async function createSession (userId: string, sessionExpiration: 
             SK: "SESSION#TOKEN#" + sessionToken,
             GSI1PK: "USER#ID#" + userId,
             GSI1SK: "SESSION#TOKEN#" + sessionToken,
-            sid: sessionToken,
-            at: accessToken,
-            uid: userId,
-            ca: createdAt.toISOString(),
-            ua: createdAt.toISOString(),
-            ea: expiresAt.toISOString(),
+            ...session.mapToAlias(),
             ttl: ttl,
             _tp: "Session"
         }, {
@@ -41,14 +44,7 @@ export default async function createSession (userId: string, sessionExpiration: 
     try {
         const response = await dynamoDBClient.send(command);
         console.log(response);
-        return new Session({
-            userId: userId,
-            sessionToken: sessionToken,
-            accessToken: accessToken,
-            createdAt: createdAt.toISOString(),
-            updatedAt: createdAt.toISOString(),
-            expiresAt: expiresAt.toISOString()
-        });
+        return session;
     } catch (e) {
         console.log(e);
         throw e;

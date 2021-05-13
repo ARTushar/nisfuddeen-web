@@ -22,11 +22,11 @@ export function userFactory(user): User {
         accountType: user.ac,
         createdAt: user._ca,
         email: user.em,
-        fullName: user.fn,
+        name: user.fn,
         mobileNumber: user.mb,
         subscriptionType: user.st,
         updatedAt: user._ua,
-        userId: user.id,
+        id: user.id,
     });
 }
 export function sessionFactory(session): Session {

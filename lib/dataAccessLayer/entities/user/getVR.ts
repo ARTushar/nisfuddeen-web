@@ -35,7 +35,7 @@ export async function  getVR(token: string, secret: string): Promise<VR> {
         console.log(response);
         if (response.Items.length == 1){
             const vr = unmarshall(response.Items[0]);
-            return vrFactory(vr);
+            return VR.mapFromAlias(vr);
         }
         return null;
     } catch (e) {

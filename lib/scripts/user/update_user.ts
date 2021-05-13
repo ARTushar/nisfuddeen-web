@@ -10,8 +10,8 @@ const argv = generateArgv();
 (async ()=> {
     if(argv.userid) {
         const user = new User({
-            userId: argv.userid,
-            fullName: argv.name,
+            id: argv.userid,
+            name: argv.name,
             mobileNumber: argv.mobile,
             email: argv.email,
             accountType: argv.at? AccountType[ argv.at ]: undefined,

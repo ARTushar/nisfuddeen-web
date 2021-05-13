@@ -36,4 +36,5 @@ export default class Link {
             ...mapItemFromAlias(linkAliases, item)
         })
     }
+
 }

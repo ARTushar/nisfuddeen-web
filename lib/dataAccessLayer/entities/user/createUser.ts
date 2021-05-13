@@ -31,15 +31,7 @@ export default async function (user: User): Promise<User> {
                 GSI1SK: gsi1Keys.GSI1SK,
                 GSI2PK: gsi2Keys.GSI2PK,
                 GSI2SK: gsi2Keys.GSI2SK,
-                id: userId,
-                fn: user.name,
-                em: user.email,
-                mb: user.mobileNumber,
-                ac: user.accountType,
-                st: user.subscriptionType,
-                emv: user.emailVerified,
-                _ca: user.createdAt,
-                _ua: user.updatedAt,
+                ...user.mapToAlias(),
                 _tp: "User"
             }, {
                 removeUndefinedValues: true,

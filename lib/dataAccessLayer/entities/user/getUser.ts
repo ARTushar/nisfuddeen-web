@@ -9,7 +9,6 @@ import User from '../../../models/user/User';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import DynamodbConfig from '../../utils/dynamodbConfig';
 import dynamoDBClient from '../../utils/getDynamoDBClient';
-import { userFactory } from '../../utils/factory';
 import { generateUserGSI1Keys, generateUserGSI2Keys, generateUserPrimaryKeys } from '../../utils/generateKeys';
 
 export async function  getUserById(userId: string): Promise<User> {
@@ -25,7 +24,7 @@ export async function  getUserById(userId: string): Promise<User> {
         const response: GetItemCommandOutput = await dynamoDBClient.send(command)
         if(response.Item){
             const user = unmarshall(response.Item);
-            return userFactory(user);
+            return User.mapFromAlias(user);
         }
         return null;
     } catch (e) {
@@ -58,7 +57,7 @@ export async function getUserByEmail(email: string): Promise<User> {
         console.log(response)
         if(response.Items.length == 1){
             const user = unmarshall(response.Items[0]);
-            return userFactory(user);
+            return User.mapFromAlias(user);
         }
         return null;
     } catch (e) {
@@ -88,7 +87,7 @@ export async function getUserByMobile(mobile: string): Promise<User> {
         const response: QueryCommandOutput = await dynamoDBClient.send(command)
         if(response.Items.length == 1){
             const user = unmarshall(response.Items[0]);
-            return userFactory(user);
+            return User.mapFromAlias(user);
         }
         return null;
     } catch (e) {

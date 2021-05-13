@@ -2,6 +2,8 @@ import createSession from '../../dataAccessLayer/entities/user/createSession';
 import { getSessionByToken } from '../../dataAccessLayer/entities/user/getSession';
 import updateSession from '../../dataAccessLayer/entities/user/updateSession';
 import { deleteSessionByToken } from '../../dataAccessLayer/entities/user/deleteSession';
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { sessionAliases } from '../../dataAccessLayer/utils/aliases';
 
 interface SessionConstructorParams {
     userId: string;
@@ -27,6 +29,17 @@ export default class Session {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.expires = expiresAt;
+    }
+
+    mapToAlias() {
+        return mapItemToAlias(sessionAliases, this);
+    }
+
+    static mapFromAlias(item): Session {
+        return new Session({
+            sessionToken: '', userId: '',
+            ...mapItemFromAlias(sessionAliases, item)
+        })
     }
 
     static async createSession(userId: string, sessionExpiration: number): Promise<Session> {

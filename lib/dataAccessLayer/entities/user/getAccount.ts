@@ -29,7 +29,7 @@ export async function  getAccountByProviderAccountId(providerId: string, account
         console.log(response)
         if(response.Items.length == 1){
             const account = unmarshall(response.Items[0]);
-            return accountFactory(account);
+            return Account.mapFromAlias(account);
         }
         return null;
     } catch (e) {

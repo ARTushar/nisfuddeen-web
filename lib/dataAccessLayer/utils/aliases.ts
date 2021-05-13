@@ -1,14 +1,17 @@
 import { getKeys } from '../../scripts/utils/utils';
 
 export const userAliases = {
-    "fullName": "fn",
+    "id": 'id',
+    "name": "fn",
     "email": "em",
     "emailVerified": "emv",
+    "mobileNumber": "mb",
+    "accountType": "at",
+    "subscriptionType": "st",
+    'gender': 'gn',
+    'completeAccount': 'ca',
     "createdAt": "_ca",
     "updatedAt": "_ua",
-    "mobileNumber": "mb",
-    "accountType": "ac",
-    "subscriptionType": "st"
 }
 
 export const sessionAliases = {
@@ -32,6 +35,13 @@ export const accountAliases = {
     "updatedAt": "_ua"
 }
 
+export const vrAliases = {
+    token: 'tk',
+    identifier: 'id',
+    expiresAt: 'ea',
+    createdAt: 'ca',
+    updatedAt: 'ua'
+}
 
 export const addressAliases = {
     "type": "tp",

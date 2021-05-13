@@ -1,6 +1,8 @@
 import { getAccountByProviderAccountId } from '../../dataAccessLayer/entities/user/getAccount';
 import createAccount from '../../dataAccessLayer/entities/user/createAccount';
 import { deleteAccount } from '../../dataAccessLayer/entities/user/deleteAccount';
+import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
+import { accountAliases } from '../../dataAccessLayer/utils/aliases';
 
 interface AcConstructorParams {
     userId: string;
@@ -55,6 +57,17 @@ export default class Account {
         this.accessTokenExpires = accessTokenExpires;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    mapToAlias() {
+        return mapItemToAlias(accountAliases, this);
+    }
+
+    static mapFromAlias(item): Account {
+        return new Account({
+            accessToken: '', accessTokenExpires: '', providerAccountId: '', providerId: '', providerType: '', refreshToken: '', userId: '',
+            ...mapItemFromAlias(accountAliases, item)
+        })
     }
 
     static async getAccountByProviderAccountId(providerId: string, accountId: string): Promise<Account> {

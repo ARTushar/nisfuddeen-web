@@ -7,6 +7,8 @@ import { checkUniquePK } from '../../../utils/dynoUtils';
 
 export default async function(account: Account): Promise<Account> {
     const createdAt = new Date().toISOString();
+    account.createdAt = createdAt;
+    account.updatedAt = createdAt;
     // const ttl = Math.floor(expiresAt.getTime() / 1000);
 
     const params: PutItemCommandInput = {
@@ -16,15 +18,7 @@ export default async function(account: Account): Promise<Account> {
             SK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.providerAccountId,
             GSI1PK: "USER#ID#" + account.userId,
             GSI1SK: "ACCOUNT#PID#" + account.providerId + "#AID#" + account.providerAccountId,
-            pid: account.providerId,
-            uid: account.userId,
-            aid: account.providerAccountId,
-            pt: account.providerType,
-            rt: account.refreshToken,
-            at: account.accessToken,
-            ate: account.accessTokenExpires,
-            _ca: createdAt,
-            _ua: createdAt,
+            ...account.mapToAlias(),
             _tp: "Account"
         }, {
             removeUndefinedValues: true

@@ -9,7 +9,7 @@ import { nisfuddeenEnums } from '../../../Types/enums';
 
 export function generateRandomUser() {
     return new User({
-        fullName: generateRandomName(10),
+        name: generateRandomName(10),
         mobileNumber: generateRandomMobileNumber(),
         email: generateRandomEmail(),
         accountType: getRandomEnumValue(nisfuddeenEnums.accountType),

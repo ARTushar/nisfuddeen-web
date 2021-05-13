@@ -5,7 +5,7 @@ function verifyModeratorOrAdmin(req, res, next) {
     req.user.accountType === 'admin') {
     next();
   } else {
-    next(createForbiddenError('Not allowd to use this feature'));
+    next(createForbiddenError('Unauthorized User'));
   }
 }
 
