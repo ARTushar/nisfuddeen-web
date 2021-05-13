@@ -7,11 +7,11 @@ import register from '../../../lib/validations/register';
 import { createBadRequestError } from '../../../lib/utils/errorCreators';
 
 const handler = createNC();
-const validate = createValidation(register, ['body']);
+const registerValidate = createValidation(register, ['body']);
 
 
 handler
-  .post(verifyUser, validate, async (req, res, next) => {
+  .post(verifyUser, registerValidate, async (req, res, next) => {
       try {
           // debug("register_before_user", req.user);
           const user = await User.updateUser({
