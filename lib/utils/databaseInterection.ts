@@ -189,9 +189,9 @@ import { errorFactory } from "./helpers";
 //
 // export async function fetchReceivedRequests(userId) {
 //   try {
-//     const requests = await ContactRequest.findMany({ to: userId }, '-to');
-//     if (!requests) throw createNotFoundError('Contact Requests not found');
-//     return requests;
+//     const incoming = await ContactRequest.findMany({ to: userId }, '-to');
+//     if (!incoming) throw createNotFoundError('Contact Requests not found');
+//     return incoming;
 //   } catch (error) {
 //     throw errorFactory(error, createServerError);
 //   }
@@ -200,9 +200,9 @@ import { errorFactory } from "./helpers";
 //
 // export async function fetchSentRequests(userId) {
 //   try {
-//     const requests = await ContactRequest.findMany({ from: userId }, '-from');
-//     if (!requests) throw createNotFoundError('Contact Requests not found');
-//     return requests;
+//     const incoming = await ContactRequest.findMany({ from: userId }, '-from');
+//     if (!incoming) throw createNotFoundError('Contact Requests not found');
+//     return incoming;
 //   } catch (error) {
 //     throw errorFactory(error, createServerError);
 //   }
@@ -214,7 +214,7 @@ import { errorFactory } from "./helpers";
 //   }
 //   try {
 //     const contactRequest = await ContactRequest.findById(requestId, 'status');
-//     if (!contactRequest) throw createNotFoundError('Contact requests not found');
+//     if (!contactRequest) throw createNotFoundError('Contact incoming not found');
 //     contactRequest.status = body.status;
 //     await contactRequest.save();
 //     return true;

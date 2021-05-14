@@ -25,5 +25,5 @@ export function createBadRequestError(message) {
 }
 
 export function createOverRateError() {
-  return createError(429, 'too many requests');
+  return createError(429, 'too many incoming');
 }

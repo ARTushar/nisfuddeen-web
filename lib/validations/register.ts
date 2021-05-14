@@ -1,5 +1,12 @@
 import Joi from 'joi';
-import { checkValidMobileNumber } from '../utils/helpers';
+import { checkValidMobileNumber, generateRegexFromEnumValues } from '../utils/helpers';
+import { getKeys } from '../scripts/utils/utils';
+import { AccountType, Gender } from '../dataAccessLayer/utils/aliases';
+
+
+const accountTypes = getKeys(AccountType);
+const genderTypes = getKeys(Gender);
+
 
 export default Joi.object(({
     name: Joi.string()
@@ -13,10 +20,10 @@ export default Joi.object(({
       .required(),
 
     accountType: Joi.string()
-      .pattern(new RegExp('^(guardian|bride|groom)$'))
+      .pattern(generateRegexFromEnumValues(accountTypes))
       .required(),
 
     gender: Joi.string()
-      .pattern(new RegExp('^(male|female)$'))
+      .pattern(generateRegexFromEnumValues(genderTypes))
       .required(),
 }));
