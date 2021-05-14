@@ -7,7 +7,7 @@ import register from '../../../lib/validations/register';
 import { createBadRequestError } from '../../../lib/utils/errorCreators';
 
 const handler = createNC();
-const registerValidate = createValidation(register, ['body']);
+const registerValidate = createValidation(register, 'body');
 
 
 handler

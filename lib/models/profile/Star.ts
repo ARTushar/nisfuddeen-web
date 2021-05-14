@@ -1,5 +1,8 @@
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
 import { starAliases } from '../../dataAccessLayer/utils/aliases';
+import { getStarsBy, getStarsTo } from '../../dataAccessLayer/entities/profile/getStars';
+import deleteStar from '../../dataAccessLayer/entities/profile/deleteStar';
+import createStar from '../../dataAccessLayer/entities/profile/createStar';
 
 interface StarConstructorParams {
     starBy?: string;
@@ -26,5 +29,37 @@ export default class Star {
         return new Star({
             ...mapItemFromAlias(starAliases, item)
         })
+    }
+
+    static async getStarsBy(userId: string) {
+        try {
+            return await getStarsBy(userId);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    static async getStarsTo(userId: string) {
+        try {
+            return await getStarsTo(userId);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    static async deleteStar(by: string, to: string) {
+        try {
+            return await deleteStar(by, to);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    static async createStar(by: string, to: string) {
+        try {
+            return await createStar(by, to);
+        } catch (e) {
+            throw e;
+        }
     }
 }
