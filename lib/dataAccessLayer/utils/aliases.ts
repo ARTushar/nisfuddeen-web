@@ -1,38 +1,37 @@
-import { getKeys } from '../../scripts/utils/utils';
-
 export const userAliases = {
-    "id": 'id',
-    "name": "fn",
-    "email": "em",
-    "emailVerified": "emv",
-    "mobileNumber": "mb",
-    "accountType": "at",
-    "subscriptionType": "st",
-    'gender': 'gn',
-    'completeAccount': 'ca',
-    "createdAt": "_ca",
-    "updatedAt": "_ua",
+    id: 'id',
+    name: "fn",
+    email: "em",
+    emailVerified: "emv",
+    mobileNumber: "mb",
+    accountType: "at",
+    subscriptionType: "st",
+    gender: 'gn',
+    completeAccount: 'ca',
+    biodataSubmitted: 'bs',
+    createdAt: "_ca",
+    updatedAt: "_ua",
 }
 
 export const sessionAliases = {
-    "sessionToken": "sid",
-    "accessToken": "at",
-    "userId": "uid",
-    "createdAt": "ca",
-    "updatedAt": "ua",
-    "expires": "ea",
+    sessionToken: "sid",
+    accessToken: "at",
+    userId: "uid",
+    createdAt: "ca",
+    updatedAt: "ua",
+    expires: "ea",
 }
 
 export const accountAliases = {
-    "providerId": "pid",
-    "userId": "uid",
-    "providerAccountId": "aid",
-    "providerType": "pt",
-    "refreshToken": "rt",
-    "accessToken": "at",
-    "accessTokenExpires": "ate",
-    "createdAt": "_ca",
-    "updatedAt": "_ua"
+    providerId: "pid",
+    userId: "uid",
+    providerAccountId: "aid",
+    providerType: "pt",
+    refreshToken: "rt",
+    accessToken: "at",
+    accessTokenExpires: "ate",
+    createdAt: "_ca",
+    updatedAt: "_ua"
 }
 
 export const vrAliases = {
@@ -44,147 +43,151 @@ export const vrAliases = {
 }
 
 export const addressAliases = {
-    "type": "tp",
-    "country": "cn",
-    "division": "dv",
-    "district": "di",
-    "postOffice": "po"
+    type: "tp",
+    country: "cn",
+    division: "dv",
+    district: "di",
+    postOffice: "po"
 }
 
 export const basicInformationAliases = {
-    "gender": "gn",
-    "maritalStatus": "ms",
-    "birthDay": "bd",
-    "facialColor": "fc",
-    "height": "h",
-    "weight": "w",
-    "bloodGroup": "bg",
-    "occupation":"oc",
+    gender: "gn",
+    maritalStatus: "ms",
+    birthDay: "bd",
+    facialColor: "fc",
+    height: "h",
+    weight: "w",
+    bloodGroup: "bg",
+    occupation:"oc",
 }
 
 export const contactInformationAliases = {
-    'fatherMobile': 'fm',
-    'motherMobile': 'mm',
-    'guardianMobile': 'gm'
+    fatherMobile: 'fm',
+    motherMobile: 'mm',
+    guardianMobile: 'gm'
 }
 
 export const educationQualificationAliases = {
-    'degreeName': 'dn',
-    'department': 'dp',
-    'passYear': 'py',
-    'instituteName': 'in',
-    'result': 'res'
+    degreeName: 'dn',
+    department: 'dp',
+    passYear: 'py',
+    instituteName: 'in',
+    result: 'res'
 }
 
 export const extraInformationAliases = {
-    'aboutMe': 'am',
-    'aboutOccupation': 'ao',
-    'guardianKnowsAboutSubmission': 'gkas'
+    aboutMe: 'am',
+    aboutOccupation: 'ao',
+    guardianKnowsAboutSubmission: 'gkas'
 }
 
 export const familyInformationAliases = {
-    'fatherAlive': 'fa',
-    'fatherOccupation': 'fo',
-    'motherAlive': 'ma',
-    'motherOccupation': 'mo',
-    'totalSisters': 'ts',
-    'totalBrothers': 'tb',
-    'brothersStatus': 'bs',
-    'sistersStatus': 'ss',
-    'financialStatus': 'fs',
-    'socialStatus': 'sos',
-    'unclesStatus': 'us'
+    fatherAlive: 'fa',
+    fatherOccupation: 'fo',
+    motherAlive: 'ma',
+    motherOccupation: 'mo',
+    totalSisters: 'ts',
+    totalBrothers: 'tb',
+    brothersStatus: 'bs',
+    sistersStatus: 'ss',
+    financialStatus: 'fs',
+    socialStatus: 'sos',
+    unclesStatus: 'us'
 }
 
 export const marriageInformationAliases = {
-    'guardianAgreed': 'ga',
-    'reasonOfMarriage': 'rom',
-    'ideaAboutMarriage': 'iam',
-    'jobAfterMarriage': 'jam', // MarriageReply
-    'carryStudyAfterMarriage': 'csam', // MarriageReply,
-    'willManageWifePardah': 'wmwp',
-    'willAllowWifeStudy': 'waws', // AfterMarriageStudyReply,
-    'afterMarriageStay': 'ams',
-    'desiresDowryOrGift': 'dwg',
-    'maleMohoranaRange': 'mmr',
-    'maleMohoranaPaidTime': 'mopt', // MohoranaTimeReply,
-    'femaleMohoranaExpectation': 'fme',
-    'femaleMohoranaExpectedPaidTime': 'fmept', // MohoranaTimeReply
+    guardianAgreed: 'ga',
+    reasonOfMarriage: 'rom',
+    ideaAboutMarriage: 'iam',
+    jobAfterMarriage: 'jam', // MarriageReply
+    carryStudyAfterMarriage: 'csam', // MarriageReply,
+    willManageWifePardah: 'wmwp',
+    willAllowWifeStudy: 'waws', // AfterMarriageStudyReply,
+    afterMarriageStay: 'ams',
+    desiresDowryOrGift: 'dwg',
+    maleMohoranaRange: 'mmr',
+    maleMohoranaPaidTime: 'mopt', // MohoranaTimeReply,
+    femaleMohoranaExpectation: 'fme',
+    femaleMohoranaExpectedPaidTime: 'fmept', // MohoranaTimeReply
 }
 
 export const partnerQualitiesAliases = {
-    'ageRange': 'ar',
-    'facialComplexion': 'fc', //FacialColor,
-    'heightRange': 'ht',
-    'minimumEducationDegree': 'med', // EducationDegree,
-    'country': 'cn',
-    'district': 'di',
-    'maritalStatus': 'ms', // MaritalStatus,
-    'occupation': 'oc',
-    'financialStatus': 'fs', // FinancialStatus[],
-    'desiredQualities': 'dq',
+    ageRange: 'ar',
+    facialComplexion: 'fc', //FacialColor,
+    heightRange: 'ht',
+    minimumEducationDegree: 'med', // EducationDegree,
+    country: 'cn',
+    district: 'di',
+    maritalStatus: 'ms', // MaritalStatus,
+    occupation: 'oc',
+    financialStatus: 'fs', // FinancialStatus[],
+    desiredQualities: 'dq',
 }
 
 export const personalInformationAliases = {
-    'outfit': 'of', // BoyOutfit[] | GirlOutfit[],
-    'beardStyle': 'bs', // BeardStyle
-    'pantPajamaAboveKnee': 'ak',
-    'prayerTimes': 'pt',
-    'malePrayerTimesInJamah': 'mptj',
-    'femalePrayerTimesInAwwal': 'fpta',
-    'durationOfRegularPrayer': 'drp',
-    'mahramMaintain': 'mm', // MixAnswer,
-    'majhab': 'ma', // Majhab,
-    'politicalPhilosophy': 'pp',
-    'watchDramaMovie': 'wdm', // NegativeAnswer,
-    'readSahihQuran': 'rsq', // PositiveAnswer,
-    'listenMusic': 'lm', // NegativeAnswer,
-    'anyDisease': 'ad',
-    'deenMehnat': 'dm',
-    'pirFollower': 'pf',
-    'mazarBelief': 'mb',
-    'favoriteIslamicBooks': 'fib',
-    'favoriteScholars': 'fs',
-    'specialQualities': 'sq',
-    'guardian': 'g', // Guardian,
+    outfit: 'of', // BoyOutfit[] | GirlOutfit[],
+    beardStyle: 'bs', // BeardStyle
+    pantPajamaAboveKnee: 'ak',
+    prayerTimes: 'pt',
+    malePrayerTimesInJamah: 'mptj',
+    femalePrayerTimesInAwwal: 'fpta',
+    durationOfRegularPrayer: 'drp',
+    mahramMaintain: 'mm', // MixAnswer,
+    majhab: 'ma', // Majhab,
+    politicalPhilosophy: 'pp',
+    watchDramaMovie: 'wdm', // NegativeAnswer,
+    readSahihQuran: 'rsq', // PositiveAnswer,
+    listenMusic: 'lm', // NegativeAnswer,
+    anyDisease: 'ad',
+    deenMehnat: 'dm',
+    pirFollower: 'pf',
+    mazarBelief: 'mb',
+    favoriteIslamicBooks: 'fib',
+    favoriteScholars: 'fs',
+    specialQualities: 'sq',
+    badHabits: 'bh',
+    personalityType: 'prt',
+    hobbies: 'hb',
+    futurePlan: 'fp',
+    guardian: 'g', // Guardian,
 
 }
 
 export const biodataAliases = {
-    'userId' : 'uid',
-    'enabled': 'en',
-    'verified': 'vr',
-    'createdAt': '_ca',
-    'updatedAt': '_ua',
-    'gender': 'gn',
-    'country': 'cn',
-    'district': 'di',
-    'maritalStatus': 'ms',
-    'occupation': 'oc',
-    'birthYear': 'by'
+    userId : 'uid',
+    enabled: 'en',
+    verified: 'vr',
+    createdAt: '_ca',
+    updatedAt: '_ua',
+    gender: 'gn',
+    country: 'cn',
+    district: 'di',
+    maritalStatus: 'ms',
+    occupation: 'oc',
+    birthYear: 'by'
 }
 
 export const starAliases = {
-    'starBy': 'by',
-    'starTo': 'to',
-    'starredAt': 'sa',
+    starBy: 'by',
+    starTo: 'to',
+    starredAt: 'sa',
 }
 
 export const linkAliases = {
-    'linkBy': 'by',
-    'linkTo': 'to',
-    'relation': 'rel',
-    'createdAt': 'ca',
-    'updatedAt': 'ua',
-    'status': 'st'
+    linkBy: 'by',
+    linkTo: 'to',
+    relation: 'rel',
+    createdAt: 'ca',
+    updatedAt: 'ua',
+    status: 'st'
 }
 
 export const requestAliases = {
-    'requestBy': 'by',
-    'requestTo': 'to',
-    'status': 'st',
-    'createdAt': 'ca',
-    'updatedAt': 'ua'
+    requestBy: 'by',
+    requestTo: 'to',
+    status: 'st',
+    createdAt: 'ca',
+    updatedAt: 'ua'
 }
 
 export const Gender = {
@@ -193,8 +196,8 @@ export const Gender = {
 }
 
 export const InvertGender = {
-    "m": "male",
-    "f": "female"
+    m: "male",
+    f: "female"
 }
 
 export const MaritalStatus = {
@@ -207,12 +210,12 @@ export const MaritalStatus = {
 }
 
 export const InvertMaritalStatus = {
-    "um": "unmarried",
-    "mc": "marriedWithChildren",
-    "mwc": "marriedWithoutChildren",
-    "dc": "divorcedWithChildren",
-    "dwc": "divorcedWithoutChildren",
-    "w": "widow"
+    um: "unmarried",
+    mc: "marriedWithChildren",
+    mwc: "marriedWithoutChildren",
+    dc: "divorcedWithChildren",
+    dwc: "divorcedWithoutChildren",
+    w: "widow"
 }
 
 export const FacialColor = {
@@ -226,13 +229,13 @@ export const FacialColor = {
 }
 
 export const InvertFacialColor = {
-    "pkw": "pinkishWhite",
-    "plw": "paleWhite",
-    "fw": "fairWhite",
-    "mf": "mediumFair",
-    "lb": "lightBrown",
-    "mb": "moderateBrown",
-    "bl": "black"
+    pkw: "pinkishWhite",
+    plw: "paleWhite",
+    fw: "fairWhite",
+    mf: "mediumFair",
+    lb: "lightBrown",
+    mb: "moderateBrown",
+    bl: "black"
 }
 
 
@@ -246,12 +249,12 @@ export const EducationDegree = {
 }
 
 export const InvertEducationDegree = {
-    "s": "secondary",
-    "hs": "higherSecondary",
-    "ug": "undergraduate",
-    "pg": "postgraduate",
-    "d": "doctorate",
-    "pd": "postDoctorate"
+    s: "secondary",
+    hs: "higherSecondary",
+    ug: "undergraduate",
+    pg: "postgraduate",
+    d: "doctorate",
+    pd: "postDoctorate"
 }
 
 
@@ -421,6 +424,12 @@ export const LinkStatus = {
     confirmed: 'cf',
     pending: 'pd',
     cancelled: 'cl'
+}
+
+export const PersonalityType = {
+    introvert: 'in',
+    extrovert: 'ex',
+    ambivert: 'am'
 }
 
 export function invertAlias(type) {

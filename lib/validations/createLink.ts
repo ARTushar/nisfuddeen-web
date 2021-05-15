@@ -4,5 +4,7 @@ export default Joi.object({
     id: Joi.string()
       .pattern(new RegExp('^[a-zA-Z0-9]{27}$'))
       .required(),
-
-});
+    relation: Joi.string()
+      .lowercase()
+      .required()
+})

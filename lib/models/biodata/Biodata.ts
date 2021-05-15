@@ -10,6 +10,10 @@ import ContactInformation from './ContactInformation';
 import { biodataAliases } from '../../dataAccessLayer/utils/aliases';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import { isEqual } from '../../utils/helpers';
+import { getBiodataByUserId, getBiodatasByGnMsUgLoc } from '../../dataAccessLayer/entities/biodata/getBiodata';
+import createBiodata from '../../dataAccessLayer/entities/biodata/createBiodata';
+import updateBiodata from '../../dataAccessLayer/entities/biodata/updateBiodata';
+import deleteBiodata from '../../dataAccessLayer/entities/biodata/deleteBiodata';
 
 interface BiodataConstructorParams {
     userId?: string;
@@ -122,5 +126,37 @@ export default class Biodata {
 
     isEqual(obj: Biodata): boolean {
         return isEqual(this, obj);
+    }
+
+    static async getBiodataByUserId(userId: string) {
+        try {
+            return await getBiodataByUserId(userId);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    static async createBiodata(userId: string, biodata) {
+        try {
+            return await createBiodata(userId, biodata)
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    static async updateBiodata(userId: string, biodata, gender: string) {
+        try {
+            return await updateBiodata(userId, biodata, gender)
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    static async deleteBiodata(userId: string ) {
+        try {
+            return await deleteBiodata(userId)
+        } catch (e) {
+            throw e;
+        }
     }
 }

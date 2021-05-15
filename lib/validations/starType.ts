@@ -1,10 +1,10 @@
 import Joi from 'joi';
-import { generateRegexFromEnumValues } from '../utils/helpers';
+import { genRxFmEnVals } from '../utils/helpers';
 
 const starTypes = ['incoming', 'outgoing'];
 
-export default Joi.object(({
+export default Joi.object({
     type: Joi.string()
-      .pattern(generateRegexFromEnumValues(starTypes))
+      .pattern(genRxFmEnVals(starTypes))
       .required(),
-}));
+});

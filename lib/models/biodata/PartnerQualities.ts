@@ -8,10 +8,11 @@ interface PQConstructorParams {
     facialComplexion: string; //FacialColor;
     heightRange: RangePair;
     minimumEducationDegree: string; // EducationDegree;
-    country: string
-    district: string;
+    country: string,
+    division?: string,
+    district?: string[];
     maritalStatus: string; // MaritalStatus;
-    occupation: string;
+    occupation: string[];
     financialStatus: string[]; // FinancialStatus[];
     desiredQualities: string;
 }
@@ -21,21 +22,23 @@ export default class PartnerQualities {
     facialComplexion: string; //FacialColor;
     heightRange: RangePair;
     minimumEducationDegree: string; // EducationDegree;
-    country: string
-    district: string;
+    country: string;
+    division: string;
+    district: string[];
     maritalStatus: string; // MaritalStatus;
-    occupation: string;
+    occupation: string[];
     financialStatus: string[]; // FinancialStatus[];
     desiredQualities: string;
 
 
-    constructor({ageRange, facialComplexion, heightRange, minimumEducationDegree, district, country, maritalStatus, occupation, financialStatus, desiredQualities}: PQConstructorParams) {
+    constructor({ageRange, facialComplexion, heightRange, minimumEducationDegree, district, country, division, maritalStatus, occupation, financialStatus, desiredQualities}: PQConstructorParams) {
         this.ageRange = ageRange;
         this.facialComplexion = facialComplexion;
         this.heightRange = heightRange;
         this.minimumEducationDegree = minimumEducationDegree;
         this.district = district;
         this.country = country;
+        this.division = division;
         this.maritalStatus = maritalStatus;
         this.occupation = occupation;
         this.financialStatus = financialStatus;
@@ -52,14 +55,15 @@ export default class PartnerQualities {
 
     static mapFromAlias(item) {
         return new PartnerQualities({
+            occupation: [],
             country: '',
             desiredQualities: '',
-            district: '',
+            district: [],
+            division: '',
             facialComplexion: '',
             financialStatus: [],
             maritalStatus: '',
             minimumEducationDegree: '',
-            occupation: '',
             ...mapItemFromAlias(pqa, item),
             ageRange: RangePair.fromFormatString(item[pqa.ageRange]),
             heightRange: RangePair.fromFormatString(item[pqa.heightRange])

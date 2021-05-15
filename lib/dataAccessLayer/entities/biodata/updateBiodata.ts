@@ -40,6 +40,7 @@ import { getBiodataByUserId } from './getBiodata';
 import { getKeys } from '../../../scripts/utils/utils';
 import Address from '../../../models/biodata/Address';
 import ShortBiodata from '../../../models/biodata/ShortBiodata';
+import { createBadRequestError } from '../../../utils/errorCreators';
 
 const debugType: string = 'biodata_update';
 
@@ -59,6 +60,10 @@ export default async function(userId, newBiodata: Biodata, gender: string): Prom
     debug("oldbiodata", oldBiodata);
 
     items = generateTransactItems(newBiodata, oldBiodata, gender);
+    if(items.length == 0) {
+        throw createBadRequestError('No field to update');
+    }
+
     console.assert(items.length <= 25);
 
     const params: TransactWriteItemsInput = {
@@ -107,14 +112,6 @@ export default async function(userId, newBiodata: Biodata, gender: string): Prom
 
 function generateTransactItems(newBiodata: Biodata, oldBiodata: Biodata, gender: string) {
     let items: TransactWriteItem[] = [];
-    let needToUpdateGSIs = {
-        GSI1: false,
-        GSI2: false,
-        GSI3: false,
-        GSI4: false,
-        GSI5: false,
-        GSI6: false,
-    }
 
     function addUpdateItem(obj, keyGenerator ) {
         const vals = generateUpdateAttributes(obj);

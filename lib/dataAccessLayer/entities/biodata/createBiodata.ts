@@ -1,6 +1,10 @@
 import Biodata from '../../../models/biodata/Biodata';
 import { TransactWriteItem, TransactWriteItemsCommand, TransactWriteItemsInput } from '@aws-sdk/client-dynamodb';
-import { generatePutTransactItemRaw, generatePutTransactItem } from '../../utils/utils';
+import {
+    generatePutTransactItemRaw,
+    generatePutTransactItem,
+    generateUpdateTransactWriteItem, generateUpdateAttributes
+} from '../../utils/utils';
 import {
     biodataAliases as ba,
 } from '../../utils/aliases';
@@ -21,12 +25,14 @@ import {
     generateEQKeys,
     generateFIKeys,
     generateMIKeys,
-    generatePIKeys, generatePQKeys
+    generatePIKeys, generatePQKeys, generateUserPrimaryKeys
 } from '../../utils/generateKeys';
 import EducationQualification from '../../../models/biodata/EducationQualification';
 import dynamoDBClient from '../../utils/getDynamoDBClient';
+import User from '../../../models/user/User';
 
-export default async function(biodata: Biodata): Promise<Biodata> {
+export default async function(userId: string, biodata: Biodata): Promise<Biodata> {
+    biodata.userId = userId;
     biodata.createdAt = new Date().toISOString();
     biodata.updatedAt = biodata.createdAt;
 
@@ -147,7 +153,19 @@ export default async function(biodata: Biodata): Promise<Biodata> {
     const miItem: TransactWriteItem = generatePutTransactItemRaw(generateMIKeys, [biodata.userId], biodata.marriageInformation, "MI");
     const piItem: TransactWriteItem = generatePutTransactItemRaw(generatePIKeys, [biodata.userId], biodata.personaInformation, "PI");
 
-    items.push(biodataItem, biItem, ciItem, eiItem, fiItem, pqItem, miItem, piItem, ...adItems, ...eqItems);
+    const userKey = generateUserPrimaryKeys(userId);
+    const userUpdateValues = generateUpdateAttributes(
+      new User({
+          biodataSubmitted: true,
+      }));
+    const userItem: TransactWriteItem = generateUpdateTransactWriteItem(
+      userKey,
+      userUpdateValues.updateExpression,
+      userUpdateValues.attributeNames,
+      userUpdateValues.attributeValues
+    )
+
+    items.push(biodataItem, biItem, ciItem, eiItem, fiItem, pqItem, miItem, piItem, ...adItems, ...eqItems, userItem);
     console.assert(items.length <= 25);
 
     const params: TransactWriteItemsInput = {

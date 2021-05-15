@@ -159,12 +159,13 @@ function generateUpdateAttributes(user: User) {
 
 function deleteSameFields(oldObject, newObject): boolean {
     let updated = false;
-    for(const key of getKeys(oldObject)){
-        if(key === 'id' || key === 'updatedAt') continue;
-        if(oldObject[key] === newObject[key]){
+    for (const key of getKeys(oldObject)) {
+        if (key === 'id' || key === 'updatedAt') continue;
+        if (oldObject[key] === newObject[key]) {
             delete newObject[key];
         }
-        if(newObject[key] === undefined) delete newObject[key]
+        if (newObject[key] === undefined) delete newObject[key]
     }
-    if(getKeys(newObject).length > 2) updated = true;
+    if (getKeys(newObject).length > 2) updated = true;
     return updated;
+}

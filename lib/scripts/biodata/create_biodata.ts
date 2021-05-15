@@ -21,7 +21,7 @@ const argv = generateArgv();
     const biodata = generateRandomBiodata(user.id)
     // console.log(biodata);
     try {
-        const newBiodata = await createBiodata(biodata);
+        const newBiodata = await createBiodata(biodata.userId, biodata);
         printObject(newBiodata);
     } catch(e){
         console.log(e);

@@ -202,9 +202,9 @@ function genereateRandomPQ(): PartnerQualities {
         heightRange: new RangePair(minHeight, maxHeight),
         minimumEducationDegree: getRandomEnumValue(nisfuddeenEnums.educationDegree),
         country,
-        district: getRandomEnumValue(districts),
+        district: [getRandomEnumValue(districts)],
         maritalStatus: getRandomEnumValue(nisfuddeenEnums.maritalStatus),
-        occupation: getRandomEnumValue(occupations),
+        occupation: [getRandomEnumValue(occupations)],
         financialStatus: [getRandomEnumValue(nisfuddeenEnums.financialStatus)],
         desiredQualities: "Honest && Religious && Caring && Considerable"
     })

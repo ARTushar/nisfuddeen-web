@@ -48,6 +48,7 @@ export default class Star {
     }
 
     static async deleteStar(by: string, to: string) {
+        if(by === to) return null;
         try {
             return await deleteStar(by, to);
         } catch (e) {
@@ -56,6 +57,7 @@ export default class Star {
     }
 
     static async createStar(by: string, to: string) {
+        if(by === to) return null;
         try {
             return await createStar(by, to);
         } catch (e) {

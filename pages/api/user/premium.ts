@@ -13,9 +13,8 @@ handler
               id: req.user.id,
               subscriptionType: 'premium'
           });
-          if(!user) throw createBadRequestError('Already premium');
+          if(!user) return next(createBadRequestError('Already premium'));
           debug('make premium user', user);
-          // user = filterSensitiveUserFields(user);
           res.status(200).json(user);
       } catch (error) {
           next(error);

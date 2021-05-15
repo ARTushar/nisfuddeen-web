@@ -56,6 +56,7 @@ export default class Request {
     }
 
     static async createRequest(by: string, to: string) {
+        if(by === to) return null;
         try {
             return await createRequest(by, to);
         } catch (e) {
@@ -64,6 +65,7 @@ export default class Request {
     }
 
     static async updateStatus(by: string, to: string, status: string) {
+        if(by === to) return null;
         try {
             return await updateStatusRequest(by, to, status);
         } catch (e) {
@@ -72,6 +74,7 @@ export default class Request {
     }
 
     static async deleteRequest(by: string, to: string) {
+        if(by === to) return null;
         try {
             return await deleteRequest(by, to);
         } catch (e) {

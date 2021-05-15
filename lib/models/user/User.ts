@@ -17,7 +17,8 @@ interface UserConstructorParams {
     subscriptionType?: string;
     createdAt?: string;
     updatedAt?: string;
-    emailVerified?: string
+    emailVerified?: string;
+    biodataSubmitted?: boolean;
 }
 
 interface  UserUpdateParams {
@@ -29,7 +30,8 @@ interface  UserUpdateParams {
     completeAccount?: boolean;
     accountType?: string;
     subscriptionType?: string;
-    emailVerified?: string
+    emailVerified?: string;
+    biodataSubmitted?: boolean;
 }
 
 export default class User {
@@ -44,8 +46,9 @@ export default class User {
     emailVerified: string;
     createdAt: string;
     updatedAt: string;
+    biodataSubmitted: boolean;
 
-    constructor({id, name, mobileNumber, email, gender, completeAccount, accountType, subscriptionType, emailVerified}: UserConstructorParams) {
+    constructor({id, name, biodataSubmitted, mobileNumber, email, gender, completeAccount, accountType, subscriptionType, emailVerified}: UserConstructorParams) {
         this.id = id;
         this.name = name;
         this.mobileNumber = mobileNumber;
@@ -54,7 +57,8 @@ export default class User {
         this.completeAccount = completeAccount
         this.accountType = accountType;
         this.subscriptionType = subscriptionType;
-        this.emailVerified = emailVerified
+        this.emailVerified = emailVerified;
+        this.biodataSubmitted = biodataSubmitted
     }
 
     mapToAlias() {
@@ -74,7 +78,8 @@ export default class User {
                 email: email,
                 emailVerified: emailVerified,
                 completeAccount: false,
-                subscriptionType: "free"
+                subscriptionType: "free",
+                biodataSubmitted: false,
             }));
         } catch (e) {
             // throw createServerError("Cannot Create the account.");
@@ -88,7 +93,9 @@ export default class User {
                 name: fullName,
                 mobileNumber: mobile,
                 email,
-                accountType
+                accountType,
+                subscriptionType: "free",
+                biodataSubmitted: false,
             }));
         } catch (e) {
             // throw createServerError("Cannot Create the account.");
@@ -100,7 +107,6 @@ export default class User {
         try  {
             return await getUserByEmail(email);
         } catch (e) {
-            // throw createServerError("Wrong Email");
             throw e;
         }
     }
@@ -109,7 +115,6 @@ export default class User {
         try {
             return await getUserByMobile(mobile);
         } catch (e) {
-            // throw createServerError("Wrong Mobile");
             throw e;
         }
     }
@@ -120,7 +125,6 @@ export default class User {
             debug('getuserbyid', user);
             return user;
         } catch (e) {
-            // throw createServerError("Wrong ID");
             throw e;
         }
     }

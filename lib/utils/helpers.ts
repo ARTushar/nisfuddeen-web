@@ -124,6 +124,6 @@ export function isEqualDeep(obja, objb) {
   return true;
 }
 
-export function generateRegexFromEnumValues(values): RegExp {
+export function genRxFmEnVals(values): RegExp {
   return new RegExp('^('+values.join('|')+')$');
 }
