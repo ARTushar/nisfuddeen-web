@@ -95,3 +95,8 @@ export async function getUserByMobile(mobile: string): Promise<User> {
         throw e
     }
 }
+
+//  TODO: implement fetch users query
+// export async function getUsers(descendingOrder: boolean = true): Promise<User[]> {
+//
+// }

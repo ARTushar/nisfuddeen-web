@@ -1,6 +1,5 @@
 import verifyModeratorOrAdmin from "../../../lib/middlewares/verifyModeratorOrAdmin";
 // import verifyUser from "../../../lib/middlewares/verifyUser";
-// import { fetchUsers } from "../../../lib/utils/databaseInterection";
 import { createNC } from "../../../lib/utils/ncHandlers";
 
 const handler = createNC();
