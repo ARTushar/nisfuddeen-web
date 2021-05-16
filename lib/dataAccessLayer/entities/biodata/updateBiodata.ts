@@ -59,6 +59,8 @@ export default async function(userId, newBiodata: Biodata, gender: string): Prom
 
     debug("oldbiodata", oldBiodata);
 
+    if(oldBiodata.basicInformation.gender !== gender) throw new Error('Invalid gender');
+
     items = generateTransactItems(newBiodata, oldBiodata, gender);
     if(items.length == 0) {
         throw createBadRequestError('No field to update');
