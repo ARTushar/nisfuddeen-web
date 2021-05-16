@@ -198,7 +198,7 @@ function genereateRandomPQ(): PartnerQualities {
 
     return new PartnerQualities({
         ageRange: new RangePair(minAge, maxAge),
-        facialComplexion: getRandomEnumValue(nisfuddeenEnums.facialColor),
+        facialColor: getRandomEnumValue(nisfuddeenEnums.facialColor),
         heightRange: new RangePair(minHeight, maxHeight),
         minimumEducationDegree: getRandomEnumValue(nisfuddeenEnums.educationDegree),
         country,

@@ -18,7 +18,7 @@ const argv = generateArgv();
                 enabled, verified,
                 gender: argv.gender,
                 maritalStatus: argv.ms,
-                facialComplexion: argv.fc,
+                facialColor: argv.fc,
                 financialStatus: argv.fs,
                 minAge: argv.minAge,
                 maxAge: argv.maxAge,

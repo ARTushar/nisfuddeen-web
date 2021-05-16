@@ -136,6 +136,17 @@ export default class Biodata {
         }
     }
 
+    static async getBiodataPubliclyByUserId(userId: string) {
+        try {
+            let biodata = await getBiodataByUserId(userId);
+            delete biodata.contactInformation;
+            return biodata;
+        } catch (e) {
+            throw e;
+        }
+
+    }
+
     static async createBiodata(userId: string, biodata) {
         try {
             return await createBiodata(userId, biodata)

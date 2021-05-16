@@ -453,7 +453,7 @@ function generateGsi5Key(newBiodata:Biodata, oldBiodata: Biodata) {
         maritalStatus: getDefinedValue(newBiodata.basicInformation?.maritalStatus, oldBiodata.basicInformation?.maritalStatus),
         pAddress: newPermanent,
         occupation: getDefinedValue(newBiodata.basicInformation?.occupation, oldBiodata.basicInformation?.occupation),
-        facialComplexion: getDefinedValue(newBiodata.basicInformation?.facialColor, oldBiodata.basicInformation?.facialColor),
+        facialColor: getDefinedValue(newBiodata.basicInformation?.facialColor, oldBiodata.basicInformation?.facialColor),
         financialStatus: getDefinedValue(newBiodata.familyInformation?.financialStatus, newBiodata.familyInformation?.financialStatus),
         bDay: getDefinedValue(newBiodata.basicInformation?.birthDay?.toISOString(), oldBiodata.basicInformation?.birthDay?.toISOString())
     })

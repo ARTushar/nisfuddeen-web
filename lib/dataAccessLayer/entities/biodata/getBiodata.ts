@@ -195,7 +195,7 @@ interface BiodatasByGnMsLocOcFcFsBd {
     gender: string;
     maritalStatus: string;
     occupation: string;
-    facialComplexion: string;
+    facialColor: string;
     financialStatus: string;
     minAge: number;
     maxAge: number;
@@ -204,11 +204,11 @@ interface BiodatasByGnMsLocOcFcFsBd {
     lastEvaluatedKey?: any;
 }
 
-export async function getBiodatasByGnMsLocOcFcFsBd({enabled, verified, gender, maritalStatus, occupation, facialComplexion, financialStatus, minAge, maxAge, pAddress, limit=1000, lastEvaluatedKey=undefined}: BiodatasByGnMsLocOcFcFsBd) {
-    console.assert( enabled !== undefined && verified !== undefined && gender && maritalStatus && pAddress?.country !== undefined && occupation && facialComplexion && financialStatus && minAge && maxAge);
+export async function getBiodatasByGnMsLocOcFcFsBd({enabled, verified, gender, maritalStatus, occupation, facialColor, financialStatus, minAge, maxAge, pAddress, limit=1000, lastEvaluatedKey=undefined}: BiodatasByGnMsLocOcFcFsBd) {
+    console.assert( enabled !== undefined && verified !== undefined && gender && maritalStatus && pAddress?.country !== undefined && occupation && facialColor && financialStatus && minAge && maxAge);
     let userId = undefined, bDay = undefined;
     const PK = generateBiodataGSI5Keys({
-        userId, enabled, verified, gender, maritalStatus, occupation, financialStatus, bDay, facialComplexion,pAddress
+        userId, enabled, verified, gender, maritalStatus, occupation, financialStatus, bDay, facialColor,pAddress
     }).GSI5PK;
     if (!minAge) minAge = 15;
     if (!maxAge) maxAge = 100;

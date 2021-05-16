@@ -1,10 +1,6 @@
 import { BirthDay } from '../../Types/types';
 import {
     basicInformationAliases as bia,
-    BloodGroup,
-    FacialColor,
-    Gender, invertAlias,
-    MaritalStatus
 } from '../../dataAccessLayer/utils/aliases';
 import { mapItemFromAlias, mapItemToAlias } from '../../dataAccessLayer/utils/utils';
 import { isEqual } from '../../utils/helpers';

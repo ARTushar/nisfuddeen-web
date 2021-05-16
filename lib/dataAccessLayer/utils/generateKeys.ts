@@ -16,7 +16,7 @@ export const globalIndexArgs = {
         GSI3Female: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'prayerTimes', 'prayerTimesAwwal', 'outfit'],
         GSI4Male: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'prayerTimes', 'prayerTimesJamah', 'outfit', 'aboveKnee', 'beardStyle', 'occupation'],
         GSI4Female: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'prayerTimes', 'prayerTimesAwwal', 'outfit', 'occupation'],
-        GSI5: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'occupation', 'facialColor', 'financialStatus'],
+        GSI5: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'occupation', 'facialColor', 'financialStatus', 'birthDay'],
         GSI6: ['userId', 'enabled', 'verified', 'gender', 'maritalStatus', 'address', 'occupation'],
     }
 }
@@ -292,16 +292,16 @@ interface GenerateBiodataGSI5KeysParams {
     gender: string;
     maritalStatus: string;
     occupation: string;
-    facialComplexion: string;
+    facialColor: string;
     financialStatus: string;
     bDay: string;
     pAddress: Address;
 }
 
 
-export function generateBiodataGSI5Keys({userId, enabled, verified, gender, maritalStatus, occupation, facialComplexion, financialStatus, bDay, pAddress}: GenerateBiodataGSI5KeysParams) {
+export function generateBiodataGSI5Keys({userId, enabled, verified, gender, maritalStatus, occupation, facialColor, financialStatus, bDay, pAddress}: GenerateBiodataGSI5KeysParams) {
     return {
-        GSI5PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#OC#"+occupation+"#FC#"+facialComplexion+"#FS#"+financialStatus+"#CN#"+pAddress.country+"#DIS#"+pAddress.district,
+        GSI5PK: "EN#"+enabled+"#VER#"+verified+"#GEN#"+gender+"#MS#"+maritalStatus+"#OC#"+occupation+"#FC#"+facialColor+"#FS#"+financialStatus+"#CN#"+pAddress.country+"#DIS#"+pAddress.district,
         GSI5SK: "BD#"+bDay+"#UID#"+userId
     }
 }

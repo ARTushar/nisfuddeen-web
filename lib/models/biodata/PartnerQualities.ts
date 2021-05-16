@@ -5,7 +5,7 @@ import { isEqual } from '../../utils/helpers';
 
 interface PQConstructorParams {
     ageRange: RangePair;
-    facialComplexion: string; //FacialColor;
+    facialColor: string; //FacialColor;
     heightRange: RangePair;
     minimumEducationDegree: string; // EducationDegree;
     country: string,
@@ -19,7 +19,7 @@ interface PQConstructorParams {
 
 export default class PartnerQualities {
     ageRange: RangePair;
-    facialComplexion: string; //FacialColor;
+    facialColor: string; //FacialColor;
     heightRange: RangePair;
     minimumEducationDegree: string; // EducationDegree;
     country: string;
@@ -31,9 +31,9 @@ export default class PartnerQualities {
     desiredQualities: string;
 
 
-    constructor({ageRange, facialComplexion, heightRange, minimumEducationDegree, district, country, division, maritalStatus, occupation, financialStatus, desiredQualities}: PQConstructorParams) {
+    constructor({ageRange, facialColor, heightRange, minimumEducationDegree, district, country, division, maritalStatus, occupation, financialStatus, desiredQualities}: PQConstructorParams) {
         this.ageRange = ageRange;
-        this.facialComplexion = facialComplexion;
+        this.facialColor = facialColor;
         this.heightRange = heightRange;
         this.minimumEducationDegree = minimumEducationDegree;
         this.district = district;
@@ -60,7 +60,7 @@ export default class PartnerQualities {
             desiredQualities: '',
             district: [],
             division: '',
-            facialComplexion: '',
+            facialColor: '',
             financialStatus: [],
             maritalStatus: '',
             minimumEducationDegree: '',
