@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { checkValidMobileNumber, genRxFmEnVals } from '../utils/helpers';
+import { checkValidMobileNumber } from '../utils/helpers';
 import { getKeys } from '../scripts/utils/utils';
 import { AccountType, Gender } from '../dataAccessLayer/utils/aliases';
 
@@ -20,10 +20,10 @@ export default Joi.object({
       .required(),
 
     accountType: Joi.string()
-      .pattern(genRxFmEnVals(accountTypes))
+      .valid(...accountTypes)
       .required(),
 
     gender: Joi.string()
-      .pattern(genRxFmEnVals(genderTypes))
+      .valid(...genderTypes)
       .required(),
 });

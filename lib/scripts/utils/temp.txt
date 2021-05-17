@@ -1,212 +1,205 @@
-true
-true
-false
-Biodata {
-  userId: 'halamadrid',
-  enabled: true,
-  verified: false,
-  basicInformation: BasicInformation {
-    gender: 'female',
-    maritalStatus: 'divorcedWithChildren',
-    birthDay: BirthDay {
-      year: 1990,
-      month: 11,
-      day: 17,
-      isoDate: 1990-11-16T18:00:00.000Z
+{
+  "basicInformation": {
+    "gender": "female",
+    "maritalStatus": "divorcedWithChildren",
+    "birthDay": BirthDay {
+      "year": 1990,
+      "month": 11,
+      "day": 17,
     },
-    facialColor: 'mediumFair',
-    height: 55,
-    weight: 183,
-    bloodGroup: 'o-',
-    occupation: 'student'
+    "facialColor": "mediumFair",
+    "height": 55,
+    "weight": 183,
+    "bloodGroup": "o-",
+    "occupation": "student"
   },
-  addresses: [
-    Address {
-      type: 'permanent',
-      country: 'usa',
-      division: 'california',
-      district: 'western',
-      postOffice: 'mount vew'
+  "addresses": [
+    {
+      "type": "permanent",
+      "country": "usa",
+      "division": "california",
+      "district": "western",
+      "postOffice": "mount vew"
     },
-    Address {
-      type: 'present',
-      country: 'usa',
-      division: 'california',
-      district: 'western',
-      postOffice: 'mount vew'
+    {
+      "type": "present",
+      "country": "usa",
+      "division": "california",
+      "district": "western",
+      "postOffice": "mount vew"
     }
   ],
-  educationQualifications: [
-    EducationQualification {
-      degreeName: 'secondary',
-      department: 'arts',
-      passYear: 2006,
-      instituteName: 'A K High School',
-      result: '5'
+  "educationQualifications": [
+    {
+      "degreeName": "secondary",
+      "department": "arts",
+      "passYear": 2006,
+      "instituteName": "A K High School",
+      "result": "5"
     },
-    EducationQualification {
-      degreeName: 'higherSecondary',
-      department: 'science',
-      passYear: 2003,
-      instituteName: 'Holy Cross College',
-      result: '5'
+    {
+      "degreeName": "higherSecondary",
+      "department": "science",
+      "passYear": 2003,
+      "instituteName": "Holy Cross College",
+      "result": "5"
     },
-    EducationQualification {
-      degreeName: 'undergraduate',
-      department: 'ipe',
-      passYear: 2004,
-      instituteName: 'BUET',
-      result: '4'
+    {
+      "degreeName": "undergraduate",
+      "department": "ipe",
+      "passYear": 2004,
+      "instituteName": "BUET",
+      "result": "4"
     },
-    EducationQualification {
-      degreeName: 'postgraduate',
-      department: 'cse',
-      passYear: 2015,
-      instituteName: 'KUET',
-      result: '3'
+    {
+      "degreeName": "postgraduate",
+      "department": "cse",
+      "passYear": 2015,
+      "instituteName": "KUET",
+      "result": "3"
     }
   ],
-  familyInformation: FamilyInformation {
-    fatherAlive: true,
-    fatherOccupation: 'doctor',
-    motherAlive: false,
-    motherOccupation: 'student',
-    totalSisters: 2,
-    totalBrothers: 0,
-    brothersStatus: undefined,
-    sistersStatus: undefined,
-    financialStatus: 'upperMiddleClass',
-    socialStatus: undefined,
-    unclesStatus: undefined
+  "familyInformation": {
+    "fatherAlive": true,
+    "fatherOccupation": "doctor",
+    "motherAlive": false,
+    "motherOccupation": "student",
+    "totalSisters": 2,
+    "totalBrothers": 0,
+    "brothersStatus": undefined,
+    "sistersStatus": undefined,
+    "financialStatus": "upperMiddleClass",
+    "socialStatus": undefined,
+    "unclesStatus": undefined
   },
-  personaInformation: PersonalInformation {
-    outfit: [ 'niqab', 'abaya', 'handSocks', 'feetSocks' ],
-    beardStyle: undefined,
-    pantPajamaAboveKnee: undefined,
-    prayerTimes: 2,
-    malePrayerTimesInJamah: undefined,
-    femalePrayerTimesInAwwal: 1,
-    durationOfRegularPrayer: 5,
-    mahramMaintain: 'no',
-    majhab: 'hamboli',
-    politicalPhilosophy: 'No view',
-    watchDramaMovie: 'tryToAvoid',
-    readSahihQuran: 'yes',
-    listenMusic: 'no',
-    anyDisease: 'No',
-    deenMehnat: 'No but like tehriki iman',
-    pirFollower: 'No',
-    mazarBelief: "Don't believe",
-    favoriteIslamicBooks: 'Hayatus Sahabah, Muntakhab Hadith',
-    favoriteScholars: 'Maolana Ahmadullah, Maolana Saad Kandhalvi',
-    specialQualities: "don't have any :|",
-    guardian: 'grandMother'
+  "personaInformation": {
+    "outfit": [ "niqab", "abaya", "handSocks", "feetSocks" ],
+    "beardStyle": undefined,
+    "pantPajamaAboveKnee": undefined,
+    "prayerTimes": 2,
+    "malePrayerTimesInJamah": undefined,
+    "femalePrayerTimesInAwwal": 1,
+    "durationOfRegularPrayer": 5,
+    "mahramMaintain": "no",
+    "majhab": "hamboli",
+    "politicalPhilosophy": "No view",
+    "watchDramaMovie": "tryToAvoid",
+    "readSahihQuran": "yes",
+    "listenMusic": "no",
+    "anyDisease": "No",
+    "deenMehnat": "No but like tehriki iman",
+    "pirFollower": "No",
+    "mazarBelief": "Don't believe",
+    "favoriteIslamicBooks": ",
+    "favoriteScholars": ",
+    "specialQualities": "don't have any :|",
+    "guardian": "grandMother"
   },
-  marriageInformation: MarriageInformation {
-    guardianAgreed: false,
-    reasonOfMarriage: 'I just want to marry to complete half of my deen',
-    ideaAboutMarriage: "It's necessary to keep one from haram deeds",
-    jobAfterMarriage: 'yesIfOnline',
-    carryStudyAfterMarriage: 'yesIfSpouseAgrees',
-    willManageWifePardah: undefined,
-    willAllowWifeStudy: undefined,
-    afterMarriageStay: undefined,
-    desiresDowryOrGift: undefined,
-    maleMohoranaRange: undefined,
-    maleMohoranaPaidTime: undefined,
-    femaleMohoranaExpectation: RangePair { min: 129522, max: 54945 },
-    femaleMohoranaExpectedPaidTime: 'partiallyDayOfMarriage'
+  "marriageInformation": {
+    "guardianAgreed": false,
+    "reasonOfMarriage": "I just want to marry to complete half of my deen",
+    "ideaAboutMarriage": "It's necessary to keep one from haram deeds",
+    "jobAfterMarriage": "yesIfOnline",
+    "carryStudyAfterMarriage": "yesIfSpouseAgrees"
+    "willManageWifePardah": undefined,
+    "willAllowWifeStudy": undefined,
+    "afterMarriageStay": undefined,
+    "desiresDowryOrGift": undefined,
+    "maleMohoranaRange": undefined,
+    "maleMohoranaPaidTime": undefined,
+    "femaleMohoranaExpectation": RangePair { min: 129522, max: 54945 },
+    "femaleMohoranaExpectedPaidTime": "partiallyDayOfMarriage"
   },
-  extraInformation: ExtraInformation {
-    aboutMe: "I'm a good boy. I will not let you down. :)",
-    aboutOccupation: 'My income is 100% halal. So no worries. :)',
-    guardianKnowsAboutSubmission: false
+  "extraInformation": {
+    "aboutMe": "I'm a good boy. I will not let you down. :)",
+    "aboutOccupation": "My income is 100% halal. So no worries. :)",
+    "guardianKnowsAboutSubmission": false
   },
-  partnerQualities: PartnerQualities {
-    ageRange: RangePair { min: 17, max: 23 },
-    facialComplexion: 'pinkishWhite',
-    heightRange: RangePair { min: 60, max: 60 },
-    minimumEducationDegree: 'higherSecondary',
-    district: [ 'western' ],
-    country: 'usa',
-    maritalStatus: 'widow',
-    occupation: 'worker',
-    financialStatus: [ 'middleClass' ],
-    desiredQualities: 'Honest && Religious && Caring && Considerable'
+  "partnerQualities": {
+    "ageRange": RangePair { min: 17, max: 23 },
+    "facialComplexion": "pinkishWhite",
+    "heightRange": RangePair { min: 60, max: 60 },
+    "minimumEducationDegree": "higherSecondary",
+    "district": [ "western" ],
+    "country": "usa",
+    "maritalStatus": "widow",
+    "occupation": "worker",
+    "financialStatus": [ "middleClass" ],
+    "desiredQualities": "Honest && Religious && Caring && Considerable"
   },
-  contactInformation: ContactInformation {
-    fatherMobile: '49877146789',
-    motherMobile: '17931177818',
-    guardianMobile: '67188816061'
+  "contactInformation": {
+    "fatherMobile": "49877146789",
+    "motherMobile": "17931177818",
+    "guardianMobile": "67188816061"
   }
 }
 Biodata {
-  userId: 'halamadrid',
+  userId: "halamadrid",
   enabled: true,
   verified: false,
   basicInformation: BasicInformation {
-    gender: 'male',
-    maritalStatus: 'divorcedWithoutChildren',
+    gender: "male",
+    maritalStatus: "divorcedWithoutChildren",
     birthDay: BirthDay {
       year: 1992,
       month: 1,
       day: 29,
       isoDate: 1992-01-28T18:00:00.000Z
     },
-    facialColor: 'mediumFair',
+    facialColor: "mediumFair",
     height: 71,
     weight: 101,
-    bloodGroup: 'a+',
-    occupation: 'student'
+    bloodGroup: "a+",
+    occupation: "student"
   },
   addresses: [
     Address {
-      type: 'permanent',
-      country: 'usa',
-      division: 'california',
-      district: 'western',
-      postOffice: 'mount vew'
+      type: "permanent",
+      country: "usa",
+      division: "california",
+      district: "western",
+      postOffice: "mount vew"
     },
     Address {
-      type: 'present',
-      country: 'usa',
-      division: 'california',
-      district: 'western',
-      postOffice: 'mount vew'
+      type: "present",
+      country: "usa",
+      division: "california",
+      district: "western",
+      postOffice: "mount vew"
     }
   ],
   educationQualifications: [
     EducationQualification {
-      degreeName: 'secondary',
-      department: 'commerce',
+      degreeName: "secondary",
+      department: "commerce",
       passYear: 2016,
-      instituteName: 'Motijheel Ideal School',
-      result: '3'
+      instituteName: "Motijheel Ideal School",
+      result: "3"
     },
     EducationQualification {
-      degreeName: 'higherSecondary',
-      department: 'science',
+      degreeName: "higherSecondary",
+      department: "science",
       passYear: 2006,
-      instituteName: 'Notre Dame College',
-      result: '3'
+      instituteName: "Notre Dame College",
+      result: "3"
     },
     EducationQualification {
-      degreeName: 'undergraduate',
-      department: 'cse',
+      degreeName: "undergraduate",
+      department: "cse",
       passYear: 2016,
-      instituteName: 'CUET',
-      result: '3'
+      instituteName: "CUET",
+      result: "3"
     },
     EducationQualification {
-      degreeName: 'postgraduate',
-      department: 'eee',
+      degreeName: "postgraduate",
+      department: "eee",
       passYear: 2005,
-      instituteName: 'CUET',
-      result: '4'
+      instituteName: "CUET",
+      result: "4"
     },
     EducationQualification {
-      degreeName: 'doctorate',
-      department: 'ipe',
+      degreeName: "doctorate",
+      department: "ipe",
       passYear: 2017,
       instituteName: 'RUET',
       result: '4'
@@ -226,14 +219,14 @@ Biodata {
     unclesStatus: undefined
   },
   personaInformation: PersonalInformation {
-    outfit: [ 'panjabi', 'paijama' ],
-    beardStyle: 'stylishBeard',
-    pantPajamaAboveKnee: false,
-    prayerTimes: 4,
-    malePrayerTimesInJamah: 4,
-    femalePrayerTimesInAwwal: undefined,
-    durationOfRegularPrayer: 0,
-    mahramMaintain: 'no',
+    "outfit": [ "panjabi", "paijama" ],
+    "beardStyle": "stylishBeard",
+    "pantPajamaAboveKnee": false,
+    "prayerTimes": 4,
+    "malePrayerTimesInJamah": 4,
+    "femalePrayerTimesInAwwal": undefined,
+    "durationOfRegularPrayer": 0,
+    "mahramMaintain": 'no',
     majhab: 'hanafi',
     politicalPhilosophy: 'No view',
     watchDramaMovie: 'tryToAvoid',
@@ -254,12 +247,12 @@ Biodata {
     ideaAboutMarriage: "It's necessary to keep one from haram deeds",
     jobAfterMarriage: undefined,
     carryStudyAfterMarriage: undefined,
-    willManageWifePardah: false,
-    willAllowWifeStudy: 'yesIfHome',
-    afterMarriageStay: 'With my parents',
-    desiresDowryOrGift: true,
-    maleMohoranaRange: RangePair { min: 18052, max: 410020 },
-    maleMohoranaPaidTime: 'fullyDayOfMarriage',
+    "willManageWifePardah": false,
+    "willAllowWifeStudy": "yesIfHome"
+    "afterMarriageStay": "With my parents",
+    "desiresDowryOrGift": true,
+    "maleMohoranaRange": { "min": 18052, "max": 410020 },
+    "maleMohoranaPaidTime": "fullyDayOfMarriage",
     femaleMohoranaExpectation: undefined,
     femaleMohoranaExpectedPaidTime: undefined
   },
@@ -518,6 +511,6 @@ Biodata {
   contactInformation: ContactInformation {
     fatherMobile: '06694912076',
     motherMobile: '05985164816',
-    guardianMobile: '90776800358'
+    guardianMobile: "90776800358"
   }
 }

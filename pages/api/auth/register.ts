@@ -14,6 +14,7 @@ handler
   .post(verifyUser, registerValidate, async (req, res, next) => {
       try {
           // debug("register_before_user", req.user);
+          if(req.user.completeAccount) return next(createBadRequestError('Already registered.'));
           const user = await User.updateUser({
               id: req.user.id,
               gender: req.body.gender,

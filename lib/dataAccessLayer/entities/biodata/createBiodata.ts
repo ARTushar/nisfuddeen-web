@@ -62,39 +62,39 @@ export default async function(userId: string, biodata: Biodata): Promise<Biodata
 
     const gsi3Keys = gender === 'male' ? generateBiodataGSI3KeysMale({
         ...keyParams,
-        prayerTimes: biodata.personaInformation.prayerTimes,
-        prayerTimesJamah: biodata.personaInformation.malePrayerTimesInJamah,
-        beardStyle: biodata.personaInformation.beardStyle,
-        aboveKnee: biodata.personaInformation.pantPajamaAboveKnee,
-        outfit: biodata.personaInformation.outfit
+        prayerTimes: biodata.personalInformation.prayerTimes,
+        prayerTimesJamah: biodata.personalInformation.malePrayerTimesInJamah,
+        beardStyle: biodata.personalInformation.beardStyle,
+        aboveKnee: biodata.personalInformation.pantPajamaAboveKnee,
+        outfit: biodata.personalInformation.outfit
 
     }) : generateBiodataGSI3KeysFemale({
         ...keyParams,
-        prayerTimes: biodata.personaInformation.prayerTimes,
-        prayerTimesAwwal: biodata.personaInformation.femalePrayerTimesInAwwal,
-        outfit: biodata.personaInformation.outfit
+        prayerTimes: biodata.personalInformation.prayerTimes,
+        prayerTimesAwwal: biodata.personalInformation.femalePrayerTimesInAwwal,
+        outfit: biodata.personalInformation.outfit
     });
 
     const gsi4Keys = gender === 'male' ? generateBiodataGSI4KeysMale({
         ...keyParams,
         occupation: biodata.basicInformation.occupation,
-        prayerTimes: biodata.personaInformation.prayerTimes,
-        prayerTimesJamah: biodata.personaInformation.malePrayerTimesInJamah,
-        beardStyle: biodata.personaInformation.beardStyle,
-        aboveKnee: biodata.personaInformation.pantPajamaAboveKnee,
-        outfit: biodata.personaInformation.outfit
+        prayerTimes: biodata.personalInformation.prayerTimes,
+        prayerTimesJamah: biodata.personalInformation.malePrayerTimesInJamah,
+        beardStyle: biodata.personalInformation.beardStyle,
+        aboveKnee: biodata.personalInformation.pantPajamaAboveKnee,
+        outfit: biodata.personalInformation.outfit
     }) : generateBiodataGSI4KeysFemale({
         ...keyParams,
         occupation: biodata.basicInformation.occupation,
-        prayerTimes: biodata.personaInformation.prayerTimes,
-        prayerTimesAwwal: biodata.personaInformation.femalePrayerTimesInAwwal,
-        outfit: biodata.personaInformation.outfit
+        prayerTimes: biodata.personalInformation.prayerTimes,
+        prayerTimesAwwal: biodata.personalInformation.femalePrayerTimesInAwwal,
+        outfit: biodata.personalInformation.outfit
     });
 
     const gsi5Keys = generateBiodataGSI5Keys({
         ...keyParams,
         occupation: biodata.basicInformation.occupation,
-        facialComplexion: biodata.basicInformation.facialColor,
+        facialColor: biodata.basicInformation.facialColor,
         financialStatus: biodata.familyInformation.financialStatus,
         bDay: biodata.basicInformation.birthDay.toISOString()
     });
@@ -151,7 +151,7 @@ export default async function(userId: string, biodata: Biodata): Promise<Biodata
     const fiItem: TransactWriteItem = generatePutTransactItemRaw(generateFIKeys, [biodata.userId], biodata.familyInformation, "FI");
     const pqItem: TransactWriteItem = generatePutTransactItemRaw(generatePQKeys, [biodata.userId], biodata.partnerQualities, "PQ");
     const miItem: TransactWriteItem = generatePutTransactItemRaw(generateMIKeys, [biodata.userId], biodata.marriageInformation, "MI");
-    const piItem: TransactWriteItem = generatePutTransactItemRaw(generatePIKeys, [biodata.userId], biodata.personaInformation, "PI");
+    const piItem: TransactWriteItem = generatePutTransactItemRaw(generatePIKeys, [biodata.userId], biodata.personalInformation, "PI");
 
     const userKey = generateUserPrimaryKeys(userId);
     const userUpdateValues = generateUpdateAttributes(

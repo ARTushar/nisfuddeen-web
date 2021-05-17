@@ -14,9 +14,9 @@ interface MIConstructorParams {
     willAllowWifeStudy?: string; // AfterMarriageStudyReply;
     afterMarriageStay?: string;
     desiresDowryOrGift?: boolean;
-    maleMohoranaRange?: RangePair;
+    maleMohoranaRange?: object;
     maleMohoranaPaidTime?: string; // MohoranaTimeReply;
-    femaleMohoranaExpectation?: RangePair;
+    femaleMohoranaExpectation?: object;
     femaleMohoranaExpectedPaidTime?: string; // MohoranaTimeReply
 }
 
@@ -30,9 +30,9 @@ export default class MarriageInformation {
     willAllowWifeStudy: string; // AfterMarriageStudyReply;
     afterMarriageStay: string;
     desiresDowryOrGift: boolean;
-    maleMohoranaRange: RangePair;
+    maleMohoranaRange: object;
     maleMohoranaPaidTime: string; // MohoranaTimeReply;
-    femaleMohoranaExpectation: RangePair;
+    femaleMohoranaExpectation: object;
     femaleMohoranaExpectedPaidTime: string; // MohoranaTimeReply
 
 
@@ -53,11 +53,7 @@ export default class MarriageInformation {
     }
 
     mapToAlias() {
-        return {
-            ...mapItemToAlias(mia, this),
-            [mia.maleMohoranaRange]: this.maleMohoranaRange?.toFormatString(),
-            [mia.femaleMohoranaExpectation]: this.femaleMohoranaExpectation?.toFormatString()
-        }
+        return mapItemToAlias(mia, this);
     }
     static mapFromAlias(item) {
         return new MarriageInformation({
@@ -65,8 +61,6 @@ export default class MarriageInformation {
             ideaAboutMarriage: '',
             reasonOfMarriage: '',
             ...mapItemFromAlias(mia, item),
-            maleMohoranaRange: RangePair.fromFormatString(item[mia.maleMohoranaRange]),
-            femaleMohoranaExpectation: RangePair.fromFormatString(item[mia.femaleMohoranaExpectation]),
         })
     }
 

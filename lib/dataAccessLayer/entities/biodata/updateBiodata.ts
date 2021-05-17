@@ -153,8 +153,8 @@ function generateTransactItems(newBiodata: Biodata, oldBiodata: Biodata, gender:
         addUpdateItem(newBiodata.basicInformation, generateBIKeys);
     }
 
-    if(newBiodata.personaInformation) {
-        addUpdateItem(newBiodata.personaInformation, generatePIKeys);
+    if(newBiodata.personalInformation) {
+        addUpdateItem(newBiodata.personalInformation, generatePIKeys);
     }
 
     if(newBiodata.partnerQualities) {
@@ -373,11 +373,11 @@ function generateGsi3KeyMale(newBiodata:Biodata, oldBiodata: Biodata) {
         gender: getDefinedValue(newBiodata?.basicInformation?.gender, oldBiodata?.basicInformation?.gender),
         maritalStatus: getDefinedValue(newBiodata?.basicInformation?.maritalStatus, oldBiodata?.basicInformation?.maritalStatus),
         pAddress: newPermanent,
-        prayerTimes: getDefinedValue(newBiodata?.personaInformation?.prayerTimes, oldBiodata?.personaInformation?.prayerTimes),
-        prayerTimesJamah: getDefinedValue(newBiodata?.personaInformation?.malePrayerTimesInJamah, oldBiodata?.personaInformation?.malePrayerTimesInJamah),
-        beardStyle: getDefinedValue(newBiodata?.personaInformation?.beardStyle, oldBiodata?.personaInformation?.beardStyle),
-        aboveKnee: getDefinedValue(newBiodata?.personaInformation?.pantPajamaAboveKnee, oldBiodata?.personaInformation?.pantPajamaAboveKnee),
-        outfit: getDefinedValue(newBiodata?.personaInformation?.outfit, oldBiodata?.personaInformation?.outfit)
+        prayerTimes: getDefinedValue(newBiodata?.personalInformation?.prayerTimes, oldBiodata?.personalInformation?.prayerTimes),
+        prayerTimesJamah: getDefinedValue(newBiodata?.personalInformation?.malePrayerTimesInJamah, oldBiodata?.personalInformation?.malePrayerTimesInJamah),
+        beardStyle: getDefinedValue(newBiodata?.personalInformation?.beardStyle, oldBiodata?.personalInformation?.beardStyle),
+        aboveKnee: getDefinedValue(newBiodata?.personalInformation?.pantPajamaAboveKnee, oldBiodata?.personalInformation?.pantPajamaAboveKnee),
+        outfit: getDefinedValue(newBiodata?.personalInformation?.outfit, oldBiodata?.personalInformation?.outfit)
     })
 }
 function generateGsi3KeyFemale(newBiodata:Biodata, oldBiodata: Biodata) {
@@ -394,9 +394,9 @@ function generateGsi3KeyFemale(newBiodata:Biodata, oldBiodata: Biodata) {
         gender: getDefinedValue(newBiodata?.basicInformation?.gender, oldBiodata?.basicInformation?.gender),
         maritalStatus: getDefinedValue(newBiodata?.basicInformation?.maritalStatus, oldBiodata?.basicInformation?.maritalStatus),
         pAddress: newPermanent,
-        prayerTimes: getDefinedValue(newBiodata?.personaInformation?.prayerTimes, oldBiodata?.personaInformation?.prayerTimes),
-        prayerTimesAwwal: getDefinedValue(newBiodata?.personaInformation?.femalePrayerTimesInAwwal, oldBiodata?.personaInformation?.femalePrayerTimesInAwwal),
-        outfit: getDefinedValue(newBiodata?.personaInformation?.outfit, oldBiodata?.personaInformation?.outfit)
+        prayerTimes: getDefinedValue(newBiodata?.personalInformation?.prayerTimes, oldBiodata?.personalInformation?.prayerTimes),
+        prayerTimesAwwal: getDefinedValue(newBiodata?.personalInformation?.femalePrayerTimesInAwwal, oldBiodata?.personalInformation?.femalePrayerTimesInAwwal),
+        outfit: getDefinedValue(newBiodata?.personalInformation?.outfit, oldBiodata?.personalInformation?.outfit)
     })
 }
 function generateGsi4KeyMale(newBiodata:Biodata, oldBiodata: Biodata) {
@@ -412,11 +412,11 @@ function generateGsi4KeyMale(newBiodata:Biodata, oldBiodata: Biodata) {
         gender: getDefinedValue(newBiodata?.basicInformation?.gender, oldBiodata?.basicInformation?.gender),
         maritalStatus: getDefinedValue(newBiodata?.basicInformation?.maritalStatus, oldBiodata?.basicInformation?.maritalStatus),
         pAddress: newPermanent,
-        prayerTimes: getDefinedValue(newBiodata?.personaInformation?.prayerTimes, oldBiodata?.personaInformation?.prayerTimes),
-        prayerTimesJamah: getDefinedValue(newBiodata?.personaInformation?.malePrayerTimesInJamah, oldBiodata?.personaInformation?.malePrayerTimesInJamah),
-        beardStyle: getDefinedValue(newBiodata?.personaInformation?.beardStyle, oldBiodata?.personaInformation?.beardStyle),
-        aboveKnee: getDefinedValue(newBiodata?.personaInformation?.pantPajamaAboveKnee, oldBiodata?.personaInformation?.pantPajamaAboveKnee),
-        outfit: getDefinedValue(newBiodata?.personaInformation?.outfit, oldBiodata?.personaInformation?.outfit),
+        prayerTimes: getDefinedValue(newBiodata?.personalInformation?.prayerTimes, oldBiodata?.personalInformation?.prayerTimes),
+        prayerTimesJamah: getDefinedValue(newBiodata?.personalInformation?.malePrayerTimesInJamah, oldBiodata?.personalInformation?.malePrayerTimesInJamah),
+        beardStyle: getDefinedValue(newBiodata?.personalInformation?.beardStyle, oldBiodata?.personalInformation?.beardStyle),
+        aboveKnee: getDefinedValue(newBiodata?.personalInformation?.pantPajamaAboveKnee, oldBiodata?.personalInformation?.pantPajamaAboveKnee),
+        outfit: getDefinedValue(newBiodata?.personalInformation?.outfit, oldBiodata?.personalInformation?.outfit),
         occupation: getDefinedValue(newBiodata?.basicInformation?.occupation, oldBiodata?.basicInformation?.occupation)
     })
 }
@@ -434,10 +434,10 @@ function generateGsi4KeyFemale(newBiodata:Biodata, oldBiodata: Biodata) {
         gender: getDefinedValue(newBiodata?.basicInformation?.gender, oldBiodata?.basicInformation?.gender),
         maritalStatus: getDefinedValue(newBiodata?.basicInformation?.maritalStatus, oldBiodata?.basicInformation?.maritalStatus),
         pAddress: newPermanent,
-        prayerTimes: getDefinedValue(newBiodata?.personaInformation?.prayerTimes, oldBiodata?.personaInformation?.prayerTimes),
-        prayerTimesAwwal: getDefinedValue(newBiodata?.personaInformation?.femalePrayerTimesInAwwal, oldBiodata?.personaInformation?.femalePrayerTimesInAwwal),
+        prayerTimes: getDefinedValue(newBiodata?.personalInformation?.prayerTimes, oldBiodata?.personalInformation?.prayerTimes),
+        prayerTimesAwwal: getDefinedValue(newBiodata?.personalInformation?.femalePrayerTimesInAwwal, oldBiodata?.personalInformation?.femalePrayerTimesInAwwal),
         occupation: getDefinedValue(newBiodata?.basicInformation?.occupation, oldBiodata?.basicInformation?.occupation),
-        outfit: getDefinedValue(newBiodata?.personaInformation?.outfit, oldBiodata?.personaInformation?.outfit)
+        outfit: getDefinedValue(newBiodata?.personalInformation?.outfit, oldBiodata?.personalInformation?.outfit)
     })
 }
 function generateGsi5Key(newBiodata:Biodata, oldBiodata: Biodata) {

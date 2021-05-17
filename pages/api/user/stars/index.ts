@@ -14,7 +14,7 @@ handler
           const wishList = req.query.type === 'outgoing'?
             await Star.getStarsBy(req.user.id):
             await Star.getStarsTo(req.user.id);
-          req.status(200).json(wishList);
+          res.status(200).json(wishList);
       } catch (error) {
           next(error);
       }

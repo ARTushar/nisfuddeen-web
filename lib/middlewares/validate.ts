@@ -13,11 +13,14 @@ export default function createValidation(schema: Joi.Schema, type: string) {
                 return next(createBadRequestError("Missing " + type + " in the request"));
             }
             try {
+                debug('before validation', objStringify(req[type]));
                 const value = await schema.validateAsync(req[type], {
-                    allowUnknown: true
+                    allowUnknown: false
                 })
+                req[type] = value;
                 debug('successfully validated', objStringify(value));
             } catch (e) {
+                // debug('cannot validate', objStringify(e));
                 return next(createBadRequestError(e.message));
             }
             return next();

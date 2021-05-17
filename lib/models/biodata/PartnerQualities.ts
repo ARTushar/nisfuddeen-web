@@ -4,9 +4,9 @@ import { partnerQualitiesAliases as pqa } from '../../dataAccessLayer/utils/alia
 import { isEqual } from '../../utils/helpers';
 
 interface PQConstructorParams {
-    ageRange: RangePair;
+    ageRange: object;
     facialColor: string; //FacialColor;
-    heightRange: RangePair;
+    heightRange: object;
     minimumEducationDegree: string; // EducationDegree;
     country: string,
     division?: string,
@@ -18,9 +18,9 @@ interface PQConstructorParams {
 }
 
 export default class PartnerQualities {
-    ageRange: RangePair;
+    ageRange: object;
     facialColor: string; //FacialColor;
-    heightRange: RangePair;
+    heightRange: object;
     minimumEducationDegree: string; // EducationDegree;
     country: string;
     division: string;
@@ -46,27 +46,15 @@ export default class PartnerQualities {
     }
 
     mapToAlias() {
-        return {
-            ...mapItemToAlias(pqa, this),
-            [pqa.ageRange]: this.ageRange.toFormatString(),
-            [pqa.heightRange]: this.heightRange.toFormatString()
-        }
+        return mapItemToAlias(pqa, this);
     }
 
     static mapFromAlias(item) {
         return new PartnerQualities({
-            occupation: [],
-            country: '',
-            desiredQualities: '',
-            district: [],
-            division: '',
-            facialColor: '',
-            financialStatus: [],
-            maritalStatus: '',
-            minimumEducationDegree: '',
-            ...mapItemFromAlias(pqa, item),
-            ageRange: RangePair.fromFormatString(item[pqa.ageRange]),
-            heightRange: RangePair.fromFormatString(item[pqa.heightRange])
+            occupation: undefined, country: undefined, desiredQualities: undefined, district: undefined,
+            division: undefined, facialColor: undefined, ageRange: undefined, heightRange: undefined,
+            financialStatus: undefined, maritalStatus: undefined, minimumEducationDegree: undefined,
+            ...mapItemFromAlias(pqa, item)
         })
     }
 

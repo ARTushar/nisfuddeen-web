@@ -9,11 +9,12 @@ const handler = createNC();
 handler
   .post(verifyUser, async (req, res, next) => {
       try {
+          if(req.user.subscriptionType === 'premium') return next(createBadRequestError('Already premium'));
           let user = await User.updateUser({
               id: req.user.id,
               subscriptionType: 'premium'
           });
-          if(!user) return next(createBadRequestError('Already premium'));
+          // if(!user) return next(createBadRequestError('Already premium'));
           debug('make premium user', user);
           res.status(200).json(user);
       } catch (error) {
