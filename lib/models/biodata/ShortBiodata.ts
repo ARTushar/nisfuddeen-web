@@ -6,9 +6,6 @@ import {
     getBiodatasByGnMsLocRel, getBiodatasByGnMsLocRelOc, getBiodatasByGnMsOcLoc,
     getBiodatasByGnMsUgLoc
 } from '../../dataAccessLayer/entities/biodata/getBiodata';
-import verifyUser from '../../middlewares/verifyUser';
-import verifyPremiumUser from '../../middlewares/verifyPremiumUser';
-import { createBadRequestError } from '../../utils/errorCreators';
 import Address from './Address';
 
 interface SBDConstructorParams {
@@ -80,7 +77,7 @@ export default class ShortBiodata {
 
         const commonFields = {
             enabled: true,
-            verified: true,
+            verified: false,
             gender: query.gender,
             maritalStatus: query.maritalStatus,
             pAddress,

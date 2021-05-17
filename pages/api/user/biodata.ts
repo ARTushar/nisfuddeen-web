@@ -30,7 +30,7 @@ handler
   .get(verifyUser,  async (req, res, next) => {
     try {
       if(!req.user.biodataSubmitted) return next(createNotFoundError('Biodata Not found'));
-      const biodata = Biodata.getBiodataByUserId(req.user.id);
+      const biodata = await Biodata.getBiodataByUserId(req.user.id);
       res.status(200).json(biodata);
     } catch (error) {
       next(error);

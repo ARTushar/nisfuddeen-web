@@ -71,12 +71,16 @@ export async function getStarsTo(userId: string) {
             stars.push(Star.mapFromAlias(unmarshall(item)));
         }
 
-        const batchParams: BatchGetItemInput = generateBatchGetItem(stars, 'starBy');
-        const batchCommand =  new BatchGetItemCommand(batchParams);
-        const batchResponse: BatchGetItemOutput = await dynamoDBClient.send(batchCommand);
-        debug("getStarsTo_batch_response", JSON.stringify(batchResponse, null, 2));
-        return retrieveShortBiodatas(batchResponse.Responses);
+        let shortBiodatas = [];
 
+        if(response.Items.length) {
+            const batchParams: BatchGetItemInput = generateBatchGetItem(stars, 'starBy');
+            const batchCommand =  new BatchGetItemCommand(batchParams);
+            const batchResponse: BatchGetItemOutput = await dynamoDBClient.send(batchCommand);
+            debug("getStarsTo_batch_response", JSON.stringify(batchResponse, null, 2));
+            shortBiodatas = retrieveShortBiodatas(batchResponse.Responses);
+        }
+        return shortBiodatas;
     } catch (e) {
         debug('getStarsTo_error', e)
         throw e;
