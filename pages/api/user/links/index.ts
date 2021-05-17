@@ -5,6 +5,7 @@ import Link from '../../../../lib/models/profile/Link';
 import createValidation from '../../../../lib/middlewares/validate';
 import createLink from '../../../../lib/validations/createLink';
 import { createBadRequestError } from '../../../../lib/utils/errorCreators';
+import { debug } from '../../../../lib/utils/helpers';
 
 const handler = createNC();
 const linkValidation = createValidation(createLink, 'body')
@@ -12,6 +13,7 @@ const linkValidation = createValidation(createLink, 'body')
 handler
   .get(verifyUser, verifyPremiumUser, async (req, res, next) => {
       try {
+          debug('fetch links');
           const links = await Link.getLinks(req.user.id);
           res.status(200).json(links);
       } catch (err) {

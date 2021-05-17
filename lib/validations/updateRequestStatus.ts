@@ -1,7 +1,6 @@
 import Joi from 'joi';
 import { getKeys } from '../scripts/utils/utils';
 import { RequestStatus } from '../dataAccessLayer/utils/aliases';
-import { genRxFmEnVals } from '../utils/helpers';
 
 const requestStatus = getKeys(RequestStatus);
 
@@ -11,6 +10,6 @@ export default Joi.object({
       .required(),
 
     status: Joi.string()
-      .pattern(genRxFmEnVals(requestStatus))
+      .valid(...requestStatus)
       .required(),
 });

@@ -296,6 +296,6 @@ export function generateRandomBiodata(userId: string): Biodata {
         familyInformation: generateRandomFI(),
         marriageInformation: mi,
         partnerQualities: genereateRandomPQ(),
-        personaInformation: pi,
+        personalInformation: pi,
     });
 }

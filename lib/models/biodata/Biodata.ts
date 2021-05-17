@@ -9,11 +9,12 @@ import PartnerQualities from './PartnerQualities';
 import ContactInformation from './ContactInformation';
 import { biodataAliases } from '../../dataAccessLayer/utils/aliases';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
-import { isEqual } from '../../utils/helpers';
+import { debug, isEqual, objStringify } from '../../utils/helpers';
 import { getBiodataByUserId, getBiodatasByGnMsUgLoc } from '../../dataAccessLayer/entities/biodata/getBiodata';
 import createBiodata from '../../dataAccessLayer/entities/biodata/createBiodata';
 import updateBiodata from '../../dataAccessLayer/entities/biodata/updateBiodata';
 import deleteBiodata from '../../dataAccessLayer/entities/biodata/deleteBiodata';
+import { BirthDay } from '../../Types/types';
 
 interface BiodataConstructorParams {
     userId?: string;
@@ -23,7 +24,7 @@ interface BiodataConstructorParams {
     addresses?: Address[];
     educationQualifications?: EducationQualification[];
     familyInformation?: FamilyInformation;
-    personaInformation?: PersonalInformation;
+    personalInformation?: PersonalInformation;
     marriageInformation?: MarriageInformation;
     extraInformation?: ExtraInformation;
     partnerQualities?: PartnerQualities;
@@ -40,7 +41,7 @@ export default class Biodata {
     addresses: Address[];
     educationQualifications: EducationQualification[];
     familyInformation: FamilyInformation;
-    personaInformation: PersonalInformation;
+    personalInformation: PersonalInformation;
     marriageInformation: MarriageInformation;
     extraInformation: ExtraInformation;
     partnerQualities: PartnerQualities;
@@ -48,7 +49,7 @@ export default class Biodata {
     createdAt: string;
     updatedAt: string;
 
-    constructor({userId, enabled, verified, basicInformation, addresses, educationQualifications, familyInformation, personaInformation, marriageInformation, extraInformation, partnerQualities, contactInformation}: BiodataConstructorParams) {
+    constructor({userId, enabled, verified, basicInformation, addresses, educationQualifications, familyInformation, personalInformation, marriageInformation, extraInformation, partnerQualities, contactInformation}: BiodataConstructorParams) {
         this.userId = userId;
         this.enabled = enabled;
         this.verified = verified;
@@ -56,7 +57,7 @@ export default class Biodata {
         this.addresses = addresses;
         this.educationQualifications = educationQualifications;
         this.familyInformation = familyInformation;
-        this.personaInformation = personaInformation;
+        this.personalInformation = personalInformation;
         this.marriageInformation = marriageInformation;
         this.extraInformation = extraInformation;
         this.partnerQualities = partnerQualities;
@@ -117,7 +118,7 @@ export default class Biodata {
             educationQualifications: eqs,
             familyInformation: fi,
             marriageInformation: mi,
-            personaInformation: pi,
+            personalInformation: pi,
             extraInformation: ei,
             partnerQualities: pq,
             contactInformation: ci,
@@ -148,8 +149,12 @@ export default class Biodata {
     }
 
     static async createBiodata(userId: string, biodata) {
+        biodata.enabled = true;
+        biodata.verified = false;
+        const transformedBiodata = Biodata.constructBiodata(biodata);
+        debug("transformed biodata", objStringify(transformedBiodata))
         try {
-            return await createBiodata(userId, biodata)
+            return await createBiodata(userId, transformedBiodata)
         } catch (e) {
             throw e;
         }
@@ -169,5 +174,32 @@ export default class Biodata {
         } catch (e) {
             throw e;
         }
+    }
+
+    static constructBiodata(biodata): Biodata {
+        let addresses = [];
+        for(const ad of biodata.addresses) {
+            addresses.push(new Address(ad));
+        }
+        let educationQualifications = [];
+        for(const eq of biodata.educationQualifications) {
+            educationQualifications.push(new EducationQualification(eq));
+        }
+
+        return new Biodata({
+            ...biodata,
+            basicInformation: biodata.basicInformation? new BasicInformation({
+                ...biodata.basicInformation,
+                birthDay: biodata.basicInformation?.birthDay? BirthDay.constructBirthDay(biodata.basicInformation.birthDay): undefined,
+            }): undefined,
+            addresses,
+            educationQualifications,
+            familyInformation: biodata.familyInformation? new FamilyInformation(biodata.familyInformation): undefined,
+            personalInformation: biodata.personalInformation? new PersonalInformation(biodata.personalInformation): undefined,
+            marriageInformation: biodata.marriageInformation? new MarriageInformation(biodata.marriageInformation): undefined,
+            extraInformation: biodata.extraInformation? new ExtraInformation(biodata.extraInformation): undefined,
+            partnerQualities: biodata.partnerQualities? new PartnerQualities(biodata.partnerQualities): undefined,
+            contactInformation: biodata.contactInformation? new ContactInformation(biodata.contactInformation): undefined
+        })
     }
 }

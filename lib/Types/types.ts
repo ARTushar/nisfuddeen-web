@@ -1,3 +1,5 @@
+import Biodata from '../models/biodata/Biodata';
+
 export class BirthDay {
     year: number;
     month: number;
@@ -13,6 +15,10 @@ export class BirthDay {
 
     toISOString(){
         return this.isoDate.toISOString();
+    }
+
+    static constructBirthDay(bDay) {
+        return new BirthDay(bDay.year, bDay.month, bDay.day);
     }
 
     static fromISOString(date: string) {

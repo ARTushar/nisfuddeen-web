@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { checkValidMobileNumber, genRxFmEnVals } from '../utils/helpers';
+import { checkValidMobileNumber } from '../utils/helpers';
 import { getKeys } from '../scripts/utils/utils';
 import {
     AddressType, AfterMarriageStudyReply, BeardStyle,
@@ -8,6 +8,7 @@ import {
     GirlOutfit, Guardian, Majhab,
     MaritalStatus, MarriageReply, MixAnswer, MohoranaTimeReply, NegativeAnswer, PersonalityType, PositiveAnswer
 } from '../dataAccessLayer/utils/aliases';
+import { validWordsRegex } from './biodataSubmit';
 
 const maxPQDistrictsAllowed = 10;
 const maxPQOccupationAllowed = 10;
@@ -24,18 +25,18 @@ const BirthDay = Joi.object({
 
 const BasicInformation = Joi.object({
     maritalStatus: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(MaritalStatus))),
+      .valid(...getKeys(MaritalStatus)),
     birthDay: BirthDay,
 
     facialColor: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(FacialColor))),
+      .valid(...getKeys(FacialColor)),
 
     height: Joi.number(),
 
     weight: Joi.number(),
 
     bloodGroup: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(BloodGroup))),
+      .valid(...getKeys(BloodGroup)),
 
     occupation: Joi.string()
       .lowercase()
@@ -43,10 +44,10 @@ const BasicInformation = Joi.object({
 
 const Address = Joi.object({
     type: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(AddressType))),
+      .valid(...getKeys(AddressType)),
 
     country: Joi.string()
-      .pattern(new RegExp('^[a-zA-Z ]$'))
+      .pattern(validWordsRegex)
       .lowercase(),
 
     division: Joi.string()
@@ -74,11 +75,11 @@ const ContactInformation = Joi.object({
 
 const EducationQualification = Joi.object({
     degreeName: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(EducationDegree)))
+      .valid(...getKeys(EducationDegree))
       .required(),
 
     department: Joi.string()
-      .pattern(new RegExp('^[a-zA-Z]$'))
+      .pattern(validWordsRegex)
       .lowercase(),
 
     passYear: Joi.number(),
@@ -140,63 +141,64 @@ const CommonMarriageInformation = Joi.object({
 const MaleMarriageInformation = CommonMarriageInformation.append({
     willManageWifePardah: Joi.boolean(),
     willAllowWifeStudy: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(AfterMarriageStudyReply))),
+      .valid(...getKeys(AfterMarriageStudyReply)),
     afterMarriageStay: Joi.string(),
     desiresDowryOrGift: Joi.boolean(),
     maleMohoranaRange: Range,
     maleMohoranaPaidTime: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(MohoranaTimeReply))),
+      .valid(...getKeys(MohoranaTimeReply)),
 })
 
 const FemaleMarriageInformation = CommonMarriageInformation.append({
     jobAfterMarriage: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(MarriageReply))),
+      .valid(...getKeys(MarriageReply)),
     carryStudyAfterMarriage: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(MarriageReply))),
+      .valid(...getKeys(MarriageReply)),
     femaleMohoranaExpectation: Joi.object({
         min: Joi.number()
           .required(),
         max: Joi.number()
     }),
     femaleMohoranaExpectedPaidTime: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(MohoranaTimeReply))),
+      .valid(...getKeys(MohoranaTimeReply)),
 })
 
 const PartnerQualities = Joi.object({
     ageRange: Range,
     facialComplexion: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(FacialColor))), //FacialColor,
+      .valid(...getKeys(FacialColor)), //FacialColor,
     heightRange: Range,
     minimumEducationDegree: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(EducationDegree))), // EducationDegree,
+      .valid(...getKeys(EducationDegree)), // EducationDegree,
     country: Joi.string()
+      .pattern(validWordsRegex)
       .lowercase(),
     district: Joi.array()
       .items(Joi.string().lowercase())
       .unique()
       .max(maxPQDistrictsAllowed),
     maritalStatus: Joi.string()
-      .pattern(genRxFmEnVals(getKeys(MaritalStatus))), // MaritalStatus,
+      .valid(...getKeys(MaritalStatus)), // MaritalStatus,
     occupation: Joi.array()
       .items(Joi.string().lowercase())
       .unique()
       .max(maxPQOccupationAllowed),
     financialStatus: Joi.array()
-      .items(Joi.string().pattern(genRxFmEnVals(getKeys(FinancialStatus))))// FinancialStatus[],
+      .items(Joi.string().valid(...getKeys(FinancialStatus)))// FinancialStatus[],
       .unique()
       .max(getKeys(FinancialStatus).length),
     desiredQualities: Joi.string(),
 })
 
 const CommonPersonalInformation = Joi.object({
-    prayerTimes: Joi.number().integer().valid(prayerValues),
+    prayerTimes: Joi.number().integer().valid(...prayerValues),
     durationOfRegularPrayer: Joi.number().integer(), // TODO: need to recheck the type
-    mahramMaintain: Joi.string().pattern(genRxFmEnVals(getKeys(MixAnswer))),
-    majhab: Joi.string().pattern(genRxFmEnVals(getKeys(Majhab))),
+    mahramMaintain: Joi.string().valid(...getKeys(MixAnswer)),
+    majhab: Joi.string().valid(...getKeys(Majhab)),
     politicalPhilosophy: Joi.string(),
-    watchDramaMovie: Joi.string().pattern(genRxFmEnVals(getKeys(NegativeAnswer))),// NegativeAnswer,
-    readSahihQuran: Joi.string().pattern(genRxFmEnVals(getKeys(PositiveAnswer))), // PositiveAnswer,
-    listenMusic: Joi.string().pattern(genRxFmEnVals(getKeys(NegativeAnswer))), // NegativeAnswer,
+    watchDramaMovie: Joi.string().valid(...getKeys(NegativeAnswer)),// NegativeAnswer,
+    readSahihQuran: Joi.string().valid(...getKeys(PositiveAnswer)), // PositiveAnswer,
+    listenMusic: Joi.string().valid(...getKeys(NegativeAnswer)), // NegativeAnswer,
     anyDisease: Joi.string(),
     deenMehnat: Joi.string(),
     pirFollower: Joi.string(),
@@ -205,24 +207,24 @@ const CommonPersonalInformation = Joi.object({
     favoriteScholars: Joi.string(),
     specialQualities: Joi.string(),
     badHabits: Joi.string(),
-    personalityType: Joi.string().pattern(genRxFmEnVals(getKeys(PersonalityType))),
+    personalityType: Joi.string().valid(...getKeys(PersonalityType)),
     hobbies: Joi.string(),
     futurePlan: Joi.string(),
-    guardian: Joi.string().pattern(genRxFmEnVals(getKeys(Guardian))), // Guardian,
+    guardian: Joi.string().valid(...getKeys(Guardian)), // Guardian,
 })
 
 const MalePersonalInformation = CommonPersonalInformation.append({
-    outfit: Joi.array().items(Joi.string().pattern(genRxFmEnVals(getKeys(BoyOutfit))))
+    outfit: Joi.array().items(Joi.string().valid(...getKeys(BoyOutfit)))
       .unique().max(getKeys(BoyOutfit).length),
-    beardStyle: Joi.string().pattern(genRxFmEnVals(getKeys(BeardStyle))), // BeardStyle
+    beardStyle: Joi.string().valid(...getKeys(BeardStyle)), // BeardStyle
     pantPajamaAboveKnee: Joi.boolean(),
-    malePrayerTimesInJamah: Joi.number().integer().valid(prayerValues),
+    malePrayerTimesInJamah: Joi.number().integer().valid(...prayerValues),
 })
 
 const FemalePersonalInformation = CommonPersonalInformation.append({
-    outfit: Joi.array().items(Joi.string().pattern(genRxFmEnVals(getKeys(GirlOutfit))))
+    outfit: Joi.array().items(Joi.string().valid(...getKeys(GirlOutfit)))
       .unique().max(getKeys(BoyOutfit).length),
-    femalePrayerTimesInAwwal: Joi.number().integer().valid(prayerValues),
+    femalePrayerTimesInAwwal: Joi.number().integer().valid(...prayerValues),
 
 })
 
@@ -241,11 +243,11 @@ export default function getBiodataUpdateSchema(gender: string): Joi.Schema {
         return CommonBiodata.append({
             personalInformation: MalePersonalInformation,
             marriageInformation: MaleMarriageInformation,
-        })
+        }).min(1);
     } else if(gender === 'female') {
         return CommonBiodata.append({
             personalInformation: FemalePersonalInformation,
             marriageInformation: FemaleMarriageInformation,
-        })
+        }).min(1);
     }
 }
