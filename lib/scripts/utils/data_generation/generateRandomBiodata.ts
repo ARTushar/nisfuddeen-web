@@ -166,7 +166,7 @@ function genereateRandomMMI(): MarriageInformation {
         willAllowWifeStudy: getRandomEnumValue(nisfuddeenEnums.afterMarriageStudyReply),
         afterMarriageStay: "With my parents",
         desiresDowryOrGift: generateRandomBoolean(),
-        maleMohoranaRange: new RangePair(min, max),
+        maleMohoranaRange: { min, max },
         maleMohoranaPaidTime: getRandomEnumValue(nisfuddeenEnums.mohoranaTimeReply),
     })
 }
@@ -180,7 +180,7 @@ function genereateRandomFMI(): MarriageInformation {
         ideaAboutMarriage: "It's necessary to keep one from haram deeds",
         jobAfterMarriage: getRandomEnumValue(nisfuddeenEnums.afterMarriageStudyReply),
         carryStudyAfterMarriage: getRandomEnumValue(nisfuddeenEnums.marriageReply),
-        femaleMohoranaExpectation: new RangePair(max, min),
+        femaleMohoranaExpectation: { min, max },
         femaleMohoranaExpectedPaidTime: getRandomEnumValue(nisfuddeenEnums.mohoranaTimeReply)
     })
 }
@@ -197,9 +197,9 @@ function genereateRandomPQ(): PartnerQualities {
     }
 
     return new PartnerQualities({
-        ageRange: new RangePair(minAge, maxAge),
+        ageRange: { min: minAge, max: maxAge },
         facialColor: getRandomEnumValue(nisfuddeenEnums.facialColor),
-        heightRange: new RangePair(minHeight, maxHeight),
+        heightRange: { min: minHeight, max: maxHeight },
         minimumEducationDegree: getRandomEnumValue(nisfuddeenEnums.educationDegree),
         country,
         district: [getRandomEnumValue(districts)],
