@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/lib/scripts/aws
 
 # testing
 /coverage
@@ -16,6 +17,7 @@
 /build
 
 # misc
+lib/scripts/aws/
 .DS_Store
 *.pem
 

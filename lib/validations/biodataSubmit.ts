@@ -264,7 +264,7 @@ const MalePersonalInformation = CommonPersonalInformation.append({
 
 const FemalePersonalInformation = CommonPersonalInformation.append({
     outfit: Joi.array().items(Joi.string().valid(...getKeys(GirlOutfit)))
-      .unique().max(getKeys(BoyOutfit).length).required(),
+      .unique().max(getKeys(GirlOutfit).length).required(),
     femalePrayerTimesInAwwal: Joi.number().integer().valid(...prayerValues),
 
 })

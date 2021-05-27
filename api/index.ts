@@ -1,13 +1,23 @@
-import useSWR from 'swr'
+import axios from 'axios'
+// import Cookies from 'js-cookie'
+// import {getSession, getCsrfToken} from 'next-auth/client'
 
-// const fetcher = (...args) => fetch(...args).then(res => res.json())
+export const BASE_URL = 'http://127.0.0.1:3000/api'
 
-// const useUser = (id: string) => {
-//   const { data, error} = useSWR(`/api/user/${id}`, fetcher);
+// const 
 
-//   return {
-//     user: data,
-//     isLoading: !error && !data,
-//     isError: error
-//   }
-// }
+export const registerUser = async (data) => {
+  try {
+    const res = await  axios.post(`${BASE_URL}/auth/register`, {
+      ...data,
+    })
+    // console.log('response', res);
+    return res;
+  }
+  catch(err){
+    // console.log(err)
+    return err;
+  }
+}
+
+// const createBiodata = async()
