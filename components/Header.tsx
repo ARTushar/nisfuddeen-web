@@ -1,8 +1,13 @@
 import Language from './LanguagePicker';
 import Link from 'next/link';
 import Menubar from './Menubar';
+import useAuth from '../hooks/useAuth';
+import { useRouter } from 'next/router';
 
 const Header: React.FC = (props) => {
+  const auth = useAuth();
+  const router = useRouter();
+
   return (
     <header
       className="w-full flex justify-center bg-gray-100"
@@ -41,9 +46,11 @@ const Header: React.FC = (props) => {
           <Language />
         </div>
         <div className="hidden md:block">
-          <Link href="/login">
-            <a>signin</a>
-          </Link>
+          {auth.auth ? (
+            <button onClick={() => auth.signOut()}>signout</button>
+          ) : (
+            <button onClick={() => router.push('/auth/signin')}>signin</button>
+          )}
         </div>
       </div>
     </header>

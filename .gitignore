@@ -16,6 +16,7 @@
 /build
 
 # misc
+lib/scripts/aws/
 .DS_Store
 *.pem
 
