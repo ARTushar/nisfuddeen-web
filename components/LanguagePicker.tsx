@@ -9,15 +9,13 @@ const lang = [{ name: 'en' }, { name: 'bn' }];
 
 const Example = () => {
   const router = useRouter();
-  const [selected, setSelected] = useState(
-    lang.find((i) => i.name === router.locale)
-  );
+  const [selected, setSelected] = useState(lang.find((i) => i.name === router.locale));
   const [_, setCookie] = useCookies(['NEXT_LOCALE']);
 
   useEffect(() => {
     console.log(selected.name);
     setCookie('NEXT_LOCALE', selected.name);
-    router.push(router.pathname, router.pathname, { locale: selected.name });
+    router.push(router.asPath, router.asPath, { locale: selected.name, shallow: true });
   }, [selected]);
 
   return (
@@ -55,13 +53,8 @@ const Example = () => {
                         <>
                           <span className={`$block truncate`}>{item.name}</span>
                           {selected ? (
-                            <span
-                              className={`absolute inset-y-0 left-0 flex items-center pl-3`}
-                            >
-                              <CheckIcon
-                                className="w-5 h-5"
-                                aria-hidden="true"
-                              />
+                            <span className={`absolute inset-y-0 left-0 flex items-center pl-3`}>
+                              <CheckIcon className="w-5 h-5" aria-hidden="true" />
                             </span>
                           ) : null}
                         </>
