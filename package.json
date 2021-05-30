@@ -1,6 +1,6 @@
 {
-  "name": "with-mongodb-mongoose",
-  "version": "0.1.0",
+  "name": "nisfuddeen",
+  "version": "0.0.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,7 +13,7 @@
     "@heroicons/react": "^1.0.1",
     "@mdx-js/loader": "^1.6.22",
     "@next/mdx": "^10.1.3",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@tailwindcss/typography": "^0.4.0",
     "bcrypt": "^5.0.1",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",

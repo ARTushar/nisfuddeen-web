@@ -13,10 +13,10 @@ const Blog: React.FC<{ slug: string; mdxSource: MdxRemote.Source }> = ({
 }) => {
   const content = hydrate(mdxSource);
   return (
-    <>
+    <div className=" p-4 max-w-4xl m-auto prose prose-green">
       <div>{slug}</div>
       <div>{content}</div>
-    </>
+    </div>
   );
 };
 
