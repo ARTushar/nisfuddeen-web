@@ -3,7 +3,6 @@
 import User from '../../models/user/User';
 import createUser from '../../dataAccessLayer/entities/user/createUser';
 import { generateArgv, printObject } from '../utils/utils';
-import { AccountType, SubscriptionType } from '../../dataAccessLayer/utils/aliases';
 
 const argv = generateArgv();
 
@@ -12,12 +11,12 @@ const argv = generateArgv();
         name: argv.name,
         mobileNumber: argv.mobile,
         email: argv.email,
-        accountType: argv.at? AccountType[argv.at]: undefined,
-        subscriptionType: argv.st? SubscriptionType[argv.st]: undefined,
-        emailVerified: argv.emailVerified
+        accountType: argv.at,
+        subscriptionType: argv.st,
+        emailVerified: argv.emailV? argv.emailV === 'true': undefined
     });
     try {
-        const newUser= await createUser(user);
+        const newUser = await createUser(user);
         printObject(newUser);
     } catch(e){
         console.log(e);

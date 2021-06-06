@@ -14,9 +14,9 @@ const argv = generateArgv();
             name: argv.name,
             mobileNumber: argv.mobile,
             email: argv.email,
-            accountType: argv.at? AccountType[ argv.at ]: undefined,
-            subscriptionType: argv.st? SubscriptionType[ argv.st ]: undefined,
-            emailVerified: argv.emailVerified
+            accountType: argv.at,
+            subscriptionType: argv.st,
+            emailVerified: argv.emailV? argv.emailV === 'true': undefined,
         })
         try {
             const updatedUser = await updateUser(user)

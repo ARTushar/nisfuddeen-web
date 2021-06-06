@@ -64,7 +64,7 @@ export async function updateUser(user: User): Promise<User> {
             Item: marshall({
                 PK: gsi1Keys.GSI1PK,
                 SK: gsi1Keys.GSI1SK,
-                _tp: "UserMobile"
+                _tp: "UserEmail"
             }),
             ConditionExpression: checkUniquePK
         }
