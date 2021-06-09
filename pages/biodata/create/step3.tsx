@@ -3,31 +3,35 @@ import { useForm } from 'react-hook-form';
 import { useStateMachine } from 'little-state-machine';
 import Layout from '../../../components/Layout';
 import { XDoubleInput, XSingleInput, XSingleSelect } from '../../../components/XInputFields';
-import { updateAddressInfo } from '../../../Store';
-import { addressInformation } from '../../../data/Values/questions';
+import { updateEducationQualifications } from '../../../Store';
+import { educationQualifications } from '../../../data/Values/questions';
 import { useRouter } from 'next/router';
 
 const Page2 = () => {
-  const { actions, state } = useStateMachine({ updateAddressInfo });
-  const [address, setAddress] = useState(0);
+  const { actions, state } = useStateMachine({ updateEducationQualifications });
+  const [education, setEducation] = useState(0);
   const router = useRouter();
   const { register, handleSubmit } = useForm({
-    defaultValues: state.addresses,
+    defaultValues: state.educationQualifications,
   });
 
   useEffect(() => {
-    if (state.addresses?.address && typeof state.addresses.address === 'number') {
-      setAddress(state.addresses.address);
+    if (
+      state.educationQualifications?.education &&
+      typeof state.educationQualifications?.education === 'number'
+    ) {
+      setEducation(state.educationQualifications?.education);
     }
-  }, [state.addresses?.address]);
+  }, [state.educationQualifications?.education]);
 
   const onNext = (data) => {
-    actions.updateAddressInfo({ ...data, address });
-    router.push('/biodata/create/step3');
+    actions.updateEducationQualifications({ ...data, education });
+    router.push('/biodata/create/step4');
+    console.log(state);
   };
   const onPrevious = (data) => {
-    actions.updateAddressInfo({ ...data, address });
-    router.push('/biodata/create');
+    actions.updateEducationQualifications({ ...data, education });
+    router.push('/biodata/create/step2');
   };
 
   return (
@@ -39,84 +43,86 @@ const Page2 = () => {
               Create Your Biodata
             </div>
 
-            <div className="text-lg my-4 font-semibold text-gray-800">Address Information</div>
+            <div className="text-lg my-4 font-semibold text-gray-800">
+              Educational Qualification
+            </div>
 
-            {[...Array(address + 1)].map((_, i) => {
+            {[...Array(education + 1)].map((_, i) => {
               return (
                 <div key={i}>
                   <div key={`add${i}`} className="text-sm mb-2 mt-8">
-                    Address {i + 1}
+                    Qualification {i + 1}
                   </div>
 
                   <XDoubleInput>
                     <XSingleSelect
-                      label={addressInformation.type.label['en']}
-                      name={`type${i}`}
-                      register={register}
+                      label={educationQualifications.degreeName.label['en']}
+                      name={`degreeName${i}`}
                       validator={{ required: true }}
-                      options={addressInformation.type.options}
+                      register={register}
+                      options={educationQualifications.degreeName.options}
                       double={true}
                     />
                     <XSingleInput
-                      label={addressInformation.country.label['en']}
+                      label={educationQualifications.department.label['en']}
                       type="text"
-                      name={`country${i}`}
+                      name={`department${i}`}
                       validator={{ required: true }}
                       register={register}
-                      placeholder="country"
-                      double={true}
-                    />
-                  </XDoubleInput>
-                  <XDoubleInput>
-                    <XSingleInput
-                      type="text"
-                      label={addressInformation.division.label['en']}
-                      validator={{ required: true }}
-                      name={`division${i}`}
-                      register={register}
-                      placeholder="division"
-                      double={true}
-                    />
-                    <XSingleInput
-                      type="text"
-                      label={addressInformation.district.label['en']}
-                      validator={{ required: true }}
-                      name={`district${i}`}
-                      register={register}
-                      placeholder="district"
+                      placeholder="department"
                       double={true}
                     />
                   </XDoubleInput>
                   <XSingleInput
                     type="text"
-                    label={addressInformation.postOffice.label['en']}
-                    name={`postOffice${i}`}
+                    label={educationQualifications.instituteName.label['en']}
+                    name={`instituteName${i}`}
                     register={register}
-                    placeholder="post office"
+                    placeholder="institute name"
                   />
+                  <XDoubleInput>
+                    <XSingleInput
+                      type="number"
+                      label={educationQualifications.passYear.label['en']}
+                      validator={{ required: true }}
+                      name={`passYear${i}`}
+                      register={register}
+                      placeholder="passYear"
+                      double={true}
+                    />
+                    <XSingleInput
+                      type="text"
+                      label={educationQualifications.result.label['en']}
+                      validator={{ required: true }}
+                      name={`result${i}`}
+                      register={register}
+                      placeholder="result"
+                      double={true}
+                    />
+                  </XDoubleInput>
                 </div>
               );
             })}
 
             <div>
               <button
-                hidden={address === 0}
+                hidden={education === 0}
                 className="p-2 border-2 rounded-md my-2 mr-2"
                 onClick={() => {
-                  setAddress((e) => (e > 0 ? e - 1 : 0));
+                  setEducation((e) => (e > 0 ? e - 1 : 0));
                 }}
               >
                 Delete Last
               </button>
 
               <button
-                hidden={address >= 3}
+                hidden={education >= 5}
                 className="p-2 border-2 rounded-md"
                 onClick={() => {
-                  setAddress((e) => (e >= 3 ? e : e + 1));
+                  setEducation((e) => (e >= 5 ? e : e + 1));
                 }}
               >
-                Add more Address
+                Add more Qualification
               </button>
             </div>
 

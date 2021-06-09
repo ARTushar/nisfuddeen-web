@@ -52,8 +52,8 @@ const Register = () => {
     return (
       <Layout>
         <div>Account Already Completed</div>
-        <Link href="biodata/create">
-          <a className="underline">Submit biodata</a>
+        <Link href="/biodata">
+          <a className="underline">Show biodata</a>
         </Link>
       </Layout>
     );
