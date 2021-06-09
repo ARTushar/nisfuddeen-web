@@ -107,7 +107,7 @@ export const XSingleMultiSelect: FC<XSigleMultiSelectProps> = (props) => {
               control: (styles) => ({
                 ...styles,
                 borderRadius: '8px',
-                padding: '4px',
+                padding: '24px 2px 8px 2px',
                 marginBottom: '12px',
               }),
             }}

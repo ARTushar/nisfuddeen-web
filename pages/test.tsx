@@ -1,55 +1,45 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import { useForm, Controller } from 'react-hook-form';
-import Select from 'react-select';
+import firebase, { authenticate, signout } from '../hooks/firebase';
+import { useAuth } from '../hooks/AuthProvider';
 
-const MultiSelect: FC<{ options: { value: string; label: string }[] }> = ({ options }) => {
-  // const [selected, setSelected] = useState<string[]>([]);
-
-  const { control, handleSubmit, register } = useForm();
-  const onSubmit = (data) => console.log(data);
-
-  return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name="iceCreamType"
-          control={control}
-          render={({ field }) => (
-            <Select
-              {...field}
-              options={[
-                { value: 'chocolate', label: 'Chocolate' },
-                { value: 'strawberry', label: 'Strawberry' },
-                { value: 'vanilla', label: 'Vanilla' },
-              ]}
-              isMulti
-              styles={{
-                control: (styles) => ({ ...styles, borderRadius: '12px', padding: '6px' }),
-              }}
-            />
-          )}
-        />{' '}
-        <br />
-        <input type="text" name="tt" {...register('tt')} className="form-input border-2" />
-        <input type="submit" />
-      </form>
-    </>
-  );
-};
+// const getIdToken = () => {
+//   const user = firebase.auth().currentUser;
+//   user.getIdToken(). then(e => {
+//     return e;
+//   })
+// }
 
 const test = (props) => {
-  const { register, handleSubmit } = useForm();
+  const [token, setToken] = useState<string>();
+  const auth = useAuth();
 
-  const onsubmit = (data) => {
-    console.log(data);
+  const handleToken = async () => {
+    const user = firebase.auth().currentUser;
+    const token = await user.getIdToken();
+    setToken(token);
+    // console.log('token', token);
+    // console.log('user', user);
+    // user?.getIdToken().then((e) => {
+    //   setToken(token);
+    // });
   };
 
   return (
     <Layout>
-      <MultiSelect
-        options={['hello', 'one', 'two', 'three'].map((e) => ({ value: e, label: e }))}
-      />
+      {auth.firebaseUser ? (
+        <>
+          <button onClick={signout}>SignOut</button> <br />
+          <pre>{JSON.stringify(auth.firebaseUser, null, 2)}</pre>
+          <pre>x-firebasetoken {token}</pre>
+        </>
+      ) : (
+        <>
+          <button onClick={authenticate}>SignIn</button>
+        </>
+      )}
+      <br />
+      <button onClick={handleToken}>getToken</button>
     </Layout>
   );
 };
