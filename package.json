@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "db:create:table": "ts-node ./lib/scripts/create_table.ts",
+    "dev:db:start": "java -Djava.library.path=./bin/dynamodb_local/DynamoDBLocal_lib -jar ./bin/dynamodb_local/DynamoDBLocal.jar -sharedDb"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.13.1",

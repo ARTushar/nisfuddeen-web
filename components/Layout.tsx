@@ -8,8 +8,8 @@ const Layout: React.FC<{
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 w-full max-w-7xl m-auto">
-        <div className="mx-4 my-4">
+      <main className="flex-1 w-full max-full m-auto">
+        <div className="">
           {props.auth ? (
             <div>
               <div>You are not Signed In</div>
