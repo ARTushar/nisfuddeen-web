@@ -1,31 +1,26 @@
 import Language from './LanguagePicker';
 import Link from 'next/link';
 import Menubar from './Menubar';
-import useAuth from '../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 import { useRouter } from 'next/router';
+import { signout } from '../hooks/firebase';
 
 const Header: React.FC = (props) => {
   const auth = useAuth();
   const router = useRouter();
 
   return (
-    <header
-      className="w-full flex justify-center bg-gray-100"
-      style={{ backgroundImage: `linear-gradient(to right, #ad5389, #3c1053)`, color: 'white' }}
-    >
-      <div className="p-4 flex w-full max-w-7xl justify-between items-center flex-wrap">
+    <header className="w-full flex justify-center  bg-gray-50">
+      <div className="px-4 py-2 flex w-full max-w-7xl justify-between items-center flex-wrap">
         <Menubar />
         <div className=" font-extrabold text-lg">
           <Link href="/">
-            <a>NISFUDDEEN</a>
+            <a>
+              <img src="/images/logo.svg" alt="nisfuddeen" />
+            </a>
           </Link>
         </div>
-        <ul className="hidden md:flex">
-          <li className="mr-4">
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-          </li>
+        {/* <ul className="hidden md:flex">
           <li className="mr-4">
             <Link href="/about">
               <a>About</a>
@@ -41,13 +36,13 @@ const Header: React.FC = (props) => {
               <a>Blog</a>
             </Link>
           </li>
-        </ul>
-        <div style={{ color: 'black' }}>
+        </ul> */}
+        {/* <div style={{ color: 'black' }}>
           <Language />
-        </div>
+        </div> */}
         <div className="hidden md:block">
-          {auth.auth ? (
-            <button onClick={() => auth.signOut()}>signout</button>
+          {auth.firebaseUser ? (
+            <button onClick={signout}>signout</button>
           ) : (
             <button onClick={() => router.push('/auth/signin')}>signin</button>
           )}

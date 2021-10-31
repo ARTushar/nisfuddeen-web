@@ -6,6 +6,7 @@
 .pnp.js
 /lib/scripts/aws
 
+/bin
 # testing
 /coverage
 

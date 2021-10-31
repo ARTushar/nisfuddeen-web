@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import firebase, { authenticate, signout } from '../hooks/firebase';
-import { useAuth } from '../hooks/AuthProvider';
+import { useAuth } from '../hooks/useAuth';
 
 // const getIdToken = () => {
 //   const user = firebase.auth().currentUser;
