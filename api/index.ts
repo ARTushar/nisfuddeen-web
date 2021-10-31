@@ -1,13 +1,9 @@
-import useSWR from 'swr'
+import axios from 'axios'
+import { makeGetRequest } from './util';
 
-// const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-// const useUser = (id: string) => {
-//   const { data, error} = useSWR(`/api/user/${id}`, fetcher);
+export const getOrCreateUser = async() => {
+  makeGetRequest('')
+}
 
-//   return {
-//     user: data,
-//     isLoading: !error && !data,
-//     isError: error
-//   }
-// }
+// const createBiodata = async()

@@ -4,18 +4,22 @@
 /node_modules
 /.pnp
 .pnp.js
+/lib/scripts/aws
 
+/bin
 # testing
 /coverage
 
 # next.js
 /.next/
 /out/
+/bin/
 
 # production
 /build
 
 # misc
+lib/scripts/aws/
 .DS_Store
 *.pem
 

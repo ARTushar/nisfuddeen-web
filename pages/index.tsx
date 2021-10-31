@@ -20,6 +20,18 @@ const Home: React.FC = () => {
   return (
     <>
       <Layout>
+        <div
+          className="relative min-h-[600px] bg-gray-900 object-cover object-center bg-center backdrop-filter "
+          style={{ backgroundImage: "url('/images/background.webp')" }}
+        >
+          {/* <img src="/images/background.webp" alt="background" className="w-screen min-h-[400%]" /> */}
+          <div className="text-gray-50 px-4 text-center text-4xl absolute bottom-20 w-full flex justify-center">
+            <div className="p-4 rounded-md tracking-wide shadow-sm  ">
+              {/* Find someone special */}
+              this is a text
+            </div>
+          </div>
+        </div>
         <div className="w-full relative">
           <div className="ml-0 md:ml-[25%] h-[540px] hidden md:block">
             {/* TODO: need a background */}
@@ -31,7 +43,9 @@ const Home: React.FC = () => {
           </div>
           <div className="flex flex-col justify-center md:absolute h-full top-0 w-full md:w-[420px] mb-8 md:mb-0">
             <div className="md:p-8 bg-white  rounded-xl md:shadow-my">
-              <div className="font-extrabold text-3xl antialiased mb-1.5">Matrimoni for Muslims in Bangladesh</div>
+              <div className="font-extrabold text-3xl antialiased mb-1.5">
+                Matrimoni for Muslims in Bangladesh
+              </div>
               <div className=" text-[#717171] mb-2">Find you partner now</div>
               <XSingleInput label="DISTRICT" register={register} name="data1" placeholder="Dhaka" />
               <XSingleInput label="TEST" register={register} name="data2" placeholder="My test" />
