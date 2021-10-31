@@ -21,6 +21,8 @@
     "bcrypt": "^5.0.1",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
+    "eslint-plugin-react": "^7.23.2",
+    "firebase-admin": "^9.9.0",
     "firebase": "^8.6.2",
     "gray-matter": "^4.0.2",
     "helmet": "^4.4.1",

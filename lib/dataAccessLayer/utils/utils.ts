@@ -3,7 +3,6 @@ import DynamodbConfig from './dynamodbConfig';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { getKeys } from '../../scripts/utils/utils';
 import { generateBiodataPrimaryKeys } from './generateKeys';
-import { starAliases } from './aliases';
 import { debug } from '../../utils/helpers';
 
 export function generateDelTransactItem(pk: string, sk: string): TransactWriteItem {

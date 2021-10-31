@@ -12,13 +12,14 @@ import { checkUniquePK } from '../../../utils/dynoUtils';
 import { generateUserGSI1Keys, generateUserGSI2Keys, generateUserPrimaryKeys } from '../../utils/generateKeys';
 
 
-export default async function (user: User): Promise<User> {
-    const userId = await generateID();
-    user.id = userId;
+export default async function (user: User, idGiven: boolean=false): Promise<User> {
+    if(!idGiven) {
+        user.id = await generateID();
+    }
     user.createdAt = new Date().toISOString();
     user.updatedAt = user.createdAt;
 
-    const primaryKeys = generateUserPrimaryKeys(userId);
+    const primaryKeys = generateUserPrimaryKeys(user.id);
     const gsi1Keys = generateUserGSI1Keys(user.email);
     const gsi2Keys = generateUserGSI2Keys(user.mobileNumber);
     const userItem: TransactWriteItem = {

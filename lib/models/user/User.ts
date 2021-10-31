@@ -17,7 +17,7 @@ interface UserConstructorParams {
     subscriptionType?: string;
     createdAt?: string;
     updatedAt?: string;
-    emailVerified?: string;
+    emailVerified?: boolean;
     biodataSubmitted?: boolean;
 }
 
@@ -30,7 +30,7 @@ interface  UserUpdateParams {
     completeAccount?: boolean;
     accountType?: string;
     subscriptionType?: string;
-    emailVerified?: string;
+    emailVerified?: boolean;
     biodataSubmitted?: boolean;
 }
 
@@ -43,7 +43,7 @@ export default class User {
     completeAccount?: boolean;
     accountType: string;
     subscriptionType: string;
-    emailVerified: string;
+    emailVerified: boolean;
     createdAt: string;
     updatedAt: string;
     biodataSubmitted: boolean;
@@ -71,7 +71,23 @@ export default class User {
         })
     }
 
-    static async createAccountByProvider(fullName: string, email: string, emailVerified: string) {
+    static async createAccountByFirebase(email: string, emailVerified: boolean, id: string) {
+        try {
+            return await createUser(new User({
+                id,
+                email,
+                emailVerified,
+                completeAccount: false,
+                subscriptionType: "free",
+                biodataSubmitted: false,
+            }), true);
+        } catch (e) {
+            // throw createServerError("Cannot Create the account.");
+            throw e;
+        }
+    }
+
+    static async createAccountByProvider(fullName: string, email: string, emailVerified: boolean) {
         try {
             return await createUser(new User({
                 name: fullName,
