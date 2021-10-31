@@ -4,7 +4,7 @@ import { CookiesProvider } from 'react-cookie';
 import { Provider as AlertProvider, positions, transitions } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import { StateMachineProvider, createStore } from 'little-state-machine';
-import { AuthProvider } from '../hooks/AuthProvider';
+import { AuthProvider } from '../hooks/useAuth';
 import { useEffect } from 'react';
 
 const alertOptions = {
@@ -29,17 +29,17 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <NextAuthProvider session={pageProps.session}>
-      <AuthProvider>
-        <StateMachineProvider>
-          <CookiesProvider>
-            <AlertProvider template={AlertTemplate} {...alertOptions}>
-              <Component {...pageProps} />
-            </AlertProvider>
-          </CookiesProvider>
-        </StateMachineProvider>
-      </AuthProvider>
-    </NextAuthProvider>
+    // <NextAuthProvider session={pageProps.session}>
+    <AuthProvider>
+      <StateMachineProvider>
+        <CookiesProvider>
+          <AlertProvider template={AlertTemplate} {...alertOptions}>
+            <Component {...pageProps} />
+          </AlertProvider>
+        </CookiesProvider>
+      </StateMachineProvider>
+    </AuthProvider>
+    // </NextAuthProvider>
   );
 }
 
