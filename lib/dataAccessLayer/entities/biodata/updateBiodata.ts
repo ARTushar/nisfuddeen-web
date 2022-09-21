@@ -482,7 +482,7 @@ function generateShortBiodataFromBiodata(newBiodata: Biodata): ShortBiodata{
     const pAddress = newBiodata.addresses?.find(a => a.type === 'permanent');
     return new ShortBiodata({
         enabled: newBiodata.enabled,
-        verified: newBiodata.enabled,
+        verified: newBiodata.verified,
         country: pAddress?.country,
         district: pAddress?.district,
         maritalStatus: newBiodata.basicInformation?.maritalStatus,
