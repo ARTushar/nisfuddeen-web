@@ -17,7 +17,7 @@ export default async function (req, res, next) {
       debug('Decoded Token ', decodedToken);
       const uid = decodedToken.uid;
       debug('uid', uid);
-      const user = User.getById(uid);
+      const user = await User.getById(uid);
       debug('user get', user);
       if (user) {
         req.user = user;
